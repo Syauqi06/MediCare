@@ -220,10 +220,10 @@ svg {
         <div class="menu-toggle" class="btn button" id="menu-toggle">
             ☰ Menu
         </div>
-        <nav class="navbar me-auto mb-2 mb-md-0">
+        <nav class="navbar">
             <ul class="nav-list">
-                <li class="nav-item d-flex">
-                    <a class="logout btn me-0" style="color:white;" href="{{ url('/auth/logout') }}">Logout</a>
+                <li class="nav-item">
+                    <a class="logout btn me-auto" style="color:white;" href="{{ url('/auth/logout') }}">Logout</a>
                 </li>
             </ul>
         </nav>
