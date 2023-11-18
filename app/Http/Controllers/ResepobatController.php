@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use App\Models\Pendaftaran;
-=======
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
 use Illuminate\Http\Request;
 
-class PendaftaranController extends Controller
+class ResepObatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,11 +33,7 @@ class PendaftaranController extends Controller
     /**
      * Display the specified resource.
      */
-<<<<<<< HEAD
-    public function show(Pendaftaran $pendaftaran)
-=======
     public function show(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -49,11 +41,7 @@ class PendaftaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-<<<<<<< HEAD
-    public function edit(Pendaftaran $pendaftaran)
-=======
     public function edit(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -61,11 +49,7 @@ class PendaftaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-<<<<<<< HEAD
-    public function update(Request $request, Pendaftaran $pendaftaran)
-=======
     public function update(Request $request, string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -73,11 +57,7 @@ class PendaftaranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-<<<<<<< HEAD
-    public function destroy(Pendaftaran $pendaftaran)
-=======
     public function destroy(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }

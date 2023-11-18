@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
+use App\Models\Poli;
+=======
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
 use Illuminate\Http\Request;
 
 class PoliController extends Controller
@@ -33,7 +37,11 @@ class PoliController extends Controller
     /**
      * Display the specified resource.
      */
+<<<<<<< HEAD
+    public function show(Poli $poli)
+=======
     public function show(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -41,7 +49,11 @@ class PoliController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+<<<<<<< HEAD
+    public function edit(Poli $poli)
+=======
     public function edit(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -49,7 +61,11 @@ class PoliController extends Controller
     /**
      * Update the specified resource in storage.
      */
+<<<<<<< HEAD
+    public function update(Request $request, Poli $poli)
+=======
     public function update(Request $request, string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -57,7 +73,11 @@ class PoliController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+<<<<<<< HEAD
+    public function destroy(Poli $poli)
+=======
     public function destroy(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
