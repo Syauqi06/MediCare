@@ -14,7 +14,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "datatable": "^2.0.2",
+        "datatables.net-bs5": "^1.13.7",
+        "jquery": "^3.7.1",
         "sweetalert2": "^11.9.0"
     }
 }
