@@ -42,7 +42,7 @@ class ResepsionisController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Resepsionis $resepsionis)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class ResepsionisController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Resepsionis $resepsionis)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class ResepsionisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Resepsionis $resepsionis)
+    public function destroy(string $id)
     {
         //
     }

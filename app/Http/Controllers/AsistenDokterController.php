@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AsistenDokter;
 use Illuminate\Http\Request;
 
 class AsistenDokterController extends Controller
@@ -34,7 +33,7 @@ class AsistenDokterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AsistenDokter $asistenDokter)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +41,7 @@ class AsistenDokterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AsistenDokter $asistenDokter)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +49,7 @@ class AsistenDokterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AsistenDokter $asistenDokter)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +57,7 @@ class AsistenDokterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AsistenDokter $asistenDokter)
+    public function destroy(string $id)
     {
         //
     }
