@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('id_level');
             $table->string('username',50)->nullable(false);
             $table->text('password')->nullable(false);
-            $table->enum('role',['admin','apoteker','pasien','asisten dokter'])->default('pasien');
             $table->foreign('id_level')->on('level')->references('id_level')->onDelete('cascade')->onUpdate('cascade');
         });
     }
