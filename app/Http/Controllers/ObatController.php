@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Obat;
+=======
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
 use Illuminate\Http\Request;
 
 class ObatController extends Controller
@@ -34,7 +37,11 @@ class ObatController extends Controller
     /**
      * Display the specified resource.
      */
+<<<<<<< HEAD
     public function show(Obat $obat)
+=======
+    public function show(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -42,7 +49,11 @@ class ObatController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+<<<<<<< HEAD
     public function edit(Obat $obat)
+=======
+    public function edit(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -50,7 +61,11 @@ class ObatController extends Controller
     /**
      * Update the specified resource in storage.
      */
+<<<<<<< HEAD
     public function update(Request $request, Obat $obat)
+=======
+    public function update(Request $request, string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -58,7 +73,11 @@ class ObatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+<<<<<<< HEAD
     public function destroy(Obat $obat)
+=======
+    public function destroy(string $id)
+>>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
