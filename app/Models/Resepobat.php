@@ -9,7 +9,18 @@ class Resepobat extends Model
 {
     use HasFactory;
     protected $table = 'resep_obat';
-    protected $fillable = ['tgl_pembuatan_resep','status_pengambilan_obat'];
+    protected $fillable = ['id_resep','id_user','id_isi_resep','tgl_pembuatan_resep','status_pengambilan_obat'];
     protected $primaryKey = 'id_resep';
     public $timestamps = false;
+
+    public function isiresep()
+    {
+        return $this->belongsTo(IsiResep::class);
+    }
+
+    public function getIsiResepAttribute()
+    {
+        return IsiResep::find($this->attributes['id_isi_resep'])->isi_resep;
+    }
+
 }
