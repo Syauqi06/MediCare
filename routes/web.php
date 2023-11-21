@@ -32,10 +32,11 @@ use App\Http\Controllers\ResepsionisController;
 // });
 
 // Jika sudah login, kembali ke dalam halaman 
+Route::middleware(['guest'])->group(function () {
 Route::get('/',[AuthController::class,'index']);
-Route::post('login',[AuthController::class,'login']);
+Route::post('/',[AuthController::class,'login']);
 Route::get('logout', [AuthController::class, 'logout']);
-
+});
 Route::middleware(['auth'])->group(function () {
 
     //Resepsionis

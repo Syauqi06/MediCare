@@ -26,8 +26,8 @@ class AuthController extends Controller
         ]);
 
         $credentials = [
-            'username' => $request->username,
-            'password' => $request->password,
+            'username' => $postData['username'],
+            'password' => $postData['password'],
         ];
 
         if (Auth::attempt($credentials)) {
@@ -57,6 +57,12 @@ class AuthController extends Controller
                 'success' => false
             ], 401);
         }
+        
+    }}
+public function logout()
+    {
+        Auth::logout();
+        Session::regenerateToken();
+        return redirect('/');
     }
-}
 }
