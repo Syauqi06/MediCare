@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\MasukObat;
 use App\Models\Obat;
 use Illuminate\Http\Request;

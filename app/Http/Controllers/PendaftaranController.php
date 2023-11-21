@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Pendaftaran;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
@@ -80,6 +81,7 @@ class PendaftaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Pendaftaran $pendaftaran)
     {
         $id_pendaftaran = $request->input('id_pendaftaran');

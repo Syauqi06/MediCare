@@ -7,7 +7,7 @@ use App\Models\IsiResep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ResepobatController extends Controller
+class ResepObatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -66,7 +66,7 @@ class ResepobatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Resepobat $resepobat)
+    public function show(string $id)
     {
         //
     }

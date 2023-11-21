@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Obat;
 use App\Models\Tipe;
 use Illuminate\Http\Request;
@@ -93,6 +94,7 @@ class ObatController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Obat $obat)
     {
         $id_obat = $request->input('id_obat');
