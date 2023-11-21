@@ -27,7 +27,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Pendaftaran</label>
-                                    <input type="date" class="form-control" name="tgl_pendaftaran" value="{{ $pendaftaran->tgl_expired }}"/>
+                                    <input type="date" class="form-control" name="tgl_pendaftaran" value="{{ $pendaftaran->tgl_pendaftaran }}"/>
+                                </div>
+                               <div class="form-group">
+                                    <label>Nomor Antrian</label>
+                                    <input type="number" class="form-control" name="nomor_antrian" value="{{ $pendaftaran->nomor_antrian }}" />
                                 </div>
                                <div class="form-group">
                                     <label>Keluhan</label>

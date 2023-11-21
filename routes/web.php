@@ -4,8 +4,6 @@
 use App\Http\Controllers\historyController;
 use App\Http\Controllers\MasukObatController;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\TipeController;
-use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\AkunController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -13,7 +11,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\TipeController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\RekamMedisController;
@@ -83,7 +81,12 @@ Route::prefix('apoteker')->group(function () {
     Route::delete('/masuk_obat/hapus', [MasukObatController::class, 'destroy']);
 });
 Route::prefix('resepsionis')->group(function () {
-
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
+    Route::get('/pendaftaran/tambah', [PendaftaranController::class, 'create']);
+    Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
+    Route::get('/pendaftaran/edit/{id}', [PendaftaranController::class, 'edit']);
+    Route::post('/pendaftaran/edit/simpan', [PendaftaranController::class, 'update']);
+    Route::delete('/pendaftaran/hapus', [PendaftaranController::class, 'destroy']);
 });
 Route::prefix('history')->group(function () {
     Route::get('/logs', [historyController::class, 'index']);

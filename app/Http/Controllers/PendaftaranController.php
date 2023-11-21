@@ -44,13 +44,14 @@ class PendaftaranController extends Controller
         $data = $request->validate([
             'tgl_pendaftaran' => 'required',
             'id_pasien' => 'required',
+            'nomor_antrian' => 'required',
             'keluhan' => 'required',
         ]);
         
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
         if ($pendaftaran->create($data)) {
-            return redirect('/pendaftaran/data')->with('success', 'Data pendaftaran baru berhasil ditambah');
+            return redirect('resepsionis/pendaftaran')->with('success', 'Data pendaftaran baru berhasil ditambah');
         }
 
         return back()->with('error', 'Data pendaftaran gagal ditambahkan');
@@ -69,7 +70,7 @@ class PendaftaranController extends Controller
      */
     public function edit(string $id,Pendaftaran $pendaftaran,Pasien $pasien)
     {
-        $pasien = Pasien::where('id_pasien', $id)->first();
+        $pendaftaran = Pendaftaran::where('id_pendaftaran', $id)->first();
         $pasien = $pasien->all();
 
         return view('pendaftaran.edit', [
@@ -89,12 +90,13 @@ class PendaftaranController extends Controller
         $data = $request->validate([
             'tgl_pendaftaran' => 'sometimes',
             'id_pasien' => 'sometimes',
-            'keluhan' => 'sometimes|file',
+            'nomor_antrian' => 'sometimes',
+            'keluhan' => 'sometimes',
         ]);
         $dataUpdate = $pendaftaran->where('id_pendaftaran', $id_pendaftaran)->update($data);
 
             if ($dataUpdate) {
-                return redirect('pendaftaran/data')->with('success', 'Data pendaftaran berhasil diupdate');
+                return redirect('resepsionis/pendaftaran')->with('success', 'Data pendaftaran berhasil diupdate');
             }
 
             return back()->with('error', 'Data pendaftaran gagal diupdate');

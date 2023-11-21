@@ -24,6 +24,7 @@
                                 <tr>
                                     <th>NAMA PASIEN</th>
                                     <th>TANGGAL PENDAFTARAN</th>
+                                    <th>NOMOR ANTRIAN</th>
                                     <th>KELUHAN</th>
                                     <th>AKSI</th>
                                 </tr>
@@ -33,6 +34,7 @@
                                     <tr>
                                         <td>{{ $r->nama_pasien }}</td>
                                         <td>{{ $r->tgl_pendaftaran }}</td>
+                                        <td>{{ $r->nomor_antrian }}</td>
                                         <td>{{ $r->keluhan }}</td>
                                         <td>
                                             <a href="pendaftaran/edit/{{ $r->id_pendaftaran }}">

@@ -14,26 +14,26 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label>Nama Obat</label>
-                                    <select name="id_obat" class="form-control">
-                                        @foreach ($obat as $t)
-                                            <option value="{{ $t->id_obat }}">{{ $t->nama_obat }}
+                                    <label>Nama Pasien</label>
+                                    <select name="id_pasien" class="form-control">
+                                        @foreach ($pasien as $t)
+                                            <option value="{{ $t->id_pasien }}">{{ $t->nama_pasien }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Tanggal Expired</label>
-                                    <input type="date" class="form-control" name="tgl_expired" />
+                                    <label>Tanggal Pendaftaran</label>
+                                    <input type="date" class="form-control" name="tgl_pendaftaran" />
                                     @csrf
                                 </div>
                                 <div class="form-group">
-                                    <label>Jumlah Masuk</label>
-                                    <input type="number" class="form-control" name="jumlah_masuk" />
+                                    <label>Nomor Antrian</label>
+                                    <input type="Number" class="form-control" name="nomor_antrian" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Tanggal Masuk Obat</label>
-                                    <input type="date" class="form-control" name="tgl_masuk_obat" />
+                                    <label>Keluhan</label>
+                                    <input type="text" class="form-control" name="keluhan" />
                                 </div>
                                 <div class="d-flex col-md-4 mt-3">
                                     <button type="submit" class="btn btn-primary">SIMPAN</button>
