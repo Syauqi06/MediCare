@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('pasien', function (Blueprint $table) {
             $table->integer('id_pasien',true);
-            $table->integer('id_akun');
+            $table->integer('id_akun')->nullable(true);
             $table->string('nama_pasien',20)->nullable(false);
+            $table->enum('jenis_kelamin',['laki-laki','perempuan'])->nullable(false);
             $table->text('alamat')->nullable(false);
+            $table->integer('no_telp',false)->nullable(false);
+            $table->integer('no_bpjs',false)->nullable(false);
             $table->date('tgl_lahir')->nullable(false);
-            $table->string('foto_ktp', 200)->nullable(false);
+            $table->string('foto_profil', 200)->nullable(false);
             // Foreign Key
 
             $table->foreign('id_akun')->on('akun')->references('id_akun')->onDelete('cascade')->onUpdate('cascade');
