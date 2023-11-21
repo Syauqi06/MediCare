@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('akun', function (Blueprint $table) {
             $table->integer('id_akun',11)->autoIncrement();
-            $table->integer('id_level');
+            $table->enum('peran',['resepsionis','asisten_dokter','pasien','admin','apoteker']);
             $table->string('username',50)->nullable(false);
             $table->text('password')->nullable(false);
-            $table->foreign('id_level')->on('level')->references('id_level')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

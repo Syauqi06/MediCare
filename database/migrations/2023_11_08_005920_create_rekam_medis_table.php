@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('id_asdok');
             $table->integer('id_pendaftaran');
             $table->integer('id_dokter');
-            $table->text('hasil_diagnosa')->nullable(false);
-            $table->date('tgl_pendaftaran')->nullable(false);
+            $table->text('diagnosa')->nullable(false);
+            $table->date('tgl_pemeriksaan')->nullable(false);
 
             $table->foreign('id_asdok')->on('asisten_dokter')->references('id_asdok')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_pendaftaran')->on('pendaftaran')->references('id_pendaftaran')->onDelete('cascade')->onUpdate('cascade');
