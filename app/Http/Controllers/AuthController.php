@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    function index()
-    {
+    function index(){
         return view('login');
     }
 
-    function login(Request $request)
-    {
+    //mengecek apakah sama seperti yang didatabase
+    function login(Request $request) {
         $validatedData = $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -30,17 +29,27 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
-            if ($user->role == 'admin' || $user->role == 'operator') {
-                return redirect('dashboard/surat')->with('_token', Session::token());
-            } 
+            
+            Session::regenerateToken();
+            if ($user->role == 'apoteker') {
+                return redirect('apoteker/obat');
+            } elseif ($user->role == 'resepsionis') {
+                return redirect('resepsionis/walikelas');
+            } elseif ($user->role == 'gurubk') {
+                return redirect('dashboard/gurubk');
+            } elseif ($user->role == 'gurupiket') {
+                return redirect('dashboard/gurupiket');
+            } elseif ($user->role == 'siswa') {
+                return redirect('dashboard/siswa');
+            } elseif ($user->role == 'penguruskelas') {
+                return redirect('dashboard/penguruskelas');
+            }   
         }
 
-        return redirect()->back()->withErrors('Terdapat kesalahan Username atau Password')->withInput()->with('_token', Session::token());
+        return redirect()->back()->withErrors('Terdapat Kesalahan Pada Username atau Password')->withInput();
     }
 
-    function logout()
-    {
+    function logout(){
         Auth::logout();
         Session::regenerateToken();
         return redirect('/');

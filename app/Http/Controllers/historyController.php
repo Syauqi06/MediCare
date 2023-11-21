@@ -24,7 +24,7 @@ class historyController extends Controller
      */
     public function create()
     {
-        return view('transaksi.tambah');
+        return view('logs.tambah');
     }
 
     /**
