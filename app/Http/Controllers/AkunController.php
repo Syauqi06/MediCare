@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Akun;
-=======
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AkunController extends Controller
 {
@@ -37,11 +36,7 @@ class AkunController extends Controller
     /**
      * Display the specified resource.
      */
-<<<<<<< HEAD
     public function show(Akun $akun)
-=======
-    public function show(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -49,11 +44,7 @@ class AkunController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-<<<<<<< HEAD
     public function edit(Akun $akun)
-=======
-    public function edit(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -61,11 +52,7 @@ class AkunController extends Controller
     /**
      * Update the specified resource in storage.
      */
-<<<<<<< HEAD
     public function update(Request $request, Akun $akun)
-=======
-    public function update(Request $request, string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
@@ -73,11 +60,7 @@ class AkunController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-<<<<<<< HEAD
     public function destroy(Akun $akun)
-=======
-    public function destroy(string $id)
->>>>>>> 0cf4ee527a4e765a3d077ab90d15348945d2c51a
     {
         //
     }
