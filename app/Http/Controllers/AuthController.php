@@ -8,50 +8,65 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    function index(){
-        return view('login');
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('auth.login');
     }
 
-    //mengecek apakah sama seperti yang didatabase
-    function login(Request $request) {
-        $validatedData = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ], [
-            'username.required' => 'Username harus diisi',
-            'password.required' => 'Password harus diisi',
+    public function login(Request $request)
+    {
+        $postData = $request->validate([
+            'username' => ['required'],
+            'password' => ['required']
         ]);
 
         $credentials = [
-            'username' => $validatedData['username'],
-            'password' => $validatedData['password'],
+            'username' => $postData['username'],
+            'password' => $postData['password'],
+
         ];
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            
-            Session::regenerateToken();
-            if ($user->role == 'apoteker') {
-                return redirect('apoteker/obat');
-            } elseif ($user->role == 'resepsionis') {
-                return redirect('resepsionis/walikelas');
-            } elseif ($user->role == 'gurubk') {
-                return redirect('dashboard/gurubk');
-            } elseif ($user->role == 'gurupiket') {
-                return redirect('dashboard/gurupiket');
-            } elseif ($user->role == 'siswa') {
-                return redirect('dashboard/siswa');
-            } elseif ($user->role == 'penguruskelas') {
-                return redirect('dashboard/penguruskelas');
-            }   
+
+
+            if ($user->peran == 'resepsionis' || $user->peran == 'apoteker' || $user->peran == 'asisten_dokter' || $user->peran == 'pasien' || $user->peran == 'admin') {
+                return redirect('daftar/poli')->with('_token', Session::token());
+            } 
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            if (Auth::user()->peran == ['resepsionis', 'apoteker', 'asisten_dokter','pasien','admin']) {
+                return response([
+                    'success' => true,
+                    'redirect_url' => 'daftar/poli',
+                    'pesan' => 'login berhasil'
+                ], 200);
+            } else {
+                return response([
+                    'success' => true,
+                    'redirect_url' => 'login',
+                    'pesan' => 'Anda Bukan Admin'
+                ], 200);
+            }
+        } else {
+            return response([
+                'success' => false
+            ], 401);
         }
+        
+    }}
+public function logout()
+    {
 
-        return redirect()->back()->withErrors('Terdapat Kesalahan Pada Username atau Password')->withInput();
-    }
-
-    function logout(){
         Auth::logout();
         Session::regenerateToken();
         return redirect('/');
     }
+
 }
+

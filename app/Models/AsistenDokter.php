@@ -9,7 +9,7 @@ class AsistenDokter extends Model
 {
     use HasFactory;
     protected $table = 'asisten_dokter';
-    protected $fillable = ['nama_asdok','foto_asdok','no_telp'];
+    protected $fillable = ['id_akun','nama_asdok','foto_asdok','no_telp'];
     protected $primaryKey = 'id_asdok';
     public $timestamps = false;
 }

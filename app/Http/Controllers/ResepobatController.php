@@ -2,146 +2,151 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resepobat;
-use App\Models\IsiResep;
+
+use App\Models\Dokter;
+use App\Models\RekamMedis;
+use App\Models\ResepObat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class ResepObatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Resepobat $resep)
-    {
-        $data = [
-            'resep' => $resep->with('isi_resep')->get()
-        ];
 
-        return view('resep_obat.index', $data);
+    public function index(ResepObat $resep)
+    {
+        // Mengirim data agar ditampilkan ke dalam view dengan isi array data resep
+        $data = [
+            'resepobat' => DB::table('resepobat')
+            ->join('rekam_medis', 'resepobat.id_rm', '=', 'rekam_medis.id_rm')
+            ->join('dokter', 'resepobat.id_rm', '=', 'dokter.id_rm')
+            ->get()
+        ];
+        return view('resep.index', $data);
+
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(IsiResep $isi_resep)
-    {
-        $isi_resep = $isi_resep->all();
 
-        return view('resep_obat.tambah', [
-            'isi_resep' => $isi_resep,
+
+    public function create(RekamMedis $rekamMedis, Dokter $dokter)
+    {
+        $rekamData = $rekamMedis->all();
+        $dokterData = $dokter->all();
+
+        return view('resep.tambah', [
+            'rekam_medis' => $rekamData,
+            'dokter' => $dokterData,
+
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Resepobat $resep)
+
+    public function store(Request $request, ResepObat $resep)
     {
-        $data = $request->validate([
-            'id_obat' => 'required',
-            'dosis' => 'required',
-            'aturan_pemakaian' => 'required',
-            'tanggal_pembuatan' => 'required',
-            'status_pengambilan' => 'required'
-        ]);
+        $data = $request->validate(
+            [
+                'nama_pasien'    => 'required',
+                'tgl_pelayanan'    => 'required',
+                'diagnosis'      => 'required',
+                'nama_obat'    => 'required',
+            ]
+        );
 
-        // $akun = Auth::user();
-        // $data['id_akun'] = $akun->id_akun;
-
-        // if ($request->hasFile('file')) {
-        //     $foto_file = $request->file('file');
-        //     $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
-        //     $foto_file->move(public_path('foto'), $foto_nama);
-        //     $data['file'] = $foto_nama;
-        // }
+        //Proses Insert
 
         if ($resep->create($data)) {
-            return redirect('/resep_obat/resep')->with('success', 'Data resep baru berhasil ditambah');
+            return redirect('/resep/asisten')->with('success', 'resep Medis Baru Berhasil Ditambah');
         }
 
-        return back()->with('error', 'Data resep gagal ditambahkan');
+        return back()->with('error', 'Data Obat Gagal Ditambahkan');
+
     }
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id,Resepobat $resep, IsiResep $isiresep)
-    {
-        $resep = Resepobat::where('id_surat', $id)->first();
-        $isiresep = $isiresep->all();
 
-        return view('resep_obat.edit', [
-            'resep' => $resep,
-            'isiresep' => $isiresep,
-        ]);
+    public function edit(ResepObat $resep, string $id)
+    {
+        $data = [
+            'resep' =>  ResepObat::where('id_resep', $id)->first()
+        ];
+
+        return view('resep.edit', $data);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Resepobat $resep)
+
+    public function update(Request $request, ResepObat $resep)
     {
+        $data = $request->validate(
+            [
+                'nama_pasien'    => 'required',
+                'tgl_pelayanan'    => 'required',
+                'diagnosis'      => 'required',
+                'nama_obat'    => 'required',
+            ]
+        );
+
         $id_resep = $request->input('id_resep');
 
-        $data = $request->validate([
-            'id_obat' => 'required',
-            'dosis' => 'required',
-            'aturan_pemakaian' => 'required',
-            'tanggal_pembuatan' => 'required',
-            'status_pengambilan' => 'required'
-        ]);
-
         if ($id_resep !== null) {
-            // if ($request->hasFile('file')) {
-            //     $foto_file = $request->file('file');
-            //     $foto_extension = $foto_file->getClientOriginalExtension();
-            //     $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
-            //     $foto_file->move(public_path('foto'), $foto_nama);
-
-            //     $update_data = $surat->where('id_surat', $id_surat)->first();
-            //     File::delete(public_path('foto') . '/' . $update_data->file);
-
-            //     $data['file'] = $foto_nama;
-            // }
-
+            // Process Update
             $dataUpdate = $resep->where('id_resep', $id_resep)->update($data);
 
             if ($dataUpdate) {
-                return redirect('resep_obat/resep')->with('success', 'Data resep berhasil diupdate');
+                return redirect('/resep/asisten')->with('success', 'resep Medis Berhasil Diupdate');
+            } else {
+                return back()->with('error', 'resep Medis Gagal Diupdate');
             }
 
-            return back()->with('error', 'Data resep gagal diupdate');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,Resepobat $resepobat)
+
+    public function destroy(Request $request, ResepObat $resep)
     {
         $id_resep = $request->input('id_resep');
-        $data = Resepobat::find($id_resep);
 
-        if (!$data) {
-            return response()->json(['success' => false, 'pesan' => 'Data tidak ditemukan'], 404);
+        // Hapus 
+        $aksi = $resep->where('id_resep', $id_resep)->delete();
+
+        if ($aksi) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data jenis surat berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
         }
 
-        // $filePath = public_path('foto') . '/' . $data->file;
+        return response()->json($pesan);
 
-        // if (file_exists($filePath) && unlink($filePath)) {
-        //     $data->delete();
-        //     return response()->json(['success' => true]);
-        // }
-
-        return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
     }
 }

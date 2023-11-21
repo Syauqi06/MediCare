@@ -3,8 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Akun;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
+
 
 class AkunSeeder extends Seeder
 {
@@ -15,35 +20,37 @@ class AkunSeeder extends Seeder
     {
         $userData = [
             [
-                'username' => 'apoteker',
-                'id_level' => '1',
-                'password' => Hash::make('123')
-            ],
-            [
-                'username' => 'asdok',
-                'id_level' => '2',
-                'password' => Hash::make('123')
-            ],
-            [
                 'username' => 'resepsionis',
-                'id_level' => '4',
+                'peran' => 'resepsionis',
+                'password' => Hash::make('123')
+            ],
+            [
+                'username' => 'apoteker',
+                'peran' => 'apoteker',
+                'password' => Hash::make('123')
+            ],
+            [
+                'username' => 'admin',
+                'peran' => 'admin',
                 'password' => Hash::make('123')
             ],
             [
                 'username' => 'pasien',
-                'id_level' => '3',
+                'peran' => 'pasien',
                 'password' => Hash::make('123')
             ],
             [
-                'username' => 'superadmin',
-                'id_level' => '5',
+                'username' => 'asisten',
+                'peran' => 'asisten',
                 'password' => Hash::make('123')
             ]
         ];
 
-        // Melakukan looping data dengan foreach
-        foreach ($userData as $user => $val) {
+        // looping data dengan foreach
+        foreach ($userData as $val) {
             Akun::create($val);
         }
     }
-}
+        
+    }
+

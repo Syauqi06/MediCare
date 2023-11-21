@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Level;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class LevelSeeder extends Seeder
 {
@@ -13,16 +15,19 @@ class LevelSeeder extends Seeder
      */
     public function run(): void
     {
-        $levelData = [
-            ['nama_level' => 'apoteker'],
-            ['nama_level' => 'asisten dokter'],
-            ['nama_level' => 'pasien'],
-            ['nama_level' => 'resepsionis'],
-            ['nama_level' => 'superadmin']
+        $levels = [
+            'Admin',
+            'Apoteker',
+            'Asisten Dokter',
+            'Pasien',
+            'Resepsionis',
         ];
+        
+        foreach ($levels as $lvl) {
+            DB::table('level')->insert([
+                'nama_level' => $lvl,
+            ]);
+        }        
 
-        foreach ($levelData as $data) {
-            Level::create($data);
-        }
     }
 }
