@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('masuk_obat', function (Blueprint $table) {
-            $table->integer('id_masuk_obat', true);
-            $table->date('tgl_expired');
-            
+        Schema::create('tipe', function (Blueprint $table) {
+            $table->integer('id_tipe',true);
+            $table->string('nama_tipe', 60);
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('masuk_obat');
+        Schema::dropIfExists('tipe');
     }
 };

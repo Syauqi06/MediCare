@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('obat', function (Blueprint $table) {
             $table->integer('id_obat', true);
-            $table->integer('id_masuk_obat');
-            $table->integer('id_apoteker');
+            $table->integer('id_tipe');
             $table->text('nama_obat')->nullable(false);
-            $table->text('jenis_obat')->nullable(false);
             $table->integer('stock_obat')->nullable(false);
-
-            $table->foreign('id_masuk_obat')->on('masuk_obat')->references('id_masuk_obat')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_apoteker')->on('apoteker')->references('id_apoteker')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('foto_obat');
+            $table->foreign('id_tipe')->on('tipe')->references('id_tipe')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

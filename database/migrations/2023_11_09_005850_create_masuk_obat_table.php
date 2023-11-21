@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('isi_reseps', function (Blueprint $table) {
-            $table->integer('id_isi_resep', true);
-            $table->integer('id_resep');
+        Schema::create('masuk_obat', function (Blueprint $table) {
+            $table->integer('id_masuk_obat', true);
             $table->integer('id_obat');
-            $table->text('aturan_pemakaian');
-            $table->integer('dosis');
-            $table->foreign('id_resep')->on('resepobat')->references('id_resep')->onDelete('cascade')->onUpdate('cascade');
+            $table->date('tgl_expired');
+            $table->date('tgl_masuk_obat');
+            $table->integer('jumlah_masuk');
             $table->foreign('id_obat')->on('obat')->references('id_obat')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('isi_reseps');
+        Schema::dropIfExists('masuk_obat');
     }
 };

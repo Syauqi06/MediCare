@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Poli;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\Request;
 
 class PoliController extends Controller
@@ -53,14 +52,17 @@ class PoliController extends Controller
     /**
      * Display the specified resource.
      */
+
     // public function show(Poli $poli)
     // {
     //     //
     // }
 
+
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Poli $poli, Request $request)
     {
         $data = [
@@ -95,7 +97,9 @@ class PoliController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Poli $poli, Request $request)
+
     {
         $id_poli = $request->input('id_poli');
 

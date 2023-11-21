@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Pendaftaran;
 use App\Models\Dokter;
 use App\Models\RekamMedis;
 use Exception;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -72,10 +74,13 @@ class RekamMedisController extends Controller
      * Display the specified resource.
      */
 
+
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(RekamMedis $rekam, string $id, Pendaftaran $pendaftaran, Dokter $dokter)
+
     {
         $data = [
             'rekam_medis' =>  RekamMedis::where('no_rm', $id)->first(),
@@ -89,7 +94,9 @@ class RekamMedisController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, RekamMedis $rekam)
+
     {
         $data = $request->validate(
             [
@@ -119,7 +126,9 @@ class RekamMedisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Request $request, RekamMedis $rekam)
+
     {
         $id_rm = $request->input('id_rm');
 

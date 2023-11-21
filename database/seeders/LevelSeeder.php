@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class LevelSeeder extends Seeder
 {
@@ -26,5 +28,6 @@ class LevelSeeder extends Seeder
                 'nama_level' => $lvl,
             ]);
         }        
+
     }
 }
