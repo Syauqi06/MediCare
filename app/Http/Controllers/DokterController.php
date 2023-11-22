@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\Models\Akun;
 
-use App\Models\Akun;
 use App\Models\Dokter;
 use App\Models\Poli;
 use Illuminate\Http\Request;
@@ -25,7 +23,6 @@ class DokterController extends Controller
     $data = [
         'dokter' => DB::table('dokter')
         ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
-        ->join('akun', 'dokter.id_akun', '=', 'akun.id_akun')
         ->get()
     ];
     return view ('dokter.index', $data);
@@ -35,14 +32,12 @@ class DokterController extends Controller
      * Show the form for creating a new resource.
      */
 
-    public function create(Poli $poli, Akun $akun)
+    public function create(Poli $poli)
     {
-        $userAkun = $akun->all();
         $poliData = $poli->all();
 
         return view('dokter.tambah', [
             'poli' => $poliData,
-            'akun' => $userAkun,
         ]);
     }
 
@@ -56,6 +51,7 @@ class DokterController extends Controller
         $data = $request->validate(
             [
                 'nama_dokter' => 'required',
+                'id_poli' => 'required',
                 'no_telp' => 'required',
                 'foto_dokter' => 'sometimes',
             ]
@@ -106,6 +102,7 @@ class DokterController extends Controller
 
         $data = $request->validate([
             'nama_dokter' => 'sometimes',
+            'id_poli' => 'sometimes',
             'no_telp' => 'sometimes',
             'foto_dokter' => 'sometimes',
         ]);

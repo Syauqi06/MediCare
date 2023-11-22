@@ -11,7 +11,7 @@
                 </div>
                 <br>
                 <div class="card-body">
-                    <form method="POST" action="simpan" enctype="multipart/form-data">
+                    <form method="POST" action="rekam-simpan" enctype="multipart/form-data">
                         <div class="row">
                                 <div class="form-group">
                                     <label>Nama Dokter</label>
