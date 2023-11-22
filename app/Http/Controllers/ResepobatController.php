@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Dokter;
 use App\Models\RekamMedis;
 use App\Models\ResepObat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class ResepObatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(ResepObat $resep)
     {
         // Mengirim data agar ditampilkan ke dalam view dengan isi array data resep
@@ -23,12 +26,14 @@ class ResepObatController extends Controller
             ->get()
         ];
         return view('resep.index', $data);
+
     }
 
 
     /**
      * Show the form for creating a new resource.
      */
+
 
     public function create(RekamMedis $rekamMedis, Dokter $dokter)
     {
@@ -38,12 +43,14 @@ class ResepObatController extends Controller
         return view('resep.tambah', [
             'rekam_medis' => $rekamData,
             'dokter' => $dokterData,
+
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request, ResepObat $resep)
     {
         $data = $request->validate(
@@ -62,6 +69,7 @@ class ResepObatController extends Controller
         }
 
         return back()->with('error', 'Data Obat Gagal Ditambahkan');
+
     }
     
 
@@ -72,6 +80,7 @@ class ResepObatController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(ResepObat $resep, string $id)
     {
         $data = [
@@ -79,11 +88,13 @@ class ResepObatController extends Controller
         ];
 
         return view('resep.edit', $data);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, ResepObat $resep)
     {
         $data = $request->validate(
@@ -106,12 +117,14 @@ class ResepObatController extends Controller
             } else {
                 return back()->with('error', 'resep Medis Gagal Diupdate');
             }
+
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Request $request, ResepObat $resep)
     {
         $id_resep = $request->input('id_resep');
@@ -134,5 +147,6 @@ class ResepObatController extends Controller
         }
 
         return response()->json($pesan);
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Dokter;
 use App\Models\Poli;
 use Illuminate\Http\Request;
@@ -77,7 +78,9 @@ class DokterController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show()
+
     {
         //
     }
@@ -85,7 +88,9 @@ class DokterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Dokter $dokter, Request $request)
+
     {
         $data = [
             'dokter' => Dokter::where('id_dokter', $request->id)->first()
@@ -134,7 +139,9 @@ class DokterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Request $request, Dokter $dokter)
+
     {
         $id_dokter = $request->input('id_dokter');
         $aksi = $dokter->where('id_dokter', $id_dokter)->delete();

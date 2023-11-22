@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ResepObatController extends Controller
+class AsistenDokterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,7 +41,7 @@ class ResepObatController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
         //
     }
@@ -49,7 +49,7 @@ class ResepObatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, )
     {
         //
     }
@@ -57,7 +57,7 @@ class ResepObatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         //
     }

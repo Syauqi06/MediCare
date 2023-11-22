@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -28,10 +27,12 @@ class AuthController extends Controller
         $credentials = [
             'username' => $postData['username'],
             'password' => $postData['password'],
+
         ];
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
 
             if ($user->peran == 'resepsionis' || $user->peran == 'apoteker' || $user->peran == 'asisten_dokter' || $user->peran == 'pasien' || $user->peran == 'admin') {
                 return redirect('daftar/poli')->with('_token', Session::token());
@@ -61,8 +62,11 @@ class AuthController extends Controller
     }}
 public function logout()
     {
+
         Auth::logout();
         Session::regenerateToken();
         return redirect('/');
     }
+
 }
+
