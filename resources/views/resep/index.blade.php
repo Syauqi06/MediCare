@@ -24,15 +24,14 @@
                                 <tr>
                                     <th>NOMOR REKAM MEDIS</th>
                                     <th>NAMA DOKTER</th>
-                                    <th>NAMA ASISTEN DOKTER</th>
-                                    <th>NAMA OBAT</th>
+                                    <th>TIPE OBAT</th>
                                     <th>TANGGAL PEMBUATAN RESEP</th>
                                     <th>STATUS PENGAMBILAN OBAT</th>
                                     <th>AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($resepobat as $res)
+                                @foreach ($resep_obat as $res)
                                     <tr>
                                         <td>{{ $res->id_rm }}</td>
                                         <td>{{ $res->nama_dokter}}</td>

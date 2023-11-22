@@ -48,12 +48,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('apoteker')->group(function () {
     //Data Apoteker
-    Route::get('/data', [ApotekerController::class, 'index']);
-    Route::get('/data/tambah', [ApotekerController::class, 'create']);
-    Route::post('/data/simpan', [ApotekerController::class, 'store']);
-    Route::get('/data/edit/{id}', [ApotekerController::class, 'edit']);
-    Route::post('/data/edit/simpan', [ApotekerController::class, 'update']);
-    Route::delete('/data/hapus', [ApotekerController::class, 'destroy']);
+    // Route::get('/data', [ApotekerController::class, 'index']);
+    // Route::get('/data/tambah', [ApotekerController::class, 'create']);
+    // Route::post('/data/simpan', [ApotekerController::class, 'store']);
+    // Route::get('/data/edit/{id}', [ApotekerController::class, 'edit']);
+    // Route::post('/data/edit/simpan', [ApotekerController::class, 'update']);
+    // Route::delete('/data/hapus', [ApotekerController::class, 'destroy']);
 
     //Tipe Obat
     Route::get('/tipe', [TipeController::class, 'index']);
@@ -124,15 +124,15 @@ Route::prefix('history')->group(function () {
     });
 
     // Pasien
-    // Route::prefix('dashboard')->group(function () {
-    //     Route::get('/pasien', [PasienController::class, 'index']);
-    //     Route::get('/pasien/tambah', [PasienController::class, 'create']);
-    //     Route::post('/pasien/simpan', [PasienController::class, 'store']);
-    //     Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
-    //     Route::get('/pasien/detail/{id}', [PasienController::class, 'detail']);
-    //     Route::post('/pasien/edit/simpan', [PasienController::class, 'update']);
-    //     Route::delete('/pasien/hapus', [PasienController::class, 'destroy']);
-    // });
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/pasien', [PasienController::class, 'index']);
+        Route::get('/pasien/tambah', [PasienController::class, 'create']);
+        Route::post('/pasien/simpan', [PasienController::class, 'store']);
+        Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
+        Route::get('/pasien/detail/{id}', [PasienController::class, 'detail']);
+        Route::post('/pasien/edit/simpan', [PasienController::class, 'update']);
+        Route::delete('/pasien/hapus', [PasienController::class, 'destroy']);
+    });
 
     //Apoteker
     // Route::prefix('obat')->group(function () {

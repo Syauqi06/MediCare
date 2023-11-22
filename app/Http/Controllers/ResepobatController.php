@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokter;
 use App\Models\RekamMedis;
-use App\Models\ResepObat;
+use App\Models\Resepobat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,13 +16,13 @@ class ResepObatController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(ResepObat $resep)
+    public function index(Resepobat $resep)
     {
         // Mengirim data agar ditampilkan ke dalam view dengan isi array data resep
         $data = [
-            'resepobat' => DB::table('resepobat')
-            ->join('rekam_medis', 'resepobat.id_rm', '=', 'rekam_medis.id_rm')
-            ->join('dokter', 'resepobat.id_rm', '=', 'dokter.id_rm')
+            'resep_obat' => DB::table('resep_obat')
+            ->join('rekam_medis', 'resep_obat.id_rm', '=', 'rekam_medis.id_rm')
+            ->join('dokter', 'resep_obat.id_dokter', '=', 'dokter.id_dokter')
             ->get()
         ];
         return view('resep.index', $data);

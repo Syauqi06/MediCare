@@ -1,4 +1,4 @@
-@extends('template.layout')
+@extends('templates.layout')
 @section('title', 'Edit Tipe Obat ')
 @section('content')
     <div class="row">
@@ -21,8 +21,8 @@
                                 </div>
                                 @csrf
                                 <div class="d-flex mt-3">
-                                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;">SIMPAN</button>
-                                    <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a>
+                                    <button type="submit" class="btn btn-success" style="margin-right: 5px;">SIMPAN</button>
+                                    <a href="#" onclick="window.history.back();" class="btn btn-danger">KEMBALI</a>
                                 </div>
                             </div>
                         </div>

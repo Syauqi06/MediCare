@@ -1,4 +1,4 @@
-@extends('template.layout')
+@extends('templates.layout')
 @section('title', 'Data Tipe Obat')
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
                             <hr>
                             <div class="col-md-4 mb-3">
                                 <a href="tipe/tambah">
-                                    <btn class="btn btn-success">Tambah Tipe Obat</btn>
+                                    <button class="btn btn-success">Tambah Tipe Obat</button>
                                 </a>
                             </div>
                         <table class="table table-hover table-bordered">
@@ -28,8 +28,8 @@
                                     <tr>
                                         <td>{{ $t->nama_tipe }}</td>
                                         <td>
-                                            <a href="tipe/edit/{{ $t->id_tipe }}"><btn class="btn btn-primary">EDIT</btn></a>
-                                            <btn class="btn btn-danger btnHapus" idTipe="{{ $t->id_tipe }}">HAPUS</btn>
+                                            <a href="tipe/edit/{{ $t->id_tipe }}"><button class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus" idTipe="{{ $t->id_tipe }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach

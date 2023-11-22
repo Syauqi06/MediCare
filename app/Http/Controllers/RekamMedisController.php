@@ -28,7 +28,10 @@ class RekamMedisController extends Controller
     public function index(RekamMedis $rekam)
     {
         $data = [
-            'rekam_medis' => DB::table('rekam_medis')->get(),
+            'rekam_medis' => DB::table('rekam_medis')
+            ->join('pendaftaran', 'pendaftaran.id_pendaftaran', '=', 'rekam_medis.id_pendaftaran')
+            ->join('dokter', 'dokter.id_dokter', '=', 'dokter.id_dokter')
+            ->get()
         ];
         return view('rekam.index', $data);
     }
@@ -55,7 +58,6 @@ class RekamMedisController extends Controller
         $data = $request->validate(
             [
                 'id_dokter' => 'required',
-                'id_asdok' => 'required',
                 'id_pendaftaran' => 'required',
                 'diagnosa' => 'required',
                 'tgl_pemeriksaan' => 'required',
@@ -101,7 +103,6 @@ class RekamMedisController extends Controller
         $data = $request->validate(
             [
                 'id_dokter' => 'required',
-                'id_asdok' => 'required',
                 'id_pendaftaran' => 'required',
                 'diagnosa' => 'required',
                 'tgl_pemeriksaan' => 'required',

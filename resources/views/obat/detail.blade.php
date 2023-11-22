@@ -1,4 +1,4 @@
-@extends('template.layout')
+@extends('templates.layout')
 @section('title', 'Data Obat')
 @section('content')
 <style>

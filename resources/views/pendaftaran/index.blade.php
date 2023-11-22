@@ -1,4 +1,4 @@
-@extends('template.layout')
+@extends('templates.layout')
 @section('title', 'Daftar Pendaftaran')
 @section('content')
     <div class="row">
