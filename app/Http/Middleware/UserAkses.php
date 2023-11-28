@@ -14,11 +14,13 @@ class UserAkses
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next, $allowedRole): Response
     {
-        if (Auth::check() && in_array(Auth::user()->role, $roles)) {
+        $user = Auth::user();
+        if($user && $user->role == $allowedRole){
             return $next($request);
         }
-        abort(403, 'Unauthorized access');
+        // abort(403, 'Unauthorized access');
+        return back();
     }
 }

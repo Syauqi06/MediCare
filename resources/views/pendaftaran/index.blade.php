@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="">
                 <div class="card-header">
                     <span class="h1">
                         Data Pendaftaran
@@ -15,7 +15,6 @@
                             <a href="pendaftaran/tambah">
                                 <btn class="btn btn-success">Tambah Data Pendaftaran</btn>
                             </a>
-
                         </div>
                         <p>
                             <hr>

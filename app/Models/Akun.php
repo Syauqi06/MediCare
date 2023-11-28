@@ -10,7 +10,7 @@ class Akun extends Authenticatable
 {
     use HasFactory;
     protected $table = 'akun';
-    protected $fillable = ['username','password','peran'];
+    protected $fillable = ['username','password','role'];
     protected $primaryKey = 'id_akun';
     protected $casts = [
         'password' => 'hashed'

@@ -1,12 +1,12 @@
-@extends('template.layout')
-@section('title', 'History')
+@extends('templates.layout')
+@section('title', 'Log Activity')
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="">
             <div class="card-header">
                 <span class="h1"  style="font-weight: bold;">
-                    History
+                    Log Activity
                 </span>
                 <hr>
             </div>

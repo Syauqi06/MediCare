@@ -29,33 +29,16 @@ use App\Http\Controllers\ResepsionisController;
 |
 */
 
-Route::middleware(['guest'])->group(function () {
+
 Route::get('/',[AuthController::class,'index']);
 Route::post('/',[AuthController::class,'login']);
 Route::get('logout', [AuthController::class, 'logout']);
-});
+
+
 Route::middleware(['auth'])->group(function () {
-// Route::middleware(['guest'])->group(function () {
-//     Route::get('/', [AuthController::class, 'index'])->name('login');
-//     Route::post('/', [AuthController::class, 'login']);
-// });
-
-// Route::get('/home', function () {
-//     return redirect('dashboard/surat');
-// });
-
-// Route::middleware(['auth'])->group(function () {
-
-Route::prefix('apoteker')->group(function () {
-    //Data Apoteker
-    // Route::get('/data', [ApotekerController::class, 'index']);
-    // Route::get('/data/tambah', [ApotekerController::class, 'create']);
-    // Route::post('/data/simpan', [ApotekerController::class, 'store']);
-    // Route::get('/data/edit/{id}', [ApotekerController::class, 'edit']);
-    // Route::post('/data/edit/simpan', [ApotekerController::class, 'update']);
-    // Route::delete('/data/hapus', [ApotekerController::class, 'destroy']);
-
-    //Tipe Obat
+    Route::prefix('apoteker')->middleware(['akses:apoteker'])->group(function () {
+    Route::prefix('data_obat')->group(function () {
+    //Tipe Obat  
     Route::get('/tipe', [TipeController::class, 'index']);
     Route::get('/tipe/tambah', [TipeController::class, 'create']);
     Route::post('/tipe/simpan', [TipeController::class, 'store']);
@@ -71,6 +54,8 @@ Route::prefix('apoteker')->group(function () {
     Route::get('/obat/edit/{id}', [ObatController::class, 'edit']);
     Route::post('/obat/edit/simpan', [ObatController::class, 'update']);
     Route::delete('/obat/hapus', [ObatController::class, 'destroy']);
+    Route::get('/obat/cetak', [ObatController::class, 'unduh']);
+    
 
     //Masuk Obat
     Route::get('/masuk_obat', [MasukObatController::class, 'index']);
@@ -80,7 +65,10 @@ Route::prefix('apoteker')->group(function () {
     Route::post('/masuk_obat/edit/simpan', [MasukObatController::class, 'update']);
     Route::delete('/masuk_obat/hapus', [MasukObatController::class, 'destroy']);
 });
-Route::prefix('resepsionis')->group(function () {
+    });
+
+    Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
+    Route::prefix('data-pendaftaran ')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
     Route::get('/pendaftaran/tambah', [PendaftaranController::class, 'create']);
     Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
@@ -88,30 +76,17 @@ Route::prefix('resepsionis')->group(function () {
     Route::post('/pendaftaran/edit/simpan', [PendaftaranController::class, 'update']);
     Route::delete('/pendaftaran/hapus', [PendaftaranController::class, 'destroy']);
 });
-Route::prefix('history')->group(function () {
-    Route::get('/logs', [historyController::class, 'index']);
-    Route::post('/logs/hapus', [historyController::class, 'destroy']);
+    Route::prefix('data-pasien')->group(function () {
+    Route::get('/pasien', [PasienController::class, 'index']);
+    Route::get('/pasien/tambah', [PasienController::class, 'create']);
+    Route::post('/pasien/simpan', [PasienController::class, 'store']);
+    Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
+    Route::get('/pasien/detail/{id}', [PasienController::class, 'detail']);
+    Route::post('/pasien/edit/simpan', [PasienController::class, 'update']);
+    Route::delete('/pasien/hapus', [PasienController::class, 'destroy']);
+    });
 });
-// Route::get('/logout', [AuthController::class, 'logout']);
-// });
-// Jika belom login, maka muncul
-// Route::middleware(['guest'])->group(function () {
-//     Route::get('/', [AuthController::class, 'index'])->name('login');
-//     Route::post('/', [AuthController::class, 'check']);
-// });
 
-// Jika sudah login, kembali ke dalam halaman 
-
-    //Resepsionis
-    // Route::prefix('pendaftaran')->group(function () {
-    //     Route::get('/resepsionis', [ResepsionisController::class, 'index']);
-    //     Route::get('/resepsionis/tambah', [ResepsionisController::class, 'create']);
-    //     Route::post('/resepsionis/simpan', [ResepsionisController::class, 'store']);
-    //     Route::get('/resepsionis/edit/{id}', [ResepsionisController::class, 'edit']);
-    //     Route::get('/resepsionis/detail/{id}', [ResepsionisController::class, 'detail']);
-    //     Route::post('/resepsionis/edit/simpan', [ResepsionisController::class, 'update']);
-    //     Route::delete('/resepsionis/hapus', [ResepsionisController::class, 'destroy']);
-    // });
 
     //Poli
     Route::prefix('daftar')->group(function () {
@@ -124,39 +99,12 @@ Route::prefix('history')->group(function () {
     });
 
     // Pasien
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/pasien', [PasienController::class, 'index']);
-        Route::get('/pasien/tambah', [PasienController::class, 'create']);
-        Route::post('/pasien/simpan', [PasienController::class, 'store']);
-        Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
-        Route::get('/pasien/detail/{id}', [PasienController::class, 'detail']);
-        Route::post('/pasien/edit/simpan', [PasienController::class, 'update']);
-        Route::delete('/pasien/hapus', [PasienController::class, 'destroy']);
-    });
+    
 
-    //Apoteker
-    // Route::prefix('obat')->group(function () {
-    //     Route::get('/apoteker', [ApotekerController::class, 'index']);
-    //     Route::get('/apoteker/tambah', [ApotekerController::class, 'create']);
-    //     Route::post('/apoteker/simpan', [ApotekerController::class, 'store']);
-    //     Route::get('/apoteker/edit/{id}', [ApotekerController::class, 'edit']);
-    //     Route::post('/apoteker/edit/simpan', [ApotekerController::class, 'update']);
-    //     Route::delete('/apoteker/hapus', [ApotekerController::class, 'destroy']);
-    // });
-
-    //Tipe Obat
-    // Route::prefix('obat')->group(function () {
-    //     Route::get('/tipe', [TipeController::class, 'index']);
-    //     Route::get('/tipe/tambah', [TipeController::class, 'create']);
-    //     Route::post('/tipe/simpan', [TipeController::class, 'store']);
-    //     Route::get('/tipe/edit/{id}', [TipeController::class, 'edit']);
-    //     Route::post('/tipe/edit/simpan', [TipeController::class, 'update']);
-    //     Route::delete('/tipe/hapus', [TipeController::class, 'destroy']);
-    // });
 
     //Rekam Medis
-    Route::prefix('rekam')->group(function () {
-        Route::get('/asisten', [RekamMedisController::class, 'index']);
+    Route::prefix('data-rekam')->group(function () {
+        Route::get('/rekam', [RekamMedisController::class, 'index']);
         Route::get('/rekam-tambah', [RekamMedisController::class, 'create']);
         Route::post('/rekam-simpan', [RekamMedisController::class, 'store']);
         Route::get('/rekam-edit/{id}', [RekamMedisController::class, 'edit']);
@@ -165,8 +113,8 @@ Route::prefix('history')->group(function () {
     });
 
     //Resep Obat
-    Route::prefix('resep')->group(function () {
-        Route::get('/asisten', [ResepObatController::class, 'index']);
+    Route::prefix('data-resep')->group(function () {
+        Route::get('/resep', [ResepObatController::class, 'index']);
         Route::get('/resep-tambah', [ResepObatController::class, 'create']);
         Route::post('/resep-simpan', [ResepObatController::class, 'store']);
         Route::get('/resep-edit/{id}', [ResepObatController::class, 'edit']);
@@ -174,26 +122,8 @@ Route::prefix('history')->group(function () {
         Route::delete('/resep-hapus', [ResepObatController::class, 'destroy']);
     });
 
-    //Transaksi klinik
-    // Route::prefix('transaksi')->group(function () {
-    //     Route::get('/klinik', [TransaksiController::class, 'index']);
-    //     Route::post('/klinik/hapus', [TransaksiController::class, 'destroy']);
-    // });
-
-    //Akun
-    // Route::prefix('dashboard')->group(function () {
-    //     Route::get('/akun', [AkunController::class, 'index']);
-    //     Route::get('/akun/tambah', [AkunController::class, 'create']);
-    //     Route::post('/akun/simpan', [AkunController::class, 'store']);
-    //     Route::delete('/akun/hapus/', [AkunController::class, 'destroy']);
-    //     Route::post('/akun/simpan', [AkunController::class, 'store']);
-    //     Route::get('/akun/edit/{id}', [AkunController::class, 'edit']);
-    //     Route::post('/akun/edit/simpan', [AkunController::class, 'update']);
-    //     Route::delete('/akun/hapus', [AkunController::class, 'destroy']);
-    // });
-
         //Dokter
-        Route::prefix('dashboard')->group(function () {
+        Route::prefix('data-dokter')->group(function () {
             Route::get('/dokter', [DokterController::class, 'index']);
             Route::get('/dokter-tambah', [DokterController::class, 'create']);
             Route::post('/dokter-simpan', [DokterController::class, 'store']);
@@ -201,18 +131,9 @@ Route::prefix('history')->group(function () {
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
         });
-
-     //Profil
-    //  Route::prefix('dashboard')->group(function () {
-    //     Route::get('/profile', [ProfileController::class, 'index']);
-    //     Route::get('/profile/edit/{id}', [ProfileController::class, 'edit']);
-    //     Route::post('/profile/edit/simpan', [ProfileController::class, 'update']);
-    // });
-
-    //Logout
-    // Route::prefix('auth')->group(function(){
-    //    Route::get('/',[AuthController::class, 'index']);
-    //    Route::get('/logout',[AuthController::class, 'logout']);
-    //    Route::post('/check',[AuthController::class,'check']);
+        Route::prefix('history')->group(function () {
+            Route::get('/logs', [historyController::class, 'index']);
+            Route::post('/logs/hapus', [historyController::class, 'destroy']);
+        });
      });
 

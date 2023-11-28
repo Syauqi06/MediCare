@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="">
                 <div class="card-header">
                     <span class="h1" style="color:#142a42; font-weight: bold;">
                         Data Pasien

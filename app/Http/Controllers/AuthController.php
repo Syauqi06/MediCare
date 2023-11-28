@@ -14,52 +14,58 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        if (!Auth::check()) {
+            return view('auth.login');
+        }
+        $user = Auth::user(['role']);
+        $redirectMap = [
+            'apoteker' => 'apoteker/data_obat/obat',
+            'resepsionis' => 'resepsionis/pendaftaran',
+            // 4 => 'guru-piket/dashboard',
+            // 3 => 'pengurus-kelas/dashboard',
+            // 2 => 'wali-kelas/dashboard',
+            // 1 => 'siswa/dashboard',
+        ];
+
+        if (isset($redirectMap[$user->role])) {
+            return redirect($redirectMap[$user->role]);
+        }
     }
 
     public function login(Request $request)
     {
-        $postData = $request->validate([
-            'username' => ['required'],
-            'password' => ['required']
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ], [
+            'username.required' => 'Username harus diisi',
+            'password.required' => 'Password harus diisi',
         ]);
 
         $credentials = [
-            'username' => $postData['username'],
-            'password' => $postData['password'],
-
+            'username' => $validatedData['username'],
+            'password' => $validatedData['password'],
         ];
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            $user = Auth::user(['role']);
+            Session::regenerateToken();
+            $redirectMap = [
+                'apoteker' => 'apoteker/data_obat/obat',
+                'resepsionis' => 'resepsionis/pendaftaran',
+            ];
 
-
-            if ($user->peran == 'resepsionis' || $user->peran == 'apoteker' || $user->peran == 'asisten_dokter' || $user->peran == 'pasien' || $user->peran == 'admin') {
-                return redirect('daftar/poli')->with('_token', Session::token());
-            } 
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            if (Auth::user()->peran == ['resepsionis', 'apoteker', 'asisten_dokter','pasien','admin']) {
-                return response([
-                    'success' => true,
-                    'redirect_url' => 'daftar/poli',
-                    'pesan' => 'login berhasil'
-                ], 200);
-            } else {
-                return response([
-                    'success' => true,
-                    'redirect_url' => 'login',
-                    'pesan' => 'Anda Bukan Admin'
-                ], 200);
+            if (isset($redirectMap[$user->role])) {
+                smilify('success', 'Berhasil Login');
+                return redirect($redirectMap[$user->role]);
             }
-        } else {
-            return response([
-                'success' => false
-            ], 401);
         }
+
+        Session::regenerateToken();
+        smilify('error', 'Gagal Login');
+        return redirect()->back()->withInput();
         
-    }}
+    }
 public function logout()
     {
 

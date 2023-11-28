@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('akun', function (Blueprint $table) {
             $table->integer('id_akun',11)->autoIncrement();
-            $table->enum('peran',['resepsionis','asisten_dokter','pasien','admin','apoteker']);
+            $table->enum('role',['resepsionis','asisten','pasien','admin','apoteker']);
             $table->string('username',50)->nullable(false);
             $table->text('password')->nullable(false);
         });

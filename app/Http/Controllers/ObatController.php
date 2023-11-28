@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Obat;
 use App\Models\Tipe;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -16,10 +18,10 @@ class ObatController extends Controller
      */
     public function index(Obat $obat)
     {
+        $totalObat = DB::select('SELECT CountTotalObat() AS totalObat')[0]->totalObat;
         $data = [
-            'obat' => DB::table('obat')
-            ->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')
-            ->get()
+            'obat' => DB::table('obat')->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get(),
+            'jumlahObat' => $totalObat
         ];
 
         return view('obat.index', $data);
@@ -56,11 +58,11 @@ class ObatController extends Controller
         }
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
-        if ($obat->create($data)) {
-            return redirect('/apoteker/obat')->with('success', 'Data obat baru berhasil ditambah');
+        if (DB::statement("CALL CreateObat(?,?,?,?)", [$data['nama_obat'], $data['id_tipe'], $data['stock_obat'], $data['foto_obat']])) {
+            return redirect('data_obat/obat')->with('success', 'Data Obat Baru Berhasil Ditambah');
         }
 
-        return back()->with('error', 'Data obat gagal ditambahkan');
+        return back()->with('error', 'Data Obat gagal ditambahkan');
     }
 
     /**
@@ -71,8 +73,9 @@ class ObatController extends Controller
         $data = [
             'obat' =>  Obat::where('id_obat', $id)->get(),
             'obat' => DB::table('view_tipe')->where('id_obat', $id)->get(),
-
         ];
+
+        // dd($data);
 
         return view('obat.detail', $data);
     }
@@ -118,14 +121,24 @@ class ObatController extends Controller
 
                 $data['foto_obat'] = $foto_nama;
             }
+            DB::beginTransaction();
+                try {
+                    $dataUpdate = $obat->where('id_obat', $id_obat)->update($data);
+                    DB::commit();
+                    return redirect('data_/obat')->with('success', 'Data Berhasil Diupdate');
 
-            $dataUpdate = $obat->where('id_obat', $id_obat)->update($data);
+                } catch (Exception $e) {
+                    DB::rollback();
+                    dd($e->getMessage());
+                }
 
-            if ($dataUpdate) {
-                return redirect('apoteker/obat')->with('success', 'Data obat berhasil diupdate');
-            }
+            // $dataUpdate = $obat->where('id_obat', $id_obat)->update($data);
 
-            return back()->with('error', 'Data obat gagal diupdate');
+            // if ($dataUpdate) {
+            //     return redirect('data_obat/obat')->with('success', 'Data obat berhasil diupdate');
+            // }
+
+            // return back()->with('error', 'Data obat gagal diupdate');
         }
     }
 
@@ -148,5 +161,12 @@ class ObatController extends Controller
         }
 
         
+    }
+    public function unduh(Obat $obat)
+    {
+        $obat = $obat
+            ->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
+        $pdf = PDF::loadView('obat.cetak', ['obat' => $obat]);
+        return $pdf->download('data-obat.pdf');
     }
 }

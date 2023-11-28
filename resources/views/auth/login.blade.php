@@ -14,21 +14,27 @@
             content: "";
             flex: 1;
             height: 1px;
-            background: #eee;
+            background: #d8d2d2;
+        }
+        .kotak
+        {
+          border-radius: 5px;
         }
     </style>
-<body>
+<body style="background-color: #e6e6e6">
     <section class="vh-100">
         <div class="container py-5 h-100">
-          <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="row d-flex align-items-center justify-content-center kotak" style="background-color: #FFFFFF">
             <div class="col-md-8 col-lg-7 col-xl-6">
-              <img src="{{ asset('gambar/logo.png') }}"
+              <img src="{{ asset('gambar/logomedicare.png') }}" width="600px"
                 class="img-fluid" alt="image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-              <form method="POST" action="">
+              <h1 style="text-align:center; padding-bottom:10px">MediCare</h1>
+              <form method="POST" action="" style="padding-bottom: 10px; padding-right:10px">
                 @csrf
                 <!-- Email input -->
+                <h2></h2>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="username">Username</label>
                     <input type="text" name="username" class="form-control form-control-lg" />
@@ -41,7 +47,7 @@
                 </div>
       
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" >Login</button>
                </form>
             </div>
           </div>

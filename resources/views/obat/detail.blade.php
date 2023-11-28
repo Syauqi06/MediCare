@@ -22,25 +22,26 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <div class="container">
-                                    @foreach ($apoteker as $a)
-                                        @if ($a->foto_obat)
+                                    @foreach ($obat as $o)
+                                        {{-- @if ($o->foto_obat) --}}
                                         <div class="photo-container" style="margin-top:-20px">
                                             <br>
-                                            <img src="{{ url('foto') . '/' . $a->foto_obat }} "style="max-width: 170px; height: auto;" />                                </div>
-                                        @endif
+                                            <img src="{{ url('foto') . '/' . $o->foto_obat }} "style="max-width: 170px; height: auto;" />
+                                         </div>
+                                        {{-- @endif --}}
                                         <table class="table table-bordered mt-3">
                                             <tbody>
                                                 <tr>
                                                     <td class="fw-bolder">Nama Obat</td>
-                                                    <td>: {{$a->nama_obat}}</td>
+                                                    <td>: {{$o->nama_obat}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="fw-bolder">Tipe Obat</td>
-                                                    <td>: {{$a->nama_tipe}}</td>
+                                                    <td>: {{$o->nama_tipe}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="fw-bolder">Stok Obat</td>
-                                                    <td>: {{$a->stock_obat}}</td>
+                                                    <td>: {{$o->stock_obat}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -54,25 +55,6 @@
 
                             </div>
                         </div>
-                    </div>
-
-                    
-                <!-- </div>
-                        
-                                @foreach ($apoteker as $a)
-                                        {{ $a->nama_obat }}
-                                        {{ $a->nama_tipe }}
-                                        {{ $a->stok_obat }}
-                                        {{ $a->tgl_exp }}
-                                        
-                                            @if ($a->foto_obat)
-                                                <img src="{{ url('foto') . '/' . $a->foto_obat }} "
-                                                    style="max-width: 150px; height: auto;" />
-                                            @endif
-                                        
-                                    </tr>
-                                @endforeach -->
-
                     </div>
                 </div>
                 <div class="card-footer"> 
