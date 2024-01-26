@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('resep_obat', function (Blueprint $table) {
             $table->integer('id_resep', true);
-            $table->integer('id_asdok');
+            $table->integer('id_tipe');
             $table->integer('id_rm');
-            $table->integer('id_obat');
             $table->integer('id_dokter');
             $table->date('tgl_pembuatan_resep');
             $table->text('status_pengambilan_obat');
 
-            $table->foreign('id_asdok')->on('asisten_dokter')->references('id_asdok')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_tipe')->on('tipe')->references('id_tipe')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_rm')->on('rekam_medis')->references('id_rm')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_obat')->on('obat')->references('id_obat')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_dokter')->on('dokter')->references('id_dokter')->onDelete('cascade')->onUpdate('cascade');
         });
     }

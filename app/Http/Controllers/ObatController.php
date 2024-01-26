@@ -59,7 +59,7 @@ class ObatController extends Controller
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
         if (DB::statement("CALL CreateObat(?,?,?,?)", [$data['nama_obat'], $data['id_tipe'], $data['stock_obat'], $data['foto_obat']])) {
-            return redirect('data_obat/obat')->with('success', 'Data Obat Baru Berhasil Ditambah');
+            return redirect('apoteker/data_obat/obat')->with('success', 'Data Obat Baru Berhasil Ditambah');
         }
 
         return back()->with('error', 'Data Obat gagal ditambahkan');
@@ -125,7 +125,7 @@ class ObatController extends Controller
                 try {
                     $dataUpdate = $obat->where('id_obat', $id_obat)->update($data);
                     DB::commit();
-                    return redirect('data_/obat')->with('success', 'Data Berhasil Diupdate');
+                    return redirect('apoteker/data_obat/obat')->with('success', 'Data Berhasil Diupdate');
 
                 } catch (Exception $e) {
                     DB::rollback();

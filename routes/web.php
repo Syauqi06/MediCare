@@ -67,8 +67,9 @@ Route::middleware(['auth'])->group(function () {
 });
     });
 
-    Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
-    Route::prefix('data-pendaftaran ')->group(function () {
+Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
+    //Pendaftarab=n
+    Route::prefix('data-pendaftaran')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
     Route::get('/pendaftaran/tambah', [PendaftaranController::class, 'create']);
     Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store']);
@@ -76,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pendaftaran/edit/simpan', [PendaftaranController::class, 'update']);
     Route::delete('/pendaftaran/hapus', [PendaftaranController::class, 'destroy']);
 });
+    //Pasien
     Route::prefix('data-pasien')->group(function () {
     Route::get('/pasien', [PasienController::class, 'index']);
     Route::get('/pasien/tambah', [PasienController::class, 'create']);
@@ -87,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-
+Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
     //Poli
     Route::prefix('daftar')->group(function () {
         Route::get('/poli', [PoliController::class, 'index']);
@@ -97,11 +99,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/poli-edit/simpan', [PoliController::class, 'update']);
         Route::delete('/poli-hapus', [PoliController::class, 'destroy']);
     });
-
-    // Pasien
     
-
-
     //Rekam Medis
     Route::prefix('data-rekam')->group(function () {
         Route::get('/rekam', [RekamMedisController::class, 'index']);
@@ -131,6 +129,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
         });
+    });
         Route::prefix('history')->group(function () {
             Route::get('/logs', [historyController::class, 'index']);
             Route::post('/logs/hapus', [historyController::class, 'destroy']);

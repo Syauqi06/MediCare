@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="h1" style="font-weight: bold;">
-                        Tambah Data Tipe Obat
+                        Tambah Data Obat
                     </span>
                 </div>
                 <div class="card-body">

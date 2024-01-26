@@ -42,7 +42,7 @@ class PoliController extends Controller
 
         
         if ($poli->create($data)) {
-            return redirect('daftar/poli')->with('success', 'Data Poli Baru Berhasil Ditambah');
+            return redirect('asisten/daftar/poli')->with('success', 'Data Poli Baru Berhasil Ditambah');
         }
 
         return back()->with('error', 'Data Poli Gagal Ditambahkan');
@@ -87,7 +87,7 @@ class PoliController extends Controller
             $dataUpdate = $poli->where('id_poli', $id_poli)->update($data);
 
             if($dataUpdate) {
-                return redirect('daftar/poli')->with('success', 'Data Poli Berhasil Diupdate');
+                return redirect('asisten/daftar/poli')->with('success', 'Data Poli Berhasil Diupdate');
             }
         }
 

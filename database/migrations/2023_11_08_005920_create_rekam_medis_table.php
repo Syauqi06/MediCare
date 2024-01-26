@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->integer('id_rm', true);
-            $table->integer('id_pendaftaran');
+            $table->integer('id_pasien');
             $table->integer('id_dokter');
             $table->text('diagnosa')->nullable(false);
             $table->date('tgl_pemeriksaan')->nullable(false);
 
-            $table->foreign('id_pendaftaran')->on('pendaftaran')->references('id_pendaftaran')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_pasien')->on('pasien')->references('id_pasien')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_dokter')->on('dokter')->references('id_dokter')->onDelete('cascade')->onUpdate('cascade');
         });
     }

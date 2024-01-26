@@ -22,7 +22,7 @@
                         <table class="table table-hover table-bordered DataTable">
                             <thead>
                                 <tr>
-                                    <th>NOMOR PENDAFTARAN</th>
+                                    <th>NAMA PASIEN</th>
                                     <th>NAMA DOKTER</th>
                                     <th>DIAGNOSA</th>
                                     <th>TANGGAL PEMERIKSAAN</th>
@@ -32,13 +32,13 @@
                             <tbody>
                                 @foreach ($rekam_medis as $rek)
                                     <tr>
-                                        <td>{{ $rek->nomor_antrian }}</td>
+                                        <td>{{ $rek->nama_pasien }}</td>
                                         <td>{{ $rek->nama_dokter}}</td>
                                         <td>{{ $rek->diagnosa}}</td>
                                         <td>{{ $rek->tgl_pemeriksaan}}</td>
                                         <td>
                                             <a href="rekam-edit/{{ $rek->id_rm }}"><button class="btn btn-warning">EDIT</button></a>
-                                            <button class="btn btn-danger btnHapus" idRekam="{{ $r->no_rm }}">HAPUS</button>
+                                            <button class="btn btn-danger btnHapus" idRekam="{{ $rek->id_rm }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -69,11 +69,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: '/rekam-hapus',
+                        url: 'rekam-hapus',
                         data: {
-
-                            no_rm: idRekam,
-
+                            id_rm: idRekam,
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {

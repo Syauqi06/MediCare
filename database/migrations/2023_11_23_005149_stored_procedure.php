@@ -21,24 +21,11 @@ return new class extends Migration
             IN new_foto_obat TEXT
         )
         BEGIN
-           DECLARE pesan_error CHAR(5) DEFAULT '000';
-           DECLARE CONTINUE HANDLER FOR SQLEXCEPTION, SQLWARNING
-        
-           BEGIN
-           GET DIAGNOSTICS CONDITION 1
-           pesan_error = RETURNED_SQLSTATE;
-           END;
-
-           START TRANSACTION;
-           savepoint satu;
-            INSERT INTO obat (nama_obat, id_obat, stock_obat, foto_obat)
-            VALUES (new_nama_obat, new_id_obat, new_stock_obat, new_foto_obat);
-            
-            IF pesan_error != '000' THEN ROLLBACK TO satu;
-            END IF;
-            COMMIT;
-    END;
+            INSERT INTO obat (nama_obat, id_tipe, stock_obat, foto_obat)
+            VALUES (new_nama_obat, new_id_tipe, new_stock_obat, new_foto_obat); 
+    END
         ");
+
     }
 
     /**

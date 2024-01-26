@@ -21,6 +21,7 @@ class AuthController extends Controller
         $redirectMap = [
             'apoteker' => 'apoteker/data_obat/obat',
             'resepsionis' => 'resepsionis/pendaftaran',
+            'asisten' => 'asisten/data-rekam/rekam'
             // 4 => 'guru-piket/dashboard',
             // 3 => 'pengurus-kelas/dashboard',
             // 2 => 'wali-kelas/dashboard',
@@ -52,17 +53,17 @@ class AuthController extends Controller
             Session::regenerateToken();
             $redirectMap = [
                 'apoteker' => 'apoteker/data_obat/obat',
-                'resepsionis' => 'resepsionis/pendaftaran',
+                'resepsionis' => 'resepsionis/data-pasien/pasien',
+                'asisten' => 'asisten/data-rekam/rekam'
             ];
 
             if (isset($redirectMap[$user->role])) {
-                smilify('success', 'Berhasil Login');
+
                 return redirect($redirectMap[$user->role]);
             }
         }
 
         Session::regenerateToken();
-        smilify('error', 'Gagal Login');
         return redirect()->back()->withInput();
         
     }

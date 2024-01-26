@@ -17,12 +17,12 @@
                                     <label>Nama Pasien</label>
                                     <select name="id_pasien" id="id_pasien" class="form-control" required>
                                         <option value="">Pilih Pasien</option>
-                                        @foreach ($pasien as $r)
-                                        <option value="{{ $r->id_pasien }}" <?php 
-                                        if ($r->id_pasien == $rekam->id_pasien) {
+                                        @foreach ($pasien as $a)
+                                        <option value="{{ $a->id_pasien }}" <?php 
+                                        if ($a->id_pasien == $rekam->id_pasien) {
                                             echo "selected";
                                         }
-                                        ?>>{{ $r->nama_pasien }}</option>
+                                        ?>>{{ $a->nama_pasien }}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -30,49 +30,29 @@
                                     <label>Nama Dokter</label>
                                     <select name="id_dokter" id="id_dokter" class="form-control" required>
                                         <option value="">Pilih Dokter</option>
-                                        @foreach ($dokter as $r)
-                                        <option value="{{ $r->id_dokter }}" <?php 
-                                        if ($r->id_dokter == $rekam->id_dokter) {
+                                        @foreach ($dokter as $d)
+                                        <option value="{{ $d->id_dokter }}" <?php 
+                                        if ($d->id_dokter == $rekam->id_dokter) {
                                             echo "selected";
                                         }
                                         ?>
-                                        >{{ $r->nama_dokter }}</option>
+                                        >{{ $d->nama_dokter }}</option>
                                     @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Ruang</label><br>
-                                    <select name="ruangan" class="form-control">
-                                        <option value="A1"  {{$rekam->ruangan == 'A1' ? 'checked' : ''}}>A1</option>
-                                        <option value="A2"  {{$rekam->ruangan == 'A2' ? 'checked' : ''}}>A2</option>
-                                        <option value="B3"  {{$rekam->ruangan == 'B3' ? 'checked' : ''}}>B3</option>
-                                        <option value="B4"  {{$rekam->ruangan == 'B4' ? 'checked' : ''}}>B4</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tanggal Pelayanan</label>
-                                    <input type="date" class="form-control" name="tgl_pelayanan" value="{{ $rekam->tgl_pelayanan }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Keluhan</label>
-                                    <input type="text" class="form-control" name="keluhan_rm" value="{{ $rekam->keluhan_rm }}" />
+                                    <label>Tanggal Pemeriksaan</label>
+                                    <input type="date" class="form-control" name="tgl_pemeriksaan" value="{{ $rekam->tgl_pemeriksaan }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Diagnosis</label>
-                                    <input type="text" class="form-control" name="diagnosis" value="{{ $rekam->diagnosis }}" />
+                                    <input type="text" class="form-control" name="diagnosa" value="{{ $rekam->diagnosa }}" />
                                 </div>
-                                <div class="form-group">
-                                    <label>Foto Pasien</label>
-                                    <input type="file" class="form-control" name="foto_pasien" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" name="no_rm" value="{{ $rekam->no_rm }}"/>
-                                </div>
-                                </div>
+                            </div>
                                 @csrf
                                 <div class="d-flex mt-3">
-                                    <button type="submit" class="btn btn-primary" style="margin-right: 4px;">SIMPAN</button>
-                                    <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a>
+                                    <button type="submit" class="btn btn-success" style="margin-right: 4px;">SIMPAN</button>
+                                    <a href="#" onclick="window.history.back();" class="btn btn-danger">KEMBALI</a>
                                 </div>
                             </div>
                         </div>
