@@ -35,13 +35,12 @@
                                     <tr>
                                         <td>{{ $res->id_rm }}</td>
                                         <td>{{ $res->nama_dokter}}</td>
-                                        <td>{{ $res->nama_asdok}}</td>
-                                        <td>{{ $res->nama_obat}}</td>
+                                        <td>{{ $res->nama_tipe}}</td>
                                         <td>{{ $res->tgl_pembuatan_resep}}</td>
                                         <td>{{ $res->status_pengambilan_obat}}</td>
                                         <td>
-                                            <a href="resep-edit/{{ $res->id_rm }}"><button class="btn btn-primary">EDIT</button></a>
-                                            <button class="btn btn-danger btnHapus" idResep="{{ $res->no_rm }}">HAPUS</button>
+                                            <a href="resep-edit/{{ $res->id_resep }}"><button class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus" idResep="{{ $res->id_resep }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -72,11 +71,9 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'rekam-hapus',
+                        url: 'resep-hapus',
                         data: {
-
                             id_resep: idResep,
-
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {

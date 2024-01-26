@@ -77,7 +77,7 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: '/dokter-hapus',
+                        url: 'dokter-hapus',
                         data: {
                             id_dokter: idDokter,
                             _token: "{{ csrf_token() }}"

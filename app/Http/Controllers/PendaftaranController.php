@@ -13,7 +13,7 @@ class PendaftaranController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Pendaftaran $pendaftaran)
     {
         $data = [
             'pendaftaran' => DB::table('pendaftaran')
@@ -51,7 +51,7 @@ class PendaftaranController extends Controller
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
         if ($pendaftaran->create($data)) {
-            return redirect('resepsionis/pendaftaran')->with('success', 'Data pendaftaran baru berhasil ditambah');
+            return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data pendaftaran baru berhasil ditambah');
         }
 
         return back()->with('error', 'Data pendaftaran gagal ditambahkan');
@@ -96,7 +96,7 @@ class PendaftaranController extends Controller
         $dataUpdate = $pendaftaran->where('id_pendaftaran', $id_pendaftaran)->update($data);
 
             if ($dataUpdate) {
-                return redirect('resepsionis/pendaftaran')->with('success', 'Data pendaftaran berhasil diupdate');
+                return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data pendaftaran berhasil diupdate');
             }
 
             return back()->with('error', 'Data pendaftaran gagal diupdate');

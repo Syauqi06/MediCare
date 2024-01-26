@@ -68,7 +68,7 @@ class PasienController extends Controller
             $insert = $pasien->create($data);
 
             if ($insert) {
-                return redirect('pasien/data')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
+                return redirect('resepsionis/data-pasien/pasien')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
             }
             return back()->with('error','Pendaftaran Gagal Ditambahkan');
         }
@@ -128,7 +128,7 @@ class PasienController extends Controller
             $dataUpdate = $pasien->where('id_pasien', $id_pasien)->update($data);
 
             if($dataUpdate) {
-                return redirect('/pasien/data')->with('success', 'Data berhasil diupdate');
+                return redirect('resepsionis/data-pasien/pasien')->with('success', 'Data berhasil diupdate');
             }
         }
 

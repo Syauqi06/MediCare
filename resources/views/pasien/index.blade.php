@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="pasien/data/tambah">
+                            <a href="pasien/tambah">
                                 <button class="btn btn-success">Tambah Data Pasien</button>
                             </a>
 
@@ -49,7 +49,7 @@
                                         </td>
                                         <td>
 
-                                            <a href="data/edit/{{ $p->id_pasien }}"><button class="btn btn-primary">EDIT</button></a>
+                                            <a href="pasien/edit/{{ $p->id_pasien }}"><button class="btn btn-primary">EDIT</button></a>
 
                                             <button class="btn btn-danger btnHapus" idPasien="{{ $p->id_pasien }}">HAPUS</button>
                                         </td>
@@ -71,7 +71,7 @@
     <script type="module">
         $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
-            let idResep = $(this).closest('.btnHapus').attr('idResep');
+            let idPasien = $(this).closest('.btnHapus').attr('idPasien');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -84,10 +84,10 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'rekam-hapus',
+                        url: 'pasien/hapus',
                         data: {
 
-                            id_resep: idResep,
+                            id_pasien: idPasien,
 
                             _token: "{{ csrf_token() }}"
                         },

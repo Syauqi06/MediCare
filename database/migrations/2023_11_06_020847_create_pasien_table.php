@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_pasien',20)->nullable(false);
             $table->enum('jenis_kelamin',['laki-laki','perempuan'])->nullable(false);
             $table->text('alamat')->nullable(false);
-            $table->integer('no_telp',false)->nullable(false);
+            $table->bigInteger('no_telp',false)->nullable(false);
             $table->integer('no_bpjs',false)->nullable(false);
             $table->date('tgl_lahir')->nullable(false);
             $table->string('foto_profil', 200)->nullable(false);

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Pendaftaran;
+use App\Models\Pasien;
 use App\Models\Dokter;
 use App\Models\RekamMedis;
 use Exception;
@@ -14,11 +13,11 @@ use Illuminate\Support\Facades\DB;
 class RekamMedisController extends Controller
 {
     //Data diambil dari model
-    protected $pendaftaranModel;
+    protected $pasienModel;
     protected $dokterModel;
     public function __construct()
     {
-        $this->pendaftaranModel = new Pendaftaran;   
+        $this->pasienModel = new Pasien;   
         $this->dokterModel = new Dokter;    
     }
     /**
@@ -29,10 +28,17 @@ class RekamMedisController extends Controller
     {
         $data = [
             'rekam_medis' => DB::table('rekam_medis')
-            ->join('pendaftaran', 'pendaftaran.id_pendaftaran', '=', 'rekam_medis.id_pendaftaran')
-            ->join('dokter', 'dokter.id_dokter', '=', 'dokter.id_dokter')
-            ->get()
+            ->join('pasien', 'rekam_medis.id_pasien', '=', 'pasien.id_pasien')
+            ->join('dokter', 'rekam_medis.id_dokter', '=', 'dokter.id_dokter')
+            ->get(),
+            // 'jumlahObat' => $totalObat
         ];
+        // $data = [
+        //     'rekam_medis' => DB::table('rekam_medis')
+        //     ->join('pasien', 'pasien.id_pasien', '=', 'p.id_pasien')
+        //     ->join('dokter', 'dokter.id_dokter', '=', 'dokter.id_dokter')
+        //     ->get()
+        // ];
         return view('rekam.index', $data);
     }
 
@@ -41,10 +47,10 @@ class RekamMedisController extends Controller
      * Show the form for creating a new resource.
      */
 
-    public function create(Pendaftaran $pendaftaran, Dokter $dokter)
+    public function create(Pasien $pasien, Dokter $dokter)
     {
     $data = [
-        'pendaftaran' => $this->pendaftaranModel->all(),
+        'pasien' => $this->pasienModel->all(),
         'dokter' => $this->dokterModel->all()
     ];
         return view('rekam.tambah', $data);
@@ -57,18 +63,18 @@ class RekamMedisController extends Controller
     {
         $data = $request->validate(
             [
+                'id_pasien' => 'required',
                 'id_dokter' => 'required',
-                'id_pendaftaran' => 'required',
                 'diagnosa' => 'required',
                 'tgl_pemeriksaan' => 'required',
             ]
         );
 
         if ($rekam->create($data)) {
-            return redirect('rekam/asisten')->with('success', 'Rekam Medis Baru Berhasil Ditambah');
+            return redirect('asisten/data-rekam/rekam')->with('success', 'Rekam Medis Baru Berhasil Ditambah');
         }
 
-        return back()->with('error', 'Data Obat Gagal Ditambahkan');
+        return back()->with('error', 'Rekam Medis Gagal Ditambahkan');
     }
     
 
@@ -81,16 +87,25 @@ class RekamMedisController extends Controller
      * Show the form for editing the specified resource.
      */
 
-    public function edit(RekamMedis $rekam, string $id, Pendaftaran $pendaftaran, Dokter $dokter)
+    public function edit(RekamMedis $rekam, string $id, Pasien $pasien, Dokter $dokter)
 
     {
-        $data = [
-            'rekam_medis' =>  RekamMedis::where('no_rm', $id)->first(),
-            'pendaftaran' => $this->pendaftaranModel->all(),
-            'dokter' => $this->dokterModel->all()
-        ];
+        // $data = [   
+        //     'rekam_medis' =>  RekamMedis::where('id_rm', $id)->first(),
+        //     'pasien' => $this->pasienModel->all(),
+        //     'dokter' => $this->dokterModel->all()
+        // ];
 
-        return view('rekam.edit', $data);
+        // return view('rekam.edit', $data);
+        $rekamData = RekamMedis::where('id_rm', $id)->first();
+        $pasienData = $pasien->all();
+        $dokterData = $dokter->all();
+
+        return view('rekam.edit', [
+            'rekam' => $rekamData,
+            'pasien' => $pasienData,
+            'dokter' => $dokterData
+        ]);
     }
 
     /**
@@ -102,10 +117,10 @@ class RekamMedisController extends Controller
     {
         $data = $request->validate(
             [
+                'id_pasien' => 'required',
                 'id_dokter' => 'required',
-                'id_pendaftaran' => 'required',
-                'diagnosa' => 'required',
                 'tgl_pemeriksaan' => 'required',
+                'diagnosa' => 'required',
             ]
         );
 
@@ -117,7 +132,7 @@ class RekamMedisController extends Controller
 
             if ($dataUpdate) {
 
-                return redirect('rekam/asisten')->with('success', 'Rekam Medis Berhasil Diupdate');
+                return redirect('asisten/data-rekam/rekam')->with('success', 'Rekam Medis Berhasil Diupdate');
             } else {
                 return back()->with('error', 'Rekam Medis Gagal Diupdate');
             }
@@ -128,7 +143,7 @@ class RekamMedisController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy(Request $request, RekamMedis $rekam)
+    public function destroy( RekamMedis $rekam,Request $request)
 
     {
         $id_rm = $request->input('id_rm');
@@ -140,7 +155,7 @@ class RekamMedisController extends Controller
             // Pesan Berhasil
             $pesan = [
                 'success' => true,
-                'pesan'   => 'Data jenis surat berhasil dihapus'
+                'pesan'   => 'Data rekam medis berhasil dihapus'
             ];
         } else {
             // Pesan Gagal

@@ -26,7 +26,7 @@
         <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center kotak" style="background-color: #FFFFFF">
             <div class="col-md-8 col-lg-7 col-xl-6">
-              <img src="{{ asset('gambar/logomedicare.png') }}" width="600px"
+              <img src="{{ asset('img/logo.png') }}" width="600px"
                 class="img-fluid" alt="image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">

@@ -10,7 +10,7 @@ class Resepobat extends Model
     use HasFactory;
 
     protected $table = 'resep_obat';
-    protected $fillable = ['id_dokter','id_obat','id_asdok','id_rm','tgl_pembuatan_resep','status_pengambilan_obat'];
+    protected $fillable = ['id_dokter','id_tipe','id_rm','tgl_pembuatan_resep','status_pengambilan_obat'];
     protected $primaryKey = 'id_resep';
     public $timestamps = false;
 

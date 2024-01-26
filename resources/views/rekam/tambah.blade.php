@@ -14,11 +14,20 @@
                     <form method="POST" action="rekam-simpan" enctype="multipart/form-data">
                         <div class="row">
                                 <div class="form-group">
+                                    <label>Nama Pasien</label>
+                                    <select name="id_pasien" id="id_pasien" class="form-control" required>
+                                        <option value="">Pilih Pasien</option>
+                                    @foreach ($pasien as $a)
+                                        <option value="{{ $a->id_pasien }}">{{ $a->nama_pasien }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>Nama Dokter</label>
                                     <select name="id_dokter" id="id_dokter" class="form-control" required>
                                         <option value="">Pilih Dokter</option>
-                                        @foreach ($dokter as $r)
-                                        <option value="{{ $r->id_dokter }}">{{ $r->nama_dokter }}</option>
+                                        @foreach ($dokter as $d)
+                                        <option value="{{ $d->id_dokter }}">{{ $d->nama_dokter }}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -28,7 +37,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Diagnosis</label>    
-                                    <textarea name="diagnosis" class="form-control" id="" cols="30" rows="10"></textarea>
+                                    <textarea name="diagnosa" class="form-control" id="" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                                 @csrf

@@ -42,7 +42,7 @@ class TipeController extends Controller
 
         
         if ($tipe->create($data)) {
-            return redirect('data_obat/tipe')->with('success', 'Data Tipe Obat Baru Berhasil Ditambah');
+            return redirect('apoteker/data_obat/tipe')->with('success', 'Data Tipe Obat Baru Berhasil Ditambah');
         }
 
         return back()->with('error', 'Data Obat Gagal Ditambahkan');
@@ -84,7 +84,7 @@ class TipeController extends Controller
             $dataUpdate = $tipe->where('id_tipe', $id_tipe)->update($data);
 
             if($dataUpdate) {
-                return redirect('data_obat/tipe')->with('success', 'Data Tipe Obat Berhasil Diupdate');
+                return redirect('apoteker/data_obat/tipe')->with('success', 'Data Tipe Obat Berhasil Diupdate');
             }
         }
 

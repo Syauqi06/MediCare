@@ -67,7 +67,7 @@ class DokterController extends Controller
 
             if(Dokter::create($data))
             {
-                return redirect()->to('/dashboard/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
+                return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
             }else
             {
                 return back()->with("error","Data Dokter Gagal Ditambahkan");
@@ -89,13 +89,22 @@ class DokterController extends Controller
      * Show the form for editing the specified resource.
      */
 
-    public function edit(Dokter $dokter, Request $request)
+    public function edit(string $id, Dokter $dokter, Poli $poli)
 
+    // {
+    //     $data = [
+    //         'dokter' => Dokter::where('id_dokter', $request->id)->first()
+    //     ];
+    //     return view('dokter.edit', $data);
+    // }
     {
-        $data = [
-            'dokter' => Dokter::where('id_dokter', $request->id)->first()
-        ];
-        return view('dokter.edit', $data);
+        $dokter = Dokter::where('id_dokter', $id)->first();
+        $poli = $poli->all();
+
+        return view('dokter.edit', [
+            'dokter' => $dokter,
+            'poli' => $poli,
+        ]);
     }
 
     /**
@@ -128,7 +137,7 @@ class DokterController extends Controller
             $dataUpdate = $dokter->where('id_dokter', $id_dokter)->update($data);
 
             if($dataUpdate) {
-                return redirect('dashboard/dokter')->with('success', 'Data berhasil diupdate');
+                return redirect('asisten/data-dokter/dokter')->with('success', 'Data berhasil diupdate');
             }
         }
 

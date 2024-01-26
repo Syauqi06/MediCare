@@ -10,7 +10,7 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="simpan" enctype="multipart/form-data">
+                    <form method="POST" action="resep-simpan" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group">
                                 <label>Nomor Rekam Medis</label>
@@ -24,9 +24,18 @@
                             <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <select name="id_dokter" id="id_dokter" class="form-control" required>
-                                    <option value="" selected disabled>Pilih Dokter Yang Menangani</option>
-                                @foreach ($dokter as $d)
-                                    <option value="{{ $d->id_dokter }}">{{ $d->id_dokter }}</option>
+                                    <option value="">Pilih Dokter</option>
+                                    @foreach ($dokter as $d)
+                                    <option value="{{ $d->id_dokter }}">{{ $d->nama_dokter }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipe Obat</label>
+                                <select name="id_tipe" id="id_tipe" class="form-control" required>
+                                    <option value="">Pilih Tipe Obat</option>
+                                    @foreach ($tipe as $t)
+                                    <option value="{{ $t->id_tipe }}">{{ $t->nama_tipe }}</option>
                                 @endforeach
                                 </select>
                             </div>

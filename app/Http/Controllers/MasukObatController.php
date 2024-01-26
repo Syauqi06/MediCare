@@ -51,7 +51,7 @@ class MasukObatController extends Controller
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
         if ($masukObat->create($data)) {
-            return redirect('/data_obat/masuk_obat')->with('success', 'Data masuk obat baru berhasil ditambah');
+            return redirect('apoteker/data_obat/masuk_obat')->with('success', 'Data masuk obat baru berhasil ditambah');
         }
 
         return back()->with('error', 'Data masuk obat gagal ditambahkan');
@@ -96,7 +96,7 @@ class MasukObatController extends Controller
         if ($id_masuk_obat !== null) {
             $dataUpdate = $masukObat->where('id_masuk_obat', $id_masuk_obat)->update($data);
             if ($dataUpdate) {
-                return redirect('data_obat/masuk_obat')->with('success', 'Data obat berhasil diupdate');
+                return redirect('apoteker/data_obat/masuk_obat')->with('success', 'Data obat berhasil diupdate');
             }
 
             return back()->with('error', 'Data obat gagal diupdate');
