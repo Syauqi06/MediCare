@@ -1,19 +1,23 @@
 @extends('templates.layout')
-@section('title', 'Daftar Pasien')
+@section('title', 'Data Pasien')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="">
                 <div class="card-header">
-                    <span class="h1" style="color:#92E3A9; font-weight: bold;">
+                    <span class="h1" style="color:#142a42; font-weight: bold;">
                         Data Pasien
                     </span>
                 </div>
-                <div class="col-md-4">
-                    <a href="pasien/data/tambah">
-                        <button class="btn btn-success">Tambah Data Pasien</button>
-                    </a>
-                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="pasien/tambah">
+                                <button class="btn btn-success">Tambah Data Pasien</button>
+                            </a>
+
+                        </div>
+                        <p>
                             <hr>
                         <table class="table table-hover table-bordered DataTable">
                             <thead>
@@ -45,7 +49,7 @@
                                         </td>
                                         <td>
 
-                                            <a href="data/edit/{{ $p->id_pasien }}"><button class="btn btn-primary">EDIT</button></a>
+                                            <a href="pasien/edit/{{ $p->id_pasien }}"><button class="btn btn-primary">EDIT</button></a>
 
                                             <button class="btn btn-danger btnHapus" idPasien="{{ $p->id_pasien }}">HAPUS</button>
                                         </td>
@@ -55,7 +59,6 @@
                         </table>
                     </div>
                 </div>
-                
                 <div class="card-footer">
 
                 </div>
@@ -66,7 +69,7 @@
 
 @section('footer')
     <script type="module">
-        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+        $('tbody').on('click', '.btnHapus', function(a) {
             a.preventDefault();
             let idPasien = $(this).closest('.btnHapus').attr('idPasien');
             swal.fire({
@@ -81,9 +84,11 @@
                     //Ajax Delete
                     $.ajax({
                         type: 'DELETE',
-                        url: 'data/hapus',
+                        url: 'pasien/hapus',
                         data: {
+
                             id_pasien: idPasien,
+
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {

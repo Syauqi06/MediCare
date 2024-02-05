@@ -9,7 +9,7 @@ class Pendaftaran extends Model
 {
     use HasFactory;
     protected $table = 'pendaftaran';
-    protected $fillable = ['tgl_pendaftaran','nomor_antrian'];
+    protected $fillable = ['tgl_pendaftaran','id_pasien','nomor_antrian','keluhan'];
     protected $primaryKey = 'id_pendaftaran';
     public $timestamps = false;
 }

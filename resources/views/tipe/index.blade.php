@@ -1,0 +1,87 @@
+@extends('templates.layout')
+@section('title', 'Data Tipe Obat')
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="">
+                <div class="card-header">
+                    <span class="h1" style="font-weight: bold;">
+                        Data Tipe Obat
+                    </span>
+                    
+                </div>
+                            <hr>
+                            <div class="col-md-4 mb-3">
+                                <a href="tipe/tambah">
+                                    <button class="btn btn-success">Tambah Tipe Obat</button>
+                                </a>
+                            </div>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NAMA TIPE</th>
+                                    <th>AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($tipe as $t)
+                                    <tr>
+                                        <td>{{ $t->nama_tipe }}</td>
+                                        <td>
+                                            <a href="tipe/edit/{{ $t->id_tipe }}"><button class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus" idTipe="{{ $t->id_tipe }}">HAPUS</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('footer')
+    <script type="module">
+        $('tbody').on('click', '.btnHapus', function(a) {
+            a.preventDefault();
+            let idTipe = $(this).closest('.btnHapus').attr('idTipe');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax Delete
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'tipe/hapus',
+                        data: {
+                            id_tipe: idTipe,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        $(document).ready(function() {
+            $('.DataTable').DataTable();
+        });
+    </script>
+
+@endsection

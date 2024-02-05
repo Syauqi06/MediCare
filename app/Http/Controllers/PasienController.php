@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 // use App\Models\Akun;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class PasienController extends Controller
             'pasien' => $this->userModel->all()
     ];
     return view ('pasien.index', $data);
+
     }
 
     /**
@@ -66,7 +68,7 @@ class PasienController extends Controller
             $insert = $pasien->create($data);
 
             if ($insert) {
-                return redirect('pasien/data')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
+                return redirect('resepsionis/data-pasien/pasien')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
             }
             return back()->with('error','Pendaftaran Gagal Ditambahkan');
         }
@@ -75,15 +77,19 @@ class PasienController extends Controller
     /**
      * Display the specified resource.
      */
+
     // public function show(Akun $Akun)
     // {
     //     //
     // }
 
+
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Pasien $pasien, Request $request)
+
     {
         $data = [
             'pasien' => Pasien::where('id_pasien', $request->id)->first()
@@ -122,7 +128,7 @@ class PasienController extends Controller
             $dataUpdate = $pasien->where('id_pasien', $id_pasien)->update($data);
 
             if($dataUpdate) {
-                return redirect('/pasien/data')->with('success', 'Data berhasil diupdate');
+                return redirect('resepsionis/data-pasien/pasien')->with('success', 'Data berhasil diupdate');
             }
         }
 
@@ -133,7 +139,9 @@ class PasienController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Request $request, Pasien $pasien)
+
     {
         $id_pasien = $request->input('id_pasien');
         $aksi = $pasien->where('id_pasien', $id_pasien)->delete();

@@ -1,0 +1,93 @@
+@extends('templates.layout')
+@section('title', 'Data Resep Obat')
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="h1" style="color:#142a42; font-weight: bold;">
+                        Data Resep Obat
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="resep-tambah">
+                                <button class="btn btn-success">Tambah Data Resep Obat</button>
+                            </a>
+
+                        </div>
+                        <p>
+                            <hr>
+                        <table class="table table-hover table-bordered DataTable">
+                            <thead>
+                                <tr>
+                                    <th>NOMOR REKAM MEDIS</th>
+                                    <th>NAMA DOKTER</th>
+                                    <th>TIPE OBAT</th>
+                                    <th>TANGGAL PEMBUATAN RESEP</th>
+                                    <th>STATUS PENGAMBILAN OBAT</th>
+                                    <th>AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($resep_obat as $res)
+                                    <tr>
+                                        <td>{{ $res->id_rm }}</td>
+                                        <td>{{ $res->nama_dokter}}</td>
+                                        <td>{{ $res->nama_tipe}}</td>
+                                        <td>{{ $res->tgl_pembuatan_resep}}</td>
+                                        <td>{{ $res->status_pengambilan_obat}}</td>
+                                        <td>
+                                            <a href="resep-edit/{{ $res->id_resep }}"><button class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus" idResep="{{ $res->id_resep }}">HAPUS</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>
+@endsection
+
+@section('footer')
+    <script type="module">
+        $('tbody').on('click', '.btnHapus', function(a) {
+            a.preventDefault();
+            let idResep = $(this).closest('.btnHapus').attr('idResep');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax Delete
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'resep-hapus',
+                        data: {
+                            id_resep: idResep,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+@endsection

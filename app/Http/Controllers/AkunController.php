@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Akun;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AkunController extends Controller
 {
@@ -46,7 +48,9 @@ class AkunController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+
+    public function show(Akun $akun)
+
     {
         //
     }
@@ -54,54 +58,31 @@ class AkunController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id,Akun $akun,Request $request)
+
+    public function edit(Akun $akun)
+
     {
-        {
-            $data = [
-                'Akun' => Akun::where('id_Akun', $request->id)->first()
-            ];
-            return view('account.edit', $data);
-        }
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+
+    public function update(Request $request, Akun $akun)
+
     {
-        $id_akun = $request->input('id_akun');
-
-        $data = $request->validate([
-            'username' => 'sometimes',
-            'level' => 'sometimes',
-            'password' => 'sometimes',
-        ]);
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,Akun $akun)
+
+    public function destroy(Akun $akun)
+
     {
-        {
-            $id_akun = $request->input('id_akun');
-            $aksi = $akun->where('id_akun', $id_akun)->delete();
-                if($aksi)
-                {
-                    $pesan = [
-                        'success' => true,
-                        'pesan'   => 'akun berhasil dihapus'
-                    ];
-                }else
-                {
-                    $pesan = [
-                        'success' => false,
-                        'pesan'   => 'akun gagal dihapus'
-                    ];
-                }
-                return response()->json($pesan);
-    
-        }
+        //
     }
 }
