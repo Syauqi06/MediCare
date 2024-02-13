@@ -26,19 +26,16 @@ class ResepObatController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(Resepobat $resep)
-    {
-        // Mengirim data agar ditampilkan ke dalam view dengan isi array data resep
-        $data = [
-            'resep_obat' => DB::table('resep_obat')
-            ->join('rekam_medis', 'resep_obat.id_rm', '=', 'rekam_medis.id_rm')
-            ->join('dokter', 'resep_obat.id_dokter', '=', 'dokter.id_dokter')
-            ->join('tipe', 'resep_obat.id_tipe', '=', 'tipe.id_tipe')
-            ->get()
-        ];
-        return view('resep.index', $data);
-
-    }
+     public function index()
+     {
+        $totalResep = DB::select('SELECT CountTotalResepObat() AS totalResep')[0]->totalResep;
+         $data = [
+             'resep_obat' => DB::table('view_resep')->get(),
+             'jumlahResep' => $totalResep
+         ];
+     
+         return view('resep.index', $data);
+     }
 
 
     /**

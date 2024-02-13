@@ -19,13 +19,14 @@ class DokterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Dokter $dokter)
+    public function index()
     {
+        $totalDokter = DB::select('SELECT CountTotalDokter() AS totalDokter')[0]->totalDokter;
         $data = [
-            'dokter' => DB::table('dokter')
-                ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
-                ->get()
+            'dokter' => DB::table('view_dokter')->get(),
+            'jumlahDokter' => $totalDokter
         ];
+        
         return view('dokter.index', $data);
     }
 
