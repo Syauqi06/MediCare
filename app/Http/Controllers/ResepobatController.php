@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Dokter;
-use App\Models\RekamMedis;
-use App\Models\Resepobat;
 use App\Models\Tipe;
+use App\Models\Dokter;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Resepobat;
+use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use tidy;
 
 class ResepObatController extends Controller
 {
@@ -74,8 +74,7 @@ class ResepObatController extends Controller
         );
 
         //Proses Insert
-
-        if ($resep->create($data)) {
+        if (DB::statement("CALL CreateResepObat(?,?,?,?,?)", [$data['id_rm'], $data['id_dokter'], $data['id_tipe'], $data['tgl_pembuatan_resep'], $data['status_pengambilan_obat']])) {
             return redirect('asisten/data-resep/resep')->with('success', 'Resep Obat Baru Berhasil Ditambah');
         }
 
@@ -206,5 +205,17 @@ class ResepObatController extends Controller
 
         return response()->json($pesan);
 
+    }
+
+    public function unduh(Resepobat $resep)
+    {
+        $resepObat = $resep
+            ->join('rekam_medis', 'resep_obat.id_rm', '=', 'rekam_medis.id_rm')
+            ->join('dokter', 'resep_obat.id_dokter', '=', 'dokter.id_dokter')
+            ->join('tipe', 'resep_obat.id_tipe', '=', 'tipe.id_tipe')
+            ->get();
+            
+        $pdf = PDF::loadView('resep.cetak', ['resep' => $resepObat]);
+        return $pdf->download('resep-obat.pdf');
     }
 }

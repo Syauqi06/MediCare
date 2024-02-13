@@ -109,6 +109,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
         Route::get('/rekam-edit/{id}', [RekamMedisController::class, 'edit']);
         Route::post('/rekam-edit/simpan', [RekamMedisController::class, 'update']);
         Route::delete('/rekam-hapus', [RekamMedisController::class, 'destroy']);
+        Route::get('/rekam/cetak', [RekamMedisController::class, 'unduh']);
     });
 
     //Resep Obat
@@ -120,6 +121,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
         Route::get('/resep-edit/{id}', [ResepObatController::class, 'edit']);
         Route::post('/resep-edit/simpan', [ResepObatController::class, 'update']);
         Route::delete('/resep-hapus', [ResepObatController::class, 'destroy']);
+        Route::get('/resep/cetak', [ResepObatController::class, 'unduh']);
     });
 
         //Dokter

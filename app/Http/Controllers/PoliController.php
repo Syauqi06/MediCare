@@ -43,11 +43,10 @@ class PoliController extends Controller
             ]
         );
 
-        
-        if ($poli->create($data)) {
+        if (DB::statement("CALL CreatePoli(?)", [$data['jenis_poli']])) {
             return redirect('asisten/daftar/poli')->with('success', 'Data Poli Baru Berhasil Ditambah');
         }
-
+        
         return back()->with('error', 'Data Poli Gagal Ditambahkan');
     }
 

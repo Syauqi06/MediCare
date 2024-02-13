@@ -31,7 +31,7 @@
                                     <table class="table table-bordered mt-3">
                                         <tbody>
                                             <tr>
-                                                <td class="fw-bolder">Poli</td>
+                                                <td class="fw-bolder">Nama Poli</td>
                                                 <td>: {{ $dokter->jenis_poli }}</td>
                                             </tr>
                                             <tr>

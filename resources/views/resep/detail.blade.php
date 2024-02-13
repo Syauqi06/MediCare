@@ -25,7 +25,7 @@
                                     <table class="table table-bordered mt-3">
                                         <tbody>
                                             <tr>
-                                                <td class="fw-bolder">Id Rekam Medis</td>
+                                                <td class="fw-bolder">Nomor Rekam Medis</td>
                                                 <td>: {{ $resep->id_rm }}</td>
                                             </tr>
                                             <tr>

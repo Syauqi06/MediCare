@@ -18,20 +18,22 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pasien</th>
+                        <th>Nomor Rekam Medis</th>
                         <th>Nama Dokter</th>
-                        <th>Diagnosa</th>
-                        <th>Tanggal Pemeriksaan</th>
+                        <th>Tipe Obat</th>
+                        <th>Tanggal Pembuatan Resep</th>
+                        <th>Status Pengambilan Obat</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($rekam as $r)
+                    @foreach ($resep as $r)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $r->nama_pasien }}</td>
+                            <td>{{ $r->id_rm }}</td>
                             <td>{{ $r->nama_dokter }}</td>
-                            <td>{{ $r->diagnosa }}</td>
-                            <td>{{ $r->tgl_pemeriksaan }}</td>
+                            <td>{{ $r->nama_tipe }}</td>
+                            <td>{{ $r->tgl_pembuatan_resep }}</td>
+                            <td>{{ $r->status_pengambilan_obat }}</td>
                         </tr>
                     @endforeach
                 </tbody>

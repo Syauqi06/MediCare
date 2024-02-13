@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pasien;
 use App\Models\Dokter;
 use App\Models\RekamMedis;
-use Exception;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,20 +16,20 @@ class RekamMedisController extends Controller
     protected $dokterModel;
     public function __construct()
     {
-        $this->pasienModel = new Pasien;   
-        $this->dokterModel = new Dokter;    
+        $this->pasienModel = new Pasien;
+        $this->dokterModel = new Dokter;
     }
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index(RekamMedis $rekam)
     {
         $totalRekam = DB::select('SELECT CountTotalRekamMedis() AS totalRekam')[0]->totalRekam;
 
         $data = [
             'rekam_medis' => DB::table('view_rekam_medis')->get(),
-            'jumlahRekam'=> $totalRekam
+            'jumlahRekam' => $totalRekam
         ];
 
         return view('rekam.index', $data);
@@ -43,10 +42,10 @@ class RekamMedisController extends Controller
 
     public function create(Pasien $pasien, Dokter $dokter)
     {
-    $data = [
-        'pasien' => $this->pasienModel->all(),
-        'dokter' => $this->dokterModel->all()
-    ];
+        $data = [
+            'pasien' => $this->pasienModel->all(),
+            'dokter' => $this->dokterModel->all()
+        ];
         return view('rekam.tambah', $data);
     }
 
@@ -64,7 +63,7 @@ class RekamMedisController extends Controller
             ]
         );
 
-        if ($rekam->create($data)) {
+        if (DB::statement("CALL CreateRekamMedis(?,?,?,?)", [$data['id_pasien'], $data['id_dokter'], $data['diagnosa'], $data['tgl_pemeriksaan']])) {
             return redirect('asisten/data-rekam/rekam')->with('success', 'Rekam Medis Baru Berhasil Ditambah');
         }
 
@@ -78,11 +77,11 @@ class RekamMedisController extends Controller
             ->join('dokter', 'rekam_medis.id_dokter', '=', 'dokter.id_dokter')
             ->first();
 
-            return view('rekam.detail', [
-                'rekam' => $rekamData,
-            ]);
+        return view('rekam.detail', [
+            'rekam' => $rekamData,
+        ]);
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -149,7 +148,7 @@ class RekamMedisController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy( RekamMedis $rekam,Request $request)
+    public function destroy(RekamMedis $rekam, Request $request)
 
     {
         $id_rm = $request->input('id_rm');
@@ -172,5 +171,16 @@ class RekamMedisController extends Controller
         }
 
         return response()->json($pesan);
+    }
+
+    public function unduh(RekamMedis $rekamMedis)
+    {
+        $rekamData = $rekamMedis
+            ->join('pasien', 'rekam_medis.id_pasien', '=', 'pasien.id_pasien')
+            ->join('dokter', 'rekam_medis.id_dokter', '=', 'dokter.id_dokter')
+            ->get();
+
+        $pdf = PDF::loadView('rekam.cetak', ['rekam' => $rekamData]);
+        return $pdf->download('rekam-medis.pdf');
     }
 }

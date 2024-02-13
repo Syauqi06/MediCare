@@ -25,11 +25,11 @@
                                     <table class="table table-bordered mt-3">
                                         <tbody>
                                             <tr>
-                                                <td class="fw-bolder">Dokter</td>
+                                                <td class="fw-bolder">Nama Dokter</td>
                                                 <td>: {{ $rekam->nama_dokter }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="fw-bolder">Pasien</td>
+                                                <td class="fw-bolder">Nama Pasien</td>
                                                 <td>: {{ $rekam->nama_pasien }}</td>
                                             </tr>
                                             <tr>

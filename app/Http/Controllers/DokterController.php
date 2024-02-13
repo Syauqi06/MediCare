@@ -66,11 +66,13 @@ class DokterController extends Controller
             $data['foto_dokter'] = $foto_nama;
         }
 
-        if (Dokter::create($data)) {
+
+        if (DB::statement("CALL CreateDokter(?,?,?,?)", [$data['nama_dokter'], $data['id_poli'], $data['no_telp'], $data['foto_dokter']])) {
             return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
-        } else {
-            return back()->with("error", "Data Dokter Gagal Ditambahkan");
         }
+
+        return back()->with('error', 'Data Dokter gagal ditambahkan');
+
     }
 
     public function detail(string $id, Dokter $dokter)
