@@ -90,7 +90,7 @@ Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function 
 });
 
 Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
-    //Poli
+    //Poli i
     Route::prefix('daftar')->group(function () {
         Route::get('/poli', [PoliController::class, 'index']);
         Route::get('/poli-tambah', [PoliController::class, 'create']);
