@@ -33,12 +33,16 @@
                                 @foreach ($rekam_medis as $rek)
                                     <tr>
                                         <td>{{ $rek->nama_pasien }}</td>
-                                        <td>{{ $rek->nama_dokter}}</td>
-                                        <td>{{ $rek->diagnosa}}</td>
-                                        <td>{{ $rek->tgl_pemeriksaan}}</td>
+                                        <td>{{ $rek->nama_dokter }}</td>
+                                        <td>{{ $rek->diagnosa }}</td>
+                                        <td>{{ $rek->tgl_pemeriksaan }}</td>
                                         <td>
-                                            <a href="rekam-edit/{{ $rek->id_rm }}"><button class="btn btn-warning">EDIT</button></a>
-                                            <button class="btn btn-danger btnHapus" idRekam="{{ $rek->id_rm }}">HAPUS</button>
+                                            <a href="rekam-detail/{{ $rek->id_rm }}"><button
+                                                    class="btn btn-info">DETAIL</button></a>
+                                            <a href="rekam-edit/{{ $rek->id_rm }}"><button
+                                                    class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus"
+                                                idRekam="{{ $rek->id_rm }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -48,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
     </div>
 @endsection
 

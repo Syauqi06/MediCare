@@ -42,9 +42,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="dokter/detail/{{ $o->id_dokter }}">
-                                                <btn class="btn btn-info">Detail</btn>
-                                            </a>
+                                            <a href="dokter-detail/{{ $d->id_dokter }}"><button
+                                                    class="btn btn-info">DETAIL</button></a>
                                             <a href="dokter-edit/{{ $d->id_dokter }}"><button
                                                     class="btn btn-warning">EDIT</button></a>
                                             <button class="btn btn-danger btnHapus"

@@ -34,13 +34,17 @@
                                 @foreach ($resep_obat as $res)
                                     <tr>
                                         <td>{{ $res->id_rm }}</td>
-                                        <td>{{ $res->nama_dokter}}</td>
-                                        <td>{{ $res->nama_tipe}}</td>
-                                        <td>{{ $res->tgl_pembuatan_resep}}</td>
-                                        <td>{{ $res->status_pengambilan_obat}}</td>
+                                        <td>{{ $res->nama_dokter }}</td>
+                                        <td>{{ $res->nama_tipe }}</td>
+                                        <td>{{ $res->tgl_pembuatan_resep }}</td>
+                                        <td>{{ $res->status_pengambilan_obat }}</td>
                                         <td>
-                                            <a href="resep-edit/{{ $res->id_resep }}"><button class="btn btn-warning">EDIT</button></a>
-                                            <button class="btn btn-danger btnHapus" idResep="{{ $res->id_resep }}">HAPUS</button>
+                                            <a href="resep-detail/{{ $res->id_resep }}"><button
+                                                    class="btn btn-info">DETAIL</button></a>
+                                            <a href="resep-edit/{{ $res->id_resep }}"><button
+                                                    class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus"
+                                                idResep="{{ $res->id_resep }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -50,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
     </div>
 @endsection
 

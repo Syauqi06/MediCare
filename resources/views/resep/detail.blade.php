@@ -1,5 +1,5 @@
 @extends('templates.layout')
-@section('title', 'Data Rekam Medis')
+@section('title', 'Data Resep Obat')
 @section('content')
     <style>
         table {
@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="h1 font-weight-bold">
-                        Detail Data Rekam Medis
+                        Detail Data Resep Obat
                     </span>
                 </div>
                 <hr>
@@ -25,20 +25,24 @@
                                     <table class="table table-bordered mt-3">
                                         <tbody>
                                             <tr>
-                                                <td class="fw-bolder">Dokter</td>
-                                                <td>: {{ $rekam->nama_dokter }}</td>
+                                                <td class="fw-bolder">Id Rekam Medis</td>
+                                                <td>: {{ $resep->id_rm }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="fw-bolder">Pasien</td>
-                                                <td>: {{ $rekam->nama_pasien }}</td>
+                                                <td class="fw-bolder">Nama Dokter</td>
+                                                <td>: {{ $resep->nama_dokter }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="fw-bolder">Diagnosa</td>
-                                                <td>: {{ $rekam->diagnosa }}</td>
+                                                <td class="fw-bolder">Tipe Obat</td>
+                                                <td>: {{ $resep->nama_tipe }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="fw-bolder">Tanggal Pemeriksaan</td>
-                                                <td>: {{ $rekam->tgl_pemeriksaan }}</td>
+                                                <td class="fw-bolder">Tanggal Pembuatan Resep</td>
+                                                <td>: {{ $resep->tgl_pembuatan_resep }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bolder">Status Pengambilan Obat</td>
+                                                <td>: {{ $resep->status_pengambilan_obat }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -57,4 +61,3 @@
         </div>
     </div>
 @endsection
-;

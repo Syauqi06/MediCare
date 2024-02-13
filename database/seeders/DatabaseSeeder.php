@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\RekamMedis;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AkunSeeder::class,
             LevelSeeder::class,
-            PoliSeeder::class
+            PoliSeeder::class,
+            PasienSeeder::class,
+            DokterSeeder::class,
+            TipeSeeder::class,
+            RekamMedisSeeder::class,
+            ResepDokterSeeder::class,
         ]);
     }
 }

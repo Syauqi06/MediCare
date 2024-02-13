@@ -76,6 +76,18 @@ class RekamMedisController extends Controller
 
         return back()->with('error', 'Rekam Medis Gagal Ditambahkan');
     }
+
+    public function detail(string $id, RekamMedis $rekamMedis)
+    {
+        $rekamData = RekamMedis::where('id_rm', $id)
+            ->join('pasien', 'rekam_medis.id_pasien', '=', 'pasien.id_pasien')
+            ->join('dokter', 'rekam_medis.id_dokter', '=', 'dokter.id_dokter')
+            ->first();
+
+            return view('rekam.detail', [
+                'rekam' => $rekamData,
+            ]);
+    }
     
 
     /**

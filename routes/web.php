@@ -103,6 +103,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
     //Rekam Medis
     Route::prefix('data-rekam')->group(function () {
         Route::get('/rekam', [RekamMedisController::class, 'index']);
+        Route::get('/rekam-detail/{id}', [RekamMedisController::class, 'detail']);
         Route::get('/rekam-tambah', [RekamMedisController::class, 'create']);
         Route::post('/rekam-simpan', [RekamMedisController::class, 'store']);
         Route::get('/rekam-edit/{id}', [RekamMedisController::class, 'edit']);
@@ -113,6 +114,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
     //Resep Obat
     Route::prefix('data-resep')->group(function () {
         Route::get('/resep', [ResepObatController::class, 'index']);
+        Route::get('/resep-detail/{id}', [ResepObatController::class, 'detail']);
         Route::get('/resep-tambah', [ResepObatController::class, 'create']);
         Route::post('/resep-simpan', [ResepObatController::class, 'store']);
         Route::get('/resep-edit/{id}', [ResepObatController::class, 'edit']);
@@ -123,12 +125,12 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
         //Dokter
         Route::prefix('data-dokter')->group(function () {
             Route::get('/dokter', [DokterController::class, 'index']);
+            Route::get('/dokter-detail/{id}', [DokterController::class, 'detail']);
             Route::get('/dokter-tambah', [DokterController::class, 'create']);
             Route::post('/dokter-simpan', [DokterController::class, 'store']);
             Route::get('/dokter-edit/{id}', [DokterController::class, 'edit']);
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
-            Route::get('/dokterdetail/{id}', [DokterController::class, 'detail']);
         });
     });
         Route::prefix('history')->group(function () {

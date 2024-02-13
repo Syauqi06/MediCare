@@ -85,6 +85,19 @@ class ResepObatController extends Controller
         return back()->with('error', 'Data Resep Obat Gagal Ditambahkan');
 
     }
+
+    public function detail(string $id, Resepobat $resep)
+    {
+        $resepObat = Resepobat::where('id_resep', $id)
+            ->join('rekam_medis', 'resep_obat.id_rm', '=', 'rekam_medis.id_rm')
+            ->join('dokter', 'resep_obat.id_dokter', '=', 'dokter.id_dokter')
+            ->join('tipe', 'resep_obat.id_tipe', '=', 'tipe.id_tipe')
+            ->first();
+
+        return view('resep.detail', [
+            'resep' => $resepObat,
+        ]);
+    }
     
 
     /**
