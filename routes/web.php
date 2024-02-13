@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
-    //Pendaftarab=n
+    //Pendaftaran
     Route::prefix('data-pendaftaran')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
     Route::get('/pendaftaran/tambah', [PendaftaranController::class, 'create']);
@@ -128,6 +128,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
             Route::get('/dokter-edit/{id}', [DokterController::class, 'edit']);
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
+            Route::get('/dokterdetail/{id}', [DokterController::class, 'detail']);
         });
     });
         Route::prefix('history')->group(function () {

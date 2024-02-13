@@ -36,15 +36,19 @@
                                         <td>{{ $d->jenis_poli }}</td>
                                         <td>{{ $d->no_telp }}</td>
                                         <td>
-                                        @if ($d->foto_dokter)
+                                            @if ($d->foto_dokter)
                                                 <img src="{{ url('foto') . '/' . $d->foto_dokter }} "
                                                     style="max-width: 150px; height: auto;" />
                                             @endif
                                         </td>
                                         <td>
-
-                                            <a href="dokter-edit/{{ $d->id_dokter }}"><button class="btn btn-warning">EDIT</button></a>
-                                            <button class="btn btn-danger btnHapus" idDokter="{{ $d->id_dokter }}">HAPUS</button>
+                                            <a href="dokter/detail/{{ $o->id_dokter }}">
+                                                <btn class="btn btn-info">Detail</btn>
+                                            </a>
+                                            <a href="dokter-edit/{{ $d->id_dokter }}"><button
+                                                    class="btn btn-warning">EDIT</button></a>
+                                            <button class="btn btn-danger btnHapus"
+                                                idDokter="{{ $d->id_dokter }}">HAPUS</button>
                                         </td>
                                     </tr>
                                 @endforeach
