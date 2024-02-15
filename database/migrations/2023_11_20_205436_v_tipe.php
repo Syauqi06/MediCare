@@ -43,7 +43,7 @@ return new class extends Migration
         INNER JOIN dokter d ON d.id_dokter = d.id_dokter;
 
         ");
-        DB::unprepared("DROP VIEW IF EXISTS view_resep");
+        DB::unprepared("DROP VIEW IF EXISTS view_resep;");
 
         DB::unprepared("
         CREATE VIEW view_resep AS
@@ -69,6 +69,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('v_tipe');
         DB::unprepared("DROP VIEW IF EXISTS view_tipe;");
-        DB::unprepared("DROP VIEW IF EXISTS view_resep");
+        DB::unprepared("DROP VIEW IF EXISTS view_resep;");
+        DB::unprepared("DROP VIEW IF EXISTS view_rekam;");
     }
 };

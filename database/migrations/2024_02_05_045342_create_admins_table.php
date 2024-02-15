@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('level', function (Blueprint $table) {
-            $table->integer('id_level',true);
-            $table->string('nama_level',25)->nullable(false);
+        Schema::create('admin', function (Blueprint $table) {
+            $table->integer('id_admin', true);
+            $table->integer('id_akun');
+            $table->string('nama_admin')->nullable(false);
+
+            $table->foreign('id_akun')->on('akun')->references('id_akun')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('level');
+        Schema::dropIfExists('admins');
     }
 };

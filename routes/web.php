@@ -13,6 +13,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ApotekerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ResepObatController;
@@ -34,9 +35,9 @@ Route::get('/',[AuthController::class,'index']);
 Route::post('/',[AuthController::class,'login']);
 Route::get('logout', [AuthController::class, 'logout']);
 
-
 Route::middleware(['auth'])->group(function () {
     Route::prefix('apoteker')->middleware(['akses:apoteker'])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index']);
     Route::prefix('data_obat')->group(function () {
     //Tipe Obat  
     Route::get('/tipe', [TipeController::class, 'index']);
@@ -68,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index']);
     //Pendaftarab=n
     Route::prefix('data-pendaftaran')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
@@ -90,6 +92,7 @@ Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function 
 });
 
 Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index']);
     //Poli
     Route::prefix('daftar')->group(function () {
         Route::get('/poli', [PoliController::class, 'index']);

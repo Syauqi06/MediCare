@@ -36,7 +36,7 @@
                                     <input type="file" class="form-control" name="foto_obat" />
                                 </div>
                                 <div class="d-flex col-md-4 mt-3">
-                                    <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;">SIMPAN</button>
                                     <a href="#" onclick="window.history.back();" class="margin btn btn-success">KEMBALI</a>
                                 </div>
                             </div>

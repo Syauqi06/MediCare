@@ -18,7 +18,7 @@ return new class extends Migration
         FOR EACH ROW
         BEGIN
             INSERT logs(tabel, tanggal, jam, aksi, record)
-            VALUES ("data_obat", CURDATE(), CURTIME(), "Tambah", "Sukses");
+            VALUES ("obat", CURDATE(), CURTIME(), "Tambah", "Sukses");
         END
     ');
         DB::unprepared('
@@ -27,7 +27,7 @@ return new class extends Migration
         FOR EACH ROW
         BEGIN
             INSERT logs(tabel, tanggal, jam, aksi, record)
-            VALUES ("data_obat", CURDATE(), CURTIME(), "Update", "Sukses");
+            VALUES ("obat", CURDATE(), CURTIME(), "Update", "Sukses");
         END
     ');
         DB::unprepared('
@@ -36,7 +36,7 @@ return new class extends Migration
         FOR EACH ROW
         BEGIN
             INSERT logs(tabel, tanggal, jam, aksi, record)
-            VALUES ("data_obat", CURDATE(), CURTIME(), "Delete", "Sukses");
+            VALUES ("obat", CURDATE(), CURTIME(), "Delete", "Sukses");
         END
     ');
     DB::unprepared('
