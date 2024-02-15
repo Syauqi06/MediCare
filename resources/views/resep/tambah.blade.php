@@ -16,9 +16,9 @@
                                 <label>Nomor Rekam Medis</label>
                                 <select name="id_rm" id="id_rm" class="form-control" required>
                                     <option value="" selected disabled>Pilih Rekam Medis</option>
-                                @foreach ($rekam_medis as $rek)
-                                    <option value="{{ $rek->id_rm }}">{{ $rek->id_rm }}</option>
-                                @endforeach
+                                    @foreach ($rekam_medis as $rek)
+                                        <option value="{{ $rek->id_rm }}">{{ $rek->id_rm }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -26,8 +26,8 @@
                                 <select name="id_dokter" id="id_dokter" class="form-control" required>
                                     <option value="">Pilih Dokter</option>
                                     @foreach ($dokter as $d)
-                                    <option value="{{ $d->id_dokter }}">{{ $d->nama_dokter }}</option>
-                                @endforeach
+                                        <option value="{{ $d->id_dokter }}">{{ $d->nama_dokter }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -35,13 +35,14 @@
                                 <select name="id_tipe" id="id_tipe" class="form-control" required>
                                     <option value="">Pilih Tipe Obat</option>
                                     @foreach ($tipe as $t)
-                                    <option value="{{ $t->id_tipe }}">{{ $t->nama_tipe }}</option>
-                                @endforeach
+                                        <option value="{{ $t->id_tipe }}">{{ $t->nama_tipe }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Pembuatan Resep</label>
-                                <input type="date" class="form-control" name="tgl_pembuatan_resep" id="tgl_pembuatan_resep"/>
+                                <input type="date" class="form-control" name="tgl_pembuatan_resep"
+                                    id="tgl_pembuatan_resep" />
                             </div>
                             <div class="form-group">
                                 <label>Status Pengambilan Obat</label>

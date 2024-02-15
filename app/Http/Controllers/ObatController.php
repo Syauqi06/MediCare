@@ -56,8 +56,7 @@ class ObatController extends Controller
             $foto_file->move(public_path('foto'), $foto_obat);
             $data['foto_obat'] = $foto_obat;
         }
-        // $user = Auth::user();
-        // $data['id_user'] = $user->id_user;
+
         if (DB::statement("CALL CreateObat(?,?,?,?)", [$data['nama_obat'], $data['id_tipe'], $data['stock_obat'], $data['foto_obat']])) {
             return redirect('apoteker/data_obat/obat')->with('success', 'Data Obat Baru Berhasil Ditambah');
         }

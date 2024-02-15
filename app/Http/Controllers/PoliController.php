@@ -11,10 +11,13 @@ class PoliController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Poli $poli)
+    public function index()
     {
+        $totalPoli = DB::select('SELECT CountTotalPoli() AS totalPoli')[0]->totalPoli;
+
         $data = [
-            'poli' => $poli->all(),
+            'poli' => DB::table('view_poli')->get(),
+            'jumlahPoli' => $totalPoli
         ];
         return view('poli.index', $data);
     }
@@ -40,11 +43,10 @@ class PoliController extends Controller
             ]
         );
 
-        
-        if ($poli->create($data)) {
+        if (DB::statement("CALL CreatePoli(?)", [$data['jenis_poli']])) {
             return redirect('asisten/daftar/poli')->with('success', 'Data Poli Baru Berhasil Ditambah');
         }
-
+        
         return back()->with('error', 'Data Poli Gagal Ditambahkan');
     }
 
