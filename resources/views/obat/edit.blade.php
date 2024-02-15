@@ -15,12 +15,17 @@
                             <div class="col-md-5">
                                <div class="form-group">
                                     <label>Nama Obat</label>
-                                    <input type="text" class="form-control" name="nama_obat" value="{{ $obat->nama_obat }}" />
+                                    <input type="text" class="form-control @error('nama_obat') is-invalid @enderror" name="nama_obat" value="{{ $obat->nama_obat }}" />
+                                    @error('nama_obat')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                     <input type="hidden" class="form-control" name="id_obat" value="{{ $obat->id_obat }}" />
                                 </div>
                                <div class="form-group">
                                     <label>Tipe Obat</label>
-                                    <select name="id_tipe" class="form-control">
+                                    <select name="id_tipe" class="form-control" required>
                                     @foreach ($tipeObat as $t)
                                             <option value="{{ $t->id_tipe }}"
                                                 {{ $t->id_tipe == $obat->id_tipe ? 'selected' : '' }}>
@@ -29,13 +34,28 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('tipe_obat') 
+                                <div class="invalid-feedback">
+                                    {{$message}}    
+                                </div> 
+                                @enderror
                                <div class="form-group">
                                     <label>Stock Obat</label>
-                                    <input type="number" class="form-control" name="stock_obat" value="{{ $obat->stock_obat }}" />
+                                    <input type="number" class="form-control @error('stock_obat') is-invalid @enderror" name="stock_obat" value="{{ $obat->stock_obat }}"/>
+                                    @error('stock_obat')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                <div class="form-group">
                                     <label>Foto Obat</label>
-                                    <input type="file" class="form-control" name="foto_obat" />
+                                    <input type="file" class="form-control  @error('foto_obat') is-invalid @enderror" name="foto_obat"/>
+                                    @error('foto_obat')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 </div>
                                 @csrf

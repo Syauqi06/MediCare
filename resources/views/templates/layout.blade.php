@@ -2,6 +2,7 @@
 
 <head>
     @vite(['resources/sass/app.scss','resources/js/app.js'])
+    @notifyCss
     <title>@yield('title')</title>
     @yield('header')
 
@@ -11,6 +12,21 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 header {
@@ -197,6 +213,11 @@ svg {
 </head>
 
 <body>
+    <!-- Laravel Notify -->
+    <div class="notify" style="z-index: 999; position: absolute; display: block">
+        @include('notify::components.notify')
+        @notifyJs
+    </div>
     <div id="wrapper" class="toggled">
   <!-- Sidebar -->
   <div id="sidebar-wrapper">

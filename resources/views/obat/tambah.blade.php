@@ -15,25 +15,45 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Nama Obat</label>
-                                    <input type="text" class="form-control" name="nama_obat" />
+                                    <input type="text" class="form-control @error('nama_obat') is-invalid @enderror" value="{{ old('nama_obat')}}" name="nama_obat"/>
+                                    @error('nama_obat')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                     @csrf
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Tipe</label>
-                                    <select name="id_tipe" class="form-control">
+                                    <select name="id_tipe" class="form-control @error('id_tipe') is-invalid @enderror">
                                         @foreach ($tipe as $t)
-                                            <option value="{{ $t->id_tipe }}">{{ $t->nama_tipe }}
+                                            <option value="{{ $t->id_tipe }}" {{old('id_tipe', request('id_tipe')) == $t->id_tipe ? 'selected' : ''}}>{{ $t->nama_tipe }}
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('id_tipe')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Stock Obat</label>
-                                    <input type="text" class="form-control" name="stock_obat" />
+                                    <input type="text" class="form-control @error('stock_obat') is-invalid @enderror" value="{{ old('stock_obat')}}" name="stock_obat" />
+                                    @error('stock_obat')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Foto Obat</label>
-                                    <input type="file" class="form-control" name="foto_obat" />
+                                    <input type="file" class="form-control @error('foto_obat') is-invalid @enderror" value="{{ old('foto_obat')}}" name="foto_obat" />
+                                    @error('foto_obat')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="d-flex col-md-4 mt-3">
                                     <button type="submit" class="btn btn-primary" style="margin-right: 5px;">SIMPAN</button>

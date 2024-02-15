@@ -57,6 +57,11 @@ class AuthController extends Controller
 
                 return redirect($redirectMap[$user->role]);
             }
+            else {
+                return response([
+                    'success' => false
+                ], 401);
+            }
         }
 
         Session::regenerateToken();

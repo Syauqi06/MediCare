@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @notifyCss
     @vite(['resources/sass/app.scss','resources/js/app.js'])
     <title>MEDICARE | Login</title>
     
@@ -37,13 +38,23 @@
                 <h2></h2>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="username">Username</label>
-                    <input type="text" name="username" class="form-control form-control-lg" />
+                    <input type="text" name="username" id="username" value="{{ old('username')}}" placeholder="Masukkan username disini" class="form-control form-control-lg  @error('username') is-invalid @enderror" />
+                    @error('username')
+                      <div class="invalid-feedback">
+                          {{$message}}    
+                      </div>
+                    @enderror
                 </div>
       
                 <!-- Password input -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="password">Password</label>
-                    <input type="password" name="password" class="form-control form-control-lg" />
+                    <input type="password" name="password" id="password" value="{{ old('password')}}" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Ketik password disini" />
+                    @error('password')
+                      <div class="invalid-feedback">
+                          {{$message}}    
+                      </div>
+                    @enderror
                 </div>
       
                 <!-- Submit button -->
@@ -53,5 +64,6 @@
           </div>
         </div>
       </section>
+      
     </body>
 </html>
