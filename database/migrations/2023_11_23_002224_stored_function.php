@@ -45,10 +45,10 @@ return new class extends Migration
         END
         ');
 
-        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalResep');
+        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalResepObat');
 
         DB::unprepared('
-        CREATE FUNCTION CountTotalResep() RETURNS INT
+        CREATE FUNCTION CountTotalResepObat() RETURNS INT
         BEGIN
             DECLARE total INT;
             SELECT COUNT(*) INTO total FROM resep_obat;
@@ -56,10 +56,10 @@ return new class extends Migration
         END
         ');
 
-        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalRekam');
+        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalRekamMedis');
 
         DB::unprepared('
-        CREATE FUNCTION CountTotalRekam() RETURNS INT
+        CREATE FUNCTION CountTotalRekamMedis() RETURNS INT
         BEGIN
             DECLARE total INT;
             SELECT COUNT(*) INTO total FROM rekam_medis;
@@ -78,7 +78,7 @@ return new class extends Migration
         DB::unprepared('DROP FUNCTION IF EXISTS CountTotalObat');
         DB::unprepared('DROP FUNCTION IF EXISTS CountTotalPasien');
         DB::unprepared('DROP FUNCTION IF EXISTS CountTotalPendaftaran');
-        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalRekam');
-        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalResep');
+        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalRekamMedis');
+        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalResepObat');
     }
 };

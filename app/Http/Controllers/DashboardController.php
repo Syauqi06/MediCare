@@ -12,8 +12,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalRekam = DB::select('SELECT CountTotalRekam() AS totalRekam')[0]->totalRekam;
-        $totalResep = DB::select('SELECT CountTotalResep() AS totalResep')[0]->totalResep;
+        $totalRekam = DB::select('SELECT CountTotalRekamMedis() AS totalRekam')[0]->totalRekam;
+        $totalResep = DB::select('SELECT CountTotalResepObat() AS totalResep')[0]->totalResep;
         $totalPendaftaran = DB::select('SELECT CountTotalPendaftaran() AS totalPendaftaran')[0]->totalPendaftaran;
         $totalPasien = DB::select('SELECT CountTotalPasien() AS totalPasien')[0]->totalPasien;
         $data = [
