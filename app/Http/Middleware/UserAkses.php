@@ -20,7 +20,6 @@ class UserAkses
         if($user && $user->role == $allowedRole){
             return $next($request);
         }
-        // abort(403, 'Unauthorized access');
-        return back();
+        return redirect()->to('/');
     }
 }

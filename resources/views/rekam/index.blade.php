@@ -32,10 +32,11 @@
                         </div>
                         <hr>
                         <div class="col-md-4">
+                            @if (Auth::check() && Auth::user()->role == 'asisten')
                             <a href="rekam-tambah">
                                 <button class="btn btn-success">Tambah Data Rekam Medis</button>
                             </a>
-
+                            @endif
                         </div>
                         <p>
                             <hr>
@@ -59,10 +60,14 @@
                                         <td>
                                             <a href="rekam-detail/{{ $rek->id_rm }}"><button
                                                     class="btn btn-info">DETAIL</button></a>
+                                            @if (Auth::check() && Auth::user()->role == 'asisten')
                                             <a href="rekam-edit/{{ $rek->id_rm }}"><button
                                                     class="btn btn-warning">EDIT</button></a>
+                                            @endif
+                                            @if (Auth::check() && Auth::user()->role == 'asisten')
                                             <button class="btn btn-danger btnHapus"
                                                 idRekam="{{ $rek->id_rm }}">HAPUS</button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

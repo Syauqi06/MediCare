@@ -15,10 +15,12 @@ class PendaftaranController extends Controller
      */
     public function index(Pendaftaran $pendaftaran)
     {
+        $totalPendaftaran = DB::select('SELECT CountTotalPendaftaran() AS totalPendaftaran')[0]->totalPendaftaran;
         $data = [
             'pendaftaran' => DB::table('pendaftaran')
             ->join('pasien', 'pendaftaran.id_pasien', '=', 'pasien.id_pasien')
-            ->get()
+            ->get(),
+            'jumlahPendaftaran' => $totalPendaftaran
         ];
 
         return view('pendaftaran.index', $data);
@@ -50,8 +52,8 @@ class PendaftaranController extends Controller
         
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
-        if ($pendaftaran->create($data)) {
-            return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data pendaftaran baru berhasil ditambah');
+        if (DB::statement("CALL CreatePendaftaran(?,?,?,?)", [$data['nama_pasien'], $data['tgl_pendaftaran'], $data['nomor_antrian'], $data['keluhan']])) {
+            return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
         }
 
         return back()->with('error', 'Data pendaftaran gagal ditambahkan');

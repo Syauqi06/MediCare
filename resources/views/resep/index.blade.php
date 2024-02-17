@@ -32,10 +32,11 @@
                         </div>
                         <hr>
                         <div class="col-md-4">
+                            @if (Auth::check() && Auth::user()->role == 'asisten')
                             <a href="resep-tambah">
                                 <button class="btn btn-success">Tambah Data Resep Obat</button>
                             </a>
-
+                            @endif
                         </div>
                         <p>
                             <hr>
@@ -61,8 +62,11 @@
                                         <td class="d-flex">
                                             <a href="resep-detail/{{ $res->id_resep }}"><button
                                                     class="btn btn-info">DETAIL</button></a>
+                                            @if (Auth::check() && Auth::user()->role == 'asisten')
                                             <a href="resep-edit/{{ $res->id_resep }}"><button
                                                     class="btn btn-warning mx-2">EDIT</button></a>
+                                            @endif
+                                            
                                             <button class="btn btn-danger btnHapus"
                                                 idResep="{{ $res->id_resep }}">HAPUS</button>
                                         </td>

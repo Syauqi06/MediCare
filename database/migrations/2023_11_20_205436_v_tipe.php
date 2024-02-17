@@ -33,14 +33,14 @@ return new class extends Migration
         DB::unprepared("
         CREATE VIEW view_pendaftaran AS
         SELECT
-            d.id_pendaftaran AS id_pendaftaran, 
-            d.nama_obat AS nama_obat,
-            d.stock_obat AS stock_obat,
-            d.foto_obat AS foto_obat,
-            t.id_tipe AS id_tipe,
-            t.nama_tipe AS nama_tipe
-        FROM obat d
-        INNER JOIN tipe t ON d.id_tipe = t.id_tipe
+            p.id_pendaftaran AS id_pendaftaran, 
+            p.tgl_pendaftaran AS tgl_pendaftaran,
+            p.nomor_antrian AS nomor_antrian,
+            p.keluhan AS keluhan,
+            t.id_pasien AS id_pasien,
+            t.nama_pasien AS nama_pasien
+        FROM pendaftaran p
+        INNER JOIN pasien t ON p.id_pasien = t.id_pasien
 
         ");
     }

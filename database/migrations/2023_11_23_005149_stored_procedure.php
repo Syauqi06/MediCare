@@ -160,6 +160,37 @@ return new class extends Migration
         END;
     ');
 
+    DB::unprepared('DROP PROCEDURE IF EXISTS CreatePendaftaran');
+
+    DB::unprepared('
+        CREATE PROCEDURE CreatePendaftaran(
+            IN new_id_pendaftaran INT,
+            IN new_id_pasien INT,
+            IN new_tgl_pendaftaran DATE,
+            IN new_nomor_antrian INT,
+            IN new_keluhan TEXT
+        )
+        BEGIN
+            DECLARE pesan_error CHAR(5) DEFAULT "00000";
+
+            BEGIN
+                GET DIAGNOSTICS CONDITION 1 pesan_error = RETURNED_SQLSTATE;
+            END;
+
+            START TRANSACTION;
+            SAVEPOINT satu;
+
+            INSERT INTO resep_obat (id_tipe, id_rm, tgl_pendaftaran, nomor_antrian, keluhan)
+            VALUES (new_id_tipe, new_id_rm, new_tgl_pendaftaran, new_nomor_antrian, new_keluhan);
+
+            IF pesan_error != "00000" THEN
+                ROLLBACK TO satu;
+            END IF;
+
+            COMMIT;
+        END;
+    ');
+
 
     }
 
@@ -168,7 +199,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared('DROP Procedure IF EXISTS CreateObat');
+        DB::unprepared('DROP PROCEDURE IF EXISTS CreatePendaftaran');
+        DB::unprepared('DROP PROCEDURE IF EXISTS CreateObat');
         DB::unprepared('DROP PROCEDURE IF EXISTS CreatePoli');
         DB::unprepared('DROP PROCEDURE IF EXISTS CreateDokter');
         DB::unprepared('DROP PROCEDURE IF EXISTS CreateRekamMedis');
