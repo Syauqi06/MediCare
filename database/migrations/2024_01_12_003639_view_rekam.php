@@ -28,8 +28,8 @@ return new class extends Migration
         FROM resep_obat re
         INNER JOIN rekam_medis r ON re.id_rm = r.id_rm
         INNER JOIN dokter d ON r.id_dokter = d.id_dokter
-        INNER JOIN tipe t ON re.id_tipe = t.id_tipe;
-        ");
+        INNER JOIN tipe t ON re.id_tipe = t.id_tipe
+        ");
     }
 
     /**

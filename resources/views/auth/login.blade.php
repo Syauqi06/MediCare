@@ -37,7 +37,7 @@
                 <h2></h2>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="username">Username</label>
-                    <input type="text" name="username" class="form-control form-control-lg" />
+                    <input type="text" name="username" class="form-control form-control-lg" autocomplete="off"/>
                 </div>
       
                 <!-- Password input -->
