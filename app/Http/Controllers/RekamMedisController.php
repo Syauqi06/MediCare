@@ -25,7 +25,7 @@ class RekamMedisController extends Controller
 
     public function index(RekamMedis $rekam)
     {
-        $totalRekam = DB::select('SELECT CountTotalRekam() AS totalRekam')[0]->totalRekam;
+        $totalRekam = DB::select('SELECT CountTotalRekamMedis() AS totalRekam')[0]->totalRekam;
 
         $data = [
             'rekam_medis' => DB::table('view_rekam_medis')->get(),
@@ -63,7 +63,12 @@ class RekamMedisController extends Controller
             ]
         );
 
-        if (DB::statement("CALL CreateRekamMedis(?,?,?,?)", [$data['id_pasien'], $data['id_dokter'], $data['diagnosa'], $data['tgl_pemeriksaan']])) {
+        if (DB::statement("CALL CreateRekamMedis(?,?,?,?)", 
+            [$data['id_pasien'], 
+            $data['id_dokter'], 
+            $data['diagnosa'], 
+            $data['tgl_pemeriksaan']])) 
+        {
             return redirect('asisten/data-rekam/rekam')->with('success', 'Rekam Medis Baru Berhasil Ditambah');
         }
 

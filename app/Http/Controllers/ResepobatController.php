@@ -28,7 +28,7 @@ class ResepObatController extends Controller
 
      public function index()
      {
-        $totalResep = DB::select('SELECT CountTotalResep() AS totalResep')[0]->totalResep;
+        $totalResep = DB::select('SELECT CountTotalResepObat() AS totalResep')[0]->totalResep;
          $data = [
              'resep_obat' => DB::table('view_resep')->get(),
              'jumlahResep' => $totalResep

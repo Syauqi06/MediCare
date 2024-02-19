@@ -48,7 +48,7 @@
                                 <div class="d-flex mt-3">
                                     <button type="submit" class="btn btn-primary"
                                         style="margin-right: 4px;">SIMPAN</button>
-                                    <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a>
+                                    <a href="#" onclick="window.history.back();" class="btn btn-danger">KEMBALI</a>
                                 </div>
                             </div>
                         </div>
