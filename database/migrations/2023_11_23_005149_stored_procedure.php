@@ -164,7 +164,6 @@ return new class extends Migration
 
     DB::unprepared('
         CREATE PROCEDURE CreatePendaftaran(
-            IN new_id_pendaftaran INT,
             IN new_id_pasien INT,
             IN new_tgl_pendaftaran DATE,
             IN new_nomor_antrian INT,
@@ -180,8 +179,8 @@ return new class extends Migration
             START TRANSACTION;
             SAVEPOINT satu;
 
-            INSERT INTO resep_obat (id_tipe, id_rm, tgl_pendaftaran, nomor_antrian, keluhan)
-            VALUES (new_id_tipe, new_id_rm, new_tgl_pendaftaran, new_nomor_antrian, new_keluhan);
+            INSERT INTO pendaftaran (id_pasien, tgl_pendaftaran, nomor_antrian, keluhan)
+            VALUES (new_id_pasien, new_tgl_pendaftaran, new_nomor_antrian, new_keluhan);
 
             IF pesan_error != "00000" THEN
                 ROLLBACK TO satu;
