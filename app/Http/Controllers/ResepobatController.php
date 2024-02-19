@@ -33,6 +33,8 @@ class ResepObatController extends Controller
              'resep_obat' => DB::table('view_resep')->get(),
              'jumlahResep' => $totalResep
          ];
+
+        //  dd($data);
      
          return view('resep.index', $data);
      }

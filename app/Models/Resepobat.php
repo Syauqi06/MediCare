@@ -23,5 +23,6 @@ class Resepobat extends Model
     {
         return IsiResep::find($this->attributes['id_isi_resep'])->isi_resep;
     }
+    
 
 }
