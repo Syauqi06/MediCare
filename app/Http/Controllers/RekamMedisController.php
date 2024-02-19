@@ -25,7 +25,7 @@ class RekamMedisController extends Controller
 
     public function index(RekamMedis $rekam)
     {
-        $totalRekam = DB::select('SELECT CountTotalRekam() AS totalRekam')[0]->totalRekam;
+        $totalRekam = DB::select('SELECT CountTotalRekamMedis() AS totalRekam')[0]->totalRekam;
 
         $data = [
             'rekam_medis' => DB::table('view_rekam_medis')->get(),
