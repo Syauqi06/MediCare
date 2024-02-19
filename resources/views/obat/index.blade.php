@@ -31,7 +31,7 @@
                                 <tr>
                                     <th>NAMA OBAT</th>
                                     <th>TIPE OBAT</th>
-                                    <th>STOCK OBAT</th>
+                                    <th>JUMLAH STOCK</th>
                                     <th>FOTO OBAT</th>
                                     <th>AKSI</th>
                                 </tr>

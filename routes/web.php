@@ -13,6 +13,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ApotekerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ResepObatController;
@@ -34,9 +35,11 @@ Route::get('/',[AuthController::class,'index']);
 Route::post('/',[AuthController::class,'login']);
 Route::get('logout', [AuthController::class, 'logout']);
 
-
 Route::middleware(['auth'])->group(function () {
     Route::prefix('apoteker')->middleware(['akses:apoteker'])->group(function () {
+    Route::get('/resep', [ResepObatController::class, 'index']);
+    Route::get('/rekam', [RekamMedisController::class, 'index']);
+    Route::get('/dashboard',[DashboardController::class,'index']);
     Route::prefix('data_obat')->group(function () {
     //Tipe Obat  
     Route::get('/tipe', [TipeController::class, 'index']);
@@ -68,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index']);
     //Pendaftarab=n
     Route::prefix('data-pendaftaran')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
@@ -91,6 +95,7 @@ Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function 
 });
 
 Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index']);
     //Poli
     Route::prefix('daftar')->group(function () {
         Route::get('/poli', [PoliController::class, 'index']);
@@ -104,26 +109,31 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
     //Rekam Medis
     Route::prefix('data-rekam')->group(function () {
         Route::get('/rekam', [RekamMedisController::class, 'index']);
+        Route::get('/rekam-detail/{id}', [RekamMedisController::class, 'detail']);
         Route::get('/rekam-tambah', [RekamMedisController::class, 'create']);
         Route::post('/rekam-simpan', [RekamMedisController::class, 'store']);
         Route::get('/rekam-edit/{id}', [RekamMedisController::class, 'edit']);
         Route::post('/rekam-edit/simpan', [RekamMedisController::class, 'update']);
         Route::delete('/rekam-hapus', [RekamMedisController::class, 'destroy']);
+        Route::get('/rekam/cetak', [RekamMedisController::class, 'unduh']);
     });
 
     //Resep Obat
     Route::prefix('data-resep')->group(function () {
         Route::get('/resep', [ResepObatController::class, 'index']);
+        Route::get('/resep-detail/{id}', [ResepObatController::class, 'detail']);
         Route::get('/resep-tambah', [ResepObatController::class, 'create']);
         Route::post('/resep-simpan', [ResepObatController::class, 'store']);
         Route::get('/resep-edit/{id}', [ResepObatController::class, 'edit']);
         Route::post('/resep-edit/simpan', [ResepObatController::class, 'update']);
         Route::delete('/resep-hapus', [ResepObatController::class, 'destroy']);
+        Route::get('/resep/cetak', [ResepObatController::class, 'unduh']);
     });
 
         //Dokter
         Route::prefix('data-dokter')->group(function () {
             Route::get('/dokter', [DokterController::class, 'index']);
+            Route::get('/dokter-detail/{id}', [DokterController::class, 'detail']);
             Route::get('/dokter-tambah', [DokterController::class, 'create']);
             Route::post('/dokter-simpan', [DokterController::class, 'store']);
             Route::get('/dokter-edit/{id}', [DokterController::class, 'edit']);

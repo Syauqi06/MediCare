@@ -19,13 +19,9 @@ class AuthController extends Controller
         }
         $user = Auth::user(['role']);
         $redirectMap = [
-            'apoteker' => 'apoteker/data_obat/obat',
-            'resepsionis' => 'resepsionis/pendaftaran',
-            'asisten' => 'asisten/data-rekam/rekam'
-            // 4 => 'guru-piket/dashboard',
-            // 3 => 'pengurus-kelas/dashboard',
-            // 2 => 'wali-kelas/dashboard',
-            // 1 => 'siswa/dashboard',
+            'apoteker' => 'apoteker/dashboard',
+            'resepsionis' => 'resepsionis/dashboard',
+            'asisten' => 'asisten/dashboard'
         ];
 
         if (isset($redirectMap[$user->role])) {
@@ -52,14 +48,19 @@ class AuthController extends Controller
             $user = Auth::user(['role']);
             Session::regenerateToken();
             $redirectMap = [
-                'apoteker' => 'apoteker/data_obat/obat',
-                'resepsionis' => 'resepsionis/data-pasien/pasien',
-                'asisten' => 'asisten/data-rekam/rekam'
+                'apoteker' => 'apoteker/dashboard',
+                'resepsionis' => 'resepsionis/dashboard',
+                'asisten' => 'asisten/dashboard'
             ];
 
             if (isset($redirectMap[$user->role])) {
 
                 return redirect($redirectMap[$user->role]);
+            }
+            else {
+                return response([
+                    'success' => false
+                ], 401);
             }
         }
 

@@ -1,66 +1,41 @@
 @extends('templates.layout')
-@section('title', 'Data Obat')
-@section('content')
-<style>
-    table{
-        border:1px solid transparent !important;
-    }
-</style>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="">
-                <div class="card-header">
-                    <span class="h1" style="font-weight: bold;">
-                    Detail Data Obat
-                    </span>
-                </div>
-                <hr>
-                <div>
-                <div class="card">
-                    <div class="card-body m-0">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <div class="container">
-                                    @foreach ($obat as $o)
-                                        {{-- @if ($o->foto_obat) --}}
-                                        <div class="photo-container" style="margin-top:-20px">
-                                            <br>
-                                            <img src="{{ url('foto') . '/' . $o->foto_obat }} "style="max-width: 170px; height: auto;" />
-                                         </div>
-                                        {{-- @endif --}}
-                                        <table class="table table-bordered mt-3">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="fw-bolder">Nama Obat</td>
-                                                    <td>: {{$o->nama_obat}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="fw-bolder">Tipe Obat</td>
-                                                    <td>: {{$o->nama_tipe}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="fw-bolder">Stok Obat</td>
-                                                    <td>: {{$o->stock_obat}}</td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        <div class="col-md-4 mt-3">
-                                            <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a>
-                                        </div>
-                                    </div>
-                                    @csrf
-                                </div>
+@section('title', 'Detail Data Obat')
+@section('content')             
+    <div class="container mt-5 align-item-center" style="background-repeat: no-repeat; background-size: cover; background-position: center;">
+      <div class="text-center">
+        @foreach ($obat as $o)
+        <h2 class="text-black"><b>Detail Data {{$o->nama_obat}}</b></h2>
+      </div>
+        <div class="card" style="width: 40rem; margin:auto; border-radius: 2.862254025044723vh; margin-bottom: 14.311270125223613vh; background-color:white;">
+            <div class="card-body">  
+                <main>
+                <div class="box-detail">
+                <div class="box-txt d-flex">
+                    <div class="col-4" style="text-align: center; padding-top: 20px;"> 
+                      @if($o->foto_obat)
+                          <img src="{{ url('foto') . '/' . $o->foto_obat }} "
+                              style="max-width: 100%; max-height:100%; border-radius: 5%;" />
+                      @endif
 
-                            </div>
-                        </div>
+                        <button type="button" class="btn" style="margin-top: 55px;">
+                            <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a></button>   
                     </div>
+                
+                    <div class="col-7" style="width: 25%; margin-left: 50px; margin-top: 3%;" >
+                        <h6 class="text-info" style="color: #4378ff;"><b>Nama</b></h6>
+                            <p class="text-detail text-dark">{{$o->nama_obat}}</p>
+                        <h6 class="text-info" style="color: #4378ff;"><b>Tipe Obat</b></h6>
+                            <p class="text-detail text-dark">{{$o->nama_tipe}}</p>
+                        <h6 class="text-info " style="color: #4378ff;"><b>Jumlah Stock</b></h6>
+                            <p class="text-detail text-dark">{{$o->stock_obat}}</p>
+                    </div>
+                    @endforeach
                 </div>
-                <div class="card-footer"> 
                 </div>
+                </main>
+                   
             </div>
         </div>
-        <br>
     </div>
+      </div> 
 @endsection

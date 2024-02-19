@@ -14,19 +14,20 @@ class DokterController extends Controller
     protected $userModel;
     public function __construct()
     {
-        $this->userModel = new Dokter;    
+        $this->userModel = new Dokter;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index(Dokter $dokter)
+    public function index()
     {
-    $data = [
-        'dokter' => DB::table('dokter')
-        ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
-        ->get()
-    ];
-    return view ('dokter.index', $data);
+        $totalDokter = DB::select('SELECT CountTotalDokter() AS totalDokter')[0]->totalDokter;
+        $data = [
+            'dokter' => DB::table('view_dokter')->get(),
+            'jumlahDokter' => $totalDokter
+        ];
+        
+        return view('dokter.index', $data);
     }
 
     /**
@@ -47,7 +48,7 @@ class DokterController extends Controller
      */
     public function store(Request $request, Dokter $dokter)
     {
-          
+
         // data dari form di view yang dikumpulkan berbentuk array akan di filter sesuai validasi yang ditentukan
         $data = $request->validate(
             [
@@ -56,25 +57,36 @@ class DokterController extends Controller
                 'no_telp' => 'required',
                 'foto_dokter' => 'sometimes',
             ]
-            );
+        );
 
-            if ($request->hasFile('foto_dokter') && $request->file('foto_dokter')->isValid()) {
-                $foto_file = $request->file('foto_dokter');
-                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
-                $foto_file->move(public_path('foto'), $foto_nama);
-                $data['foto_dokter'] = $foto_nama;
-            }
-
-            if(Dokter::create($data))
-            {
-                return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
-            }else
-            {
-                return back()->with("error","Data Dokter Gagal Ditambahkan");
-            }
+        if ($request->hasFile('foto_dokter') && $request->file('foto_dokter')->isValid()) {
+            $foto_file = $request->file('foto_dokter');
+            $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
+            $foto_file->move(public_path('foto'), $foto_nama);
+            $data['foto_dokter'] = $foto_nama;
         }
 
-    
+
+        if (DB::statement("CALL CreateDokter(?,?,?,?)", [$data['nama_dokter'], $data['id_poli'], $data['no_telp'], $data['foto_dokter']])) {
+            return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
+        }
+
+        return back()->with('error', 'Data Dokter gagal ditambahkan');
+
+    }
+
+    public function detail(string $id, Dokter $dokter)
+    {
+        $dokter = Dokter::where('id_dokter', $id)
+            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
+            ->first();
+
+        return view('dokter.detail', [
+            'dokter' => $dokter,
+        ]);
+    }
+
+
     /**
      * Display the specified resource.
      */
@@ -121,12 +133,12 @@ class DokterController extends Controller
             'foto_dokter' => 'sometimes',
         ]);
 
-        if ($id_dokter !==null){
-            if ($request->hasFile('foto_dokter')){
+        if ($id_dokter !== null) {
+            if ($request->hasFile('foto_dokter')) {
                 $foto_file = $request->file('foto_dokter');
                 $foto_extension = $foto_file->getClientOriginalExtension();
-                $foto_nama= md5($foto_file->getClientOriginalName() . time()) . ' .' . $foto_extension;
-                $foto_file->move(public_path('foto'), $foto_nama);            
+                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . ' .' . $foto_extension;
+                $foto_file->move(public_path('foto'), $foto_nama);
 
                 $update_data = $dokter->where('id_dokter', $id_dokter)->first();
                 File::delete(public_path('foto') . '/' . $update_data->file);
@@ -136,7 +148,7 @@ class DokterController extends Controller
 
             $dataUpdate = $dokter->where('id_dokter', $id_dokter)->update($data);
 
-            if($dataUpdate) {
+            if ($dataUpdate) {
                 return redirect('asisten/data-dokter/dokter')->with('success', 'Data berhasil diupdate');
             }
         }
@@ -154,20 +166,17 @@ class DokterController extends Controller
     {
         $id_dokter = $request->input('id_dokter');
         $aksi = $dokter->where('id_dokter', $id_dokter)->delete();
-            if($aksi)
-            {
-                $pesan = [
-                    'success' => true,
-                    'pesan'   => 'Pendaftaran Dokter berhasil dihapus'
-                ];
-            }else
-            {
-                $pesan = [
-                    'success' => false,
-                    'pesan'   => 'Pendaftaran Dokter gagal dihapus'
-                ];
-            }
-            return response()->json($pesan);
-
+        if ($aksi) {
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Pendaftaran Dokter berhasil dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Pendaftaran Dokter gagal dihapus'
+            ];
+        }
+        return response()->json($pesan);
     }
 }

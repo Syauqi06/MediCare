@@ -8,11 +8,16 @@ use App\Models\Tipe;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\File;
 
 class ObatController extends Controller
 {
+    protected $TipeModel;
+    public function __construct()
+    {
+        $this->TipeModel = new Tipe;   
+    }
     /**
      * Display a listing of the resource.
      */
@@ -56,8 +61,7 @@ class ObatController extends Controller
             $foto_file->move(public_path('foto'), $foto_obat);
             $data['foto_obat'] = $foto_obat;
         }
-        // $user = Auth::user();
-        // $data['id_user'] = $user->id_user;
+
         if (DB::statement("CALL CreateObat(?,?,?,?)", [$data['nama_obat'], $data['id_tipe'], $data['stock_obat'], $data['foto_obat']])) {
             return redirect('apoteker/data_obat/obat')->with('success', 'Data Obat Baru Berhasil Ditambah');
         }
@@ -103,9 +107,9 @@ class ObatController extends Controller
         $id_obat = $request->input('id_obat');
 
         $data = $request->validate([
-            'nama_obat' => 'sometimes',
-            'id_tipe' => 'sometimes',
-            'stock_obat' => 'sometimes',
+            'nama_obat' => 'required',
+            'id_tipe' => 'required',
+            'stock_obat' => 'required',
             'foto_obat' => 'sometimes|file',
         ]);
 
@@ -132,13 +136,13 @@ class ObatController extends Controller
                     dd($e->getMessage());
                 }
 
-            // $dataUpdate = $obat->where('id_obat', $id_obat)->update($data);
 
-            // if ($dataUpdate) {
-            //     return redirect('data_obat/obat')->with('success', 'Data obat berhasil diupdate');
-            // }
-
-            // return back()->with('error', 'Data obat gagal diupdate');
+            if ($dataUpdate) {
+                return redirect('apoteker/data_obat/obat')->with('success', 'Data obat berhasil diupdate');
+            }
+            else{
+                return back()->with('error', 'Data obat gagal diupdate');
+            }
         }
     }
 
