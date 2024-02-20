@@ -186,6 +186,6 @@ class RekamMedisController extends Controller
             ->get();
 
         $pdf = PDF::loadView('rekam.cetak', ['rekam' => $rekamData]);
-        return $pdf->download('rekam-medis.pdf');
+        return $pdf->stream('rekam-medis.pdf');
     }
 }

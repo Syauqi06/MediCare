@@ -218,6 +218,6 @@ class ResepObatController extends Controller
             ->get();
             
         $pdf = PDF::loadView('resep.cetak', ['resep' => $resepObat]);
-        return $pdf->download('resep-obat.pdf');
+        return $pdf->stream('resep-obat.pdf');
     }
 }

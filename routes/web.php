@@ -139,6 +139,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
             Route::get('/dokter-edit/{id}', [DokterController::class, 'edit']);
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
+            Route::get('/dokter/cetak', [DokterController::class, 'unduh']);
         });
     });
         Route::prefix('history')->group(function () {

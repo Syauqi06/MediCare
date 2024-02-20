@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Dokter;
 use App\Models\Poli;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -178,5 +179,15 @@ class DokterController extends Controller
             ];
         }
         return response()->json($pesan);
+    }
+
+    public function unduh(Dokter $dokter)
+    {
+        $dokter = $dokter
+            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
+            ->get();
+
+        $pdf = PDF::loadView('dokter.cetak', ['dokter' => $dokter]);
+        return $pdf->stream('dokter.pdf');
     }
 }

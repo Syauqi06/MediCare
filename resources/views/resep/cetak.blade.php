@@ -13,6 +13,7 @@
 
 <body>
     <div class="container">
+        <h3 style="text-align: center">Data Resep Obat</h3>
         <div class="row">
             <table class="table table-striped mt-5">
                 <thead>
