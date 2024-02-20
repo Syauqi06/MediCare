@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/resep', [ResepObatController::class, 'index']);
     Route::get('/rekam', [RekamMedisController::class, 'index']);
     Route::get('/dashboard',[DashboardController::class,'index']);
+    Route::get('/resep-detail/{id}', [ResepObatController::class, 'detail']);
+    Route::get('/rekam-detail/{id}', [RekamMedisController::class, 'detail']);
     Route::prefix('data_obat')->group(function () {
     //Tipe Obat  
     Route::get('/tipe', [TipeController::class, 'index']);

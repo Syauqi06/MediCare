@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Obat;
 use App\Models\Tipe;
+use Dompdf\Options;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class ObatController extends Controller
         ]);
         if ($request->hasFile('foto_obat')) {
             $foto_file = $request->file('foto_obat');
-            $foto_obat = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
+            $foto_obat = base64_encode($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
             $foto_file->move(public_path('foto'), $foto_obat);
             $data['foto_obat'] = $foto_obat;
         }
@@ -117,7 +118,7 @@ class ObatController extends Controller
             if ($request->hasFile('foto_obat')) {
                 $foto_file = $request->file('foto_obat');
                 $foto_extension = $foto_file->getClientOriginalExtension();
-                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
+                $foto_nama = base64_encode($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
                 $foto_file->move(public_path('foto'), $foto_nama);
 
                 $update_data = $obat->where('id_obat', $id_obat)->first();
@@ -168,9 +169,30 @@ class ObatController extends Controller
     }
     public function unduh(Obat $obat)
     {
-        $obat = $obat
-            ->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
-        $pdf = PDF::loadView('obat.cetak', ['obat' => $obat]);
-        return $pdf->download('data-obat.pdf');
+                   
+    
+        // Membaca file gambar dan mengonversi ke base64
+        $data = $obat->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
+        // $imagePath = public_path('img/logo.PNG');
+        // $base64Image = base64_encode(File::get($imagePath)); 
+        // $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('obat.cetak', ['obat' => $obat, 'base64Image' => $base64Image ]);
+
+        // return $pdf->stream('data-obat.pdf');
+        $imageDataArray = [];
+
+        foreach ($data as $obat) {
+            if ($obat->file) {
+                $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $obat->file));
+                $imageSrc = 'data:image/' . pathinfo($obat->file, PATHINFO_EXTENSION) . ';base64,' . $imageData;
+
+                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
+            }
+        }
+
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true
+        ])->loadView('obat.cetak', ['obat' => $data, 'imageDataArray' => $imageDataArray]);
+        return $pdf->stream('data-obat.pdf');
     }
 }

@@ -11,6 +11,7 @@
   <body>
     <div class="container">
         <div class="row">
+          <h3 style="text-align: center">Data Obat</h3>
             <table class="table table-striped mt-5">
             <thead>
             <tr>
@@ -18,6 +19,7 @@
                 <th>Nama Obat</th>
                 <th>Nama Tipe</th>
                 <th>Stock Obat</th>
+                <th>Foto Obat</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,13 @@
                 <td>{{ $p->nama_obat }}</td>
                 <td>{{ $p->nama_tipe }}</td>
                 <td>{{ $p->stock_obat }}</td>
+                <td>
+                  @if (!empty($imageDataArray[$loop->index]))
+                      <img src="{{ $imageDataArray[$loop->index]['src'] }}"
+                          alt="{{ $imageDataArray[$loop->index]['alt'] }}"
+                          style="max-width: 250px; height: auto;" />
+                  @endif
+              </td>
             </tr>
             @endforeach
         </tbody>
