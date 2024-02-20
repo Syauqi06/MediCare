@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_poli',false);
             $table->string('nama_dokter')->nullable(false);
             $table->text('foto_dokter')->nullable(false);
-            $table->integer('no_telp')->nullable(false);
+            $table->bigInteger('no_telp')->nullable(false);
 
             $table->foreign('id_poli')->on('poli')->references('id_poli')->onDelete('cascade')->onUpdate('cascade');
 

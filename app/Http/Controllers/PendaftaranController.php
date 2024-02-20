@@ -44,15 +44,19 @@ class PendaftaranController extends Controller
     public function store(Request $request,Pendaftaran $pendaftaran)
     {
         $data = $request->validate([
-            'tgl_pendaftaran' => 'required',
             'id_pasien' => 'required',
+            'tgl_pendaftaran' => 'required',
             'nomor_antrian' => 'required',
             'keluhan' => 'required',
         ]);
         
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
-        if (DB::statement("CALL CreatePendaftaran(?,?,?,?)", [$data['nama_pasien'], $data['tgl_pendaftaran'], $data['nomor_antrian'], $data['keluhan']])) {
+        if (DB::statement("CALL CreatePendaftaran(?,?,?,?)",
+        [$data['id_pasien'],
+         $data['tgl_pendaftaran'], 
+         $data['nomor_antrian'], 
+         $data['keluhan']])) {
             return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
         }
 

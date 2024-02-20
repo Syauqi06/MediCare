@@ -12,6 +12,7 @@
                 <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
+                            <input type="text" class="form-control" name="id_dokter" value="{{ $dokter->id_dokter }}" hidden/>
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Nama Dokter</label>

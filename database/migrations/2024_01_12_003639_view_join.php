@@ -27,9 +27,9 @@ return new class extends Migration
             t.id_tipe AS id_tipe,
             t.nama_tipe AS nama_tipe
         FROM resep_obat re
-        INNER JOIN rekam_medis r ON re.id_rm = r.id_rm
-        INNER JOIN dokter d ON r.id_dokter = d.id_dokter
-        INNER JOIN tipe t ON re.id_tipe = t.id_tipe;
+        JOIN rekam_medis r ON re.id_rm = r.id_rm
+        JOIN dokter d ON re.id_dokter = d.id_dokter
+        JOIN tipe t ON re.id_tipe = t.id_tipe;
         ");
 
         DB::unprepared("DROP VIEW IF EXISTS view_dokter");

@@ -87,9 +87,10 @@ Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function 
     Route::get('/pasien/tambah', [PasienController::class, 'create']);
     Route::post('/pasien/simpan', [PasienController::class, 'store']);
     Route::get('/pasien/edit/{id}', [PasienController::class, 'edit']);
-    Route::get('/pasien/detail/{id}', [PasienController::class, 'detail']);
+    Route::get('/pasien/detail/{id}', [PasienController::class, 'show']);
     Route::post('/pasien/edit/simpan', [PasienController::class, 'update']);
     Route::delete('/pasien/hapus', [PasienController::class, 'destroy']);
+    Route::get('/pasien/cetak', [PasienController::class, 'unduh']);
     });
 });
 
@@ -138,6 +139,7 @@ Route::prefix('asisten')->middleware(['akses:asisten'])->group(function () {
             Route::get('/dokter-edit/{id}', [DokterController::class, 'edit']);
             Route::post('/dokter-edit/simpan', [DokterController::class, 'update']);
             Route::delete('/dokter-hapus', [DokterController::class, 'destroy']);
+            Route::get('/dokter/cetak', [DokterController::class, 'unduh']);
         });
     });
         Route::prefix('history')->group(function () {

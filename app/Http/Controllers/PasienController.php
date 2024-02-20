@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use App\Models\Akun;
 use App\Models\Pasien;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -135,7 +136,23 @@ class PasienController extends Controller
         return back()->with('error', 'Data Gagal diupdate');
     }
 
+    public function show(Pasien $pasien, Request $request)
 
+    {
+        $pasien = Pasien::where('id_pasien', $request->id)
+            ->select('pasien.id_pasien', 'pasien.nama_pasien', 'pasien.jenis_kelamin', 'pasien.alamat', 'pasien.no_telp', 'pasien.no_bpjs', 'pasien.tgl_lahir', 'pasien.foto_profil')
+            ->first();
+
+        if (!$pasien) {
+            // Handle the case where patient data is not found
+            // For example, you can return a response or redirect back with an error message
+            return redirect()->back()->with('error', 'Patient data not found.');
+        }
+
+        
+    
+        return view('pasien.detail', compact('pasien'));
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -160,5 +177,13 @@ class PasienController extends Controller
             }
             return response()->json($pesan);
 
+    }
+
+    public function unduh(Pasien $pasien)
+    {
+        $pasien = $pasien->all();
+        
+        $pdf = PDF::loadView('pasien.cetak', ['pasien' => $pasien]);
+        return $pdf->download('data-pasien.pdf');
     }
 }

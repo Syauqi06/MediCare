@@ -13,26 +13,24 @@
 
 <body>
     <div class="container">
-        <h3 style="text-align: center">Data Rekam Medis</h3>
+        <h3 style="text-align: center">Data Dokter</h3>
         <div class="row">
             <table class="table table-striped mt-5">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pasien</th>
                         <th>Nama Dokter</th>
-                        <th>Diagnosa</th>
-                        <th>Tanggal Pemeriksaan</th>
+                        <th>Nama Poli</th>
+                        <th>No Telp</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($rekam as $r)
+                    @foreach ($dokter as $d)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $r->nama_pasien }}</td>
-                            <td>{{ $r->nama_dokter }}</td>
-                            <td>{{ $r->diagnosa }}</td>
-                            <td>{{ $r->tgl_pemeriksaan }}</td>
+                            <td>{{ $d->nama_dokter }}</td>
+                            <td>{{ $d->jenis_poli }}</td>
+                            <td>{{ $d->no_telp }}</td>
                         </tr>
                     @endforeach
                 </tbody>

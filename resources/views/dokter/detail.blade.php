@@ -47,7 +47,7 @@
 
                                     <div class="col-md-4 mt-3">
                                         <a href="#" onclick="window.history.back();"
-                                            class="btn btn-success">KEMBALI</a>
+                                            class="btn btn-danger">KEMBALI</a>
                                     </div>
                                 </div>
                             </div>
