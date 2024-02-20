@@ -22,6 +22,7 @@
                         <th>Nama Dokter</th>
                         <th>Nama Poli</th>
                         <th>No Telp</th>
+                        <th>Foto Dokter</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,13 @@
                             <td>{{ $d->nama_dokter }}</td>
                             <td>{{ $d->jenis_poli }}</td>
                             <td>{{ $d->no_telp }}</td>
+                            <td>
+                                @if (!empty($imageDataArray[$loop->index]))
+                                    <img src="{{ $imageDataArray[$loop->index]['src'] }}"
+                                        alt="{{ $imageDataArray[$loop->index]['alt'] }}"
+                                        style="max-width: 250px; height: auto;" />
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

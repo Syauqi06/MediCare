@@ -62,7 +62,7 @@ class DokterController extends Controller
 
         if ($request->hasFile('foto_dokter') && $request->file('foto_dokter')->isValid()) {
             $foto_file = $request->file('foto_dokter');
-            $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
+            $foto_nama = base64_encode($foto_file->getClientOriginalName() . time()) . '.' . $foto_file->getClientOriginalExtension();
             $foto_file->move(public_path('foto'), $foto_nama);
             $data['foto_dokter'] = $foto_nama;
         }
@@ -138,7 +138,7 @@ class DokterController extends Controller
             if ($request->hasFile('foto_dokter')) {
                 $foto_file = $request->file('foto_dokter');
                 $foto_extension = $foto_file->getClientOriginalExtension();
-                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . ' .' . $foto_extension;
+                $foto_nama = base64_encode($foto_file->getClientOriginalName() . time()) . ' .' . $foto_extension;
                 $foto_file->move(public_path('foto'), $foto_nama);
 
                 $update_data = $dokter->where('id_dokter', $id_dokter)->first();
@@ -183,11 +183,24 @@ class DokterController extends Controller
 
     public function unduh(Dokter $dokter)
     {
+        $imageDataArray = [];
         $dokter = $dokter
             ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
             ->get();
 
-        $pdf = PDF::loadView('dokter.cetak', ['dokter' => $dokter]);
+        foreach ($dokter as $data) {
+            if ($data->foto_dokter) {
+                $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_dokter));
+                $imageSrc = 'data:image/' . pathinfo($data->foto_dokter, PATHINFO_EXTENSION) . ';base64,' . $imageData;
+
+                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
+            }
+        }
+
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true
+        ])->loadView('dokter.cetak', ['dokter' => $dokter, 'imageDataArray' => $imageDataArray]);
         return $pdf->stream('dokter.pdf');
     }
 }
