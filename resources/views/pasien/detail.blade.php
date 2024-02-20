@@ -35,23 +35,23 @@
                                         <table class="table table-bordered mt-3">
                                             <tbody>
                                                 <tr>
-                                                    <td class="fw-bolder">Nama pasien</td>
+                                                    <td class="fw-bolder">Nama Pasien</td>
                                                     <td>: {{ $pasien->nama_pasien }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="fw-bolder">jenis_kelamin</td>
+                                                    <td class="fw-bolder">Jenis Kelamin</td>
                                                     <td>: {{ $pasien->jenis_kelamin }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="fw-bolder">tgl_lahir</td>
+                                                    <td class="fw-bolder">Tanggal Lahir</td>
                                                     <td>: {{ $pasien->tgl_lahir }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="fw-bolder">alamat</td>
+                                                    <td class="fw-bolder">Alamat</td>
                                                     <td>: {{ $pasien->alamat }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="fw-bolder">no telp</td>
+                                                    <td class="fw-bolder">No Telepon</td>
                                                     <td>: {{ $pasien->no_telp }}</td>
                                                 </tr>
                                                 <tr>

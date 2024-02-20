@@ -31,7 +31,7 @@ input[type=number] {
 
 header {
     background-color: #b9d1f6;
-    color: #fff;
+    color: black;
     padding: 10px;
     text-align: center;
     display: flex;
@@ -131,12 +131,12 @@ letter-spacing: 1px;
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #fff;
+    color: black;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #fff;
+    color: black;
     background: rgba(255,255,255,0.2);
 }
 
@@ -147,13 +147,13 @@ letter-spacing: 1px;
 
 .nav-link {
     text-decoration: none;
-    color: #ffffff;
+    color: black;
     display: flex;
     align-items: center;
 }
 
 svg {
-    fill: #ffffff;
+    fill: black;
     margin-right: 10px;
 }
 
@@ -170,7 +170,7 @@ svg {
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -235,7 +235,7 @@ svg {
                 <a class="nav-link" href="{{ url('apoteker/data_obat/tipe') }}"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 32C0 14.3 14.3 0 32 0H352c17.7 0 32 14.3 32 32V64c0 17.7-14.3 32-32 32H32C14.3 96 0 81.7 0 64V32zm32 96H352V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zM160 240v48H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h48v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V352h48c8.8 0 16-7.2 16-16V304c0-8.8-7.2-16-16-16H224V240c0-8.8-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z"/></svg>Tipe Obat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('apoteker/data_obat/obat') }}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M112 96c-26.5 0-48 21.5-48 48V256h96V144c0-26.5-21.5-48-48-48zM0 144C0 82.1 50.1 32 112 32s112 50.1 112 112V368c0 61.9-50.1 112-112 112S0 429.9 0 368V144zM554.9 399.4c-7.1 12.3-23.7 13.1-33.8 3.1L333.5 214.9c-10-10-9.3-26.7 3.1-33.8C360 167.7 387.1 160 416 160c88.4 0 160 71.6 160 160c0 28.9-7.7 56-21.1 79.4zm-59.5 59.5C472 472.3 444.9 480 416 480c-88.4 0-160-71.6-160-160c0-28.9 7.7-56 21.1-79.4c7.1-12.3 23.7-13.1 33.8-3.1L498.5 425.1c10 10 9.3 26.7-3.1 33.8z"/></svg>Obat</a>
+                <a class="nav-link" href="{{ url('apoteker/data_obat/obat') }}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:black}</style><path d="M112 96c-26.5 0-48 21.5-48 48V256h96V144c0-26.5-21.5-48-48-48zM0 144C0 82.1 50.1 32 112 32s112 50.1 112 112V368c0 61.9-50.1 112-112 112S0 429.9 0 368V144zM554.9 399.4c-7.1 12.3-23.7 13.1-33.8 3.1L333.5 214.9c-10-10-9.3-26.7 3.1-33.8C360 167.7 387.1 160 416 160c88.4 0 160 71.6 160 160c0 28.9-7.7 56-21.1 79.4zm-59.5 59.5C472 472.3 444.9 480 416 480c-88.4 0-160-71.6-160-160c0-28.9 7.7-56 21.1-79.4c7.1-12.3 23.7-13.1 33.8-3.1L498.5 425.1c10 10 9.3 26.7-3.1 33.8z"/></svg>Obat</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('apoteker/resep') }}"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8V488c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488V24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16H288c8.8 0 16-7.2 16-16s-7.2-16-16-16H96zM80 352c0 8.8 7.2 16 16 16H288c8.8 0 16-7.2 16-16s-7.2-16-16-16H96c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16H288c8.8 0 16-7.2 16-16s-7.2-16-16-16H96z"/></svg>Resep Obat</a>
@@ -289,12 +289,12 @@ svg {
         <nav class="navbar">
             <ul class="nav-list">
                 <li class="nav-item" style="padding-top: 15px">
-                    <a class="btn" style="color:white;" href="{{ url('/history/logs') }}">Log Activity</a>
+                    <a class="btn" style="color:black;" href="{{ url('/history/logs') }}">Log Activity</a>
                 </li>
             </ul>
             <ul class="nav-list">
                 <li class="nav-item" style="padding-top: 15px">
-                    <a class="btn" style="color:white;" href="{{ url('/logout') }}">Logout</a>
+                    <a class="btn" style="color:black;" href="{{ url('/logout') }}">Logout</a>
                 </li>
             </ul>
         </nav>

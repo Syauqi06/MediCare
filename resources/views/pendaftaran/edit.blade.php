@@ -1,18 +1,17 @@
 @extends('templates.layout')
-@section('title', 'Edit Masuk Obat ')
+@section('title', 'Edit Data Pendaftaran ')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <span class="h1">
-                        Edit Data Masuk Obat
+                        Edit Data Pendaftaran
                     </span>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="simpan" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Nama Pendaftar</label>
                                     <select name="id_pasien" class="form-control">

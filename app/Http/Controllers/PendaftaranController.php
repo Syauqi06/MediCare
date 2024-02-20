@@ -52,7 +52,11 @@ class PendaftaranController extends Controller
         
         // $user = Auth::user();
         // $data['id_user'] = $user->id_user;
-        if (DB::statement("CALL CreatePendaftaran(?,?,?,?)", [$data['id_pasien'], $data['tgl_pendaftaran'], $data['nomor_antrian'], $data['keluhan']])) {
+        if (DB::statement("CALL CreatePendaftaran(?,?,?,?)",
+        [$data['id_pasien'],
+         $data['tgl_pendaftaran'], 
+         $data['nomor_antrian'], 
+         $data['keluhan']])) {
             return redirect('resepsionis/data-pendaftaran/pendaftaran')->with('success', 'Data Pendaftaran Baru Berhasil Ditambah');
         }
 
