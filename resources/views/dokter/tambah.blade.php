@@ -32,7 +32,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Foto Dokter</label>
-                                    <input type="file" class="form-control" name="foto_dokter" />
+                                    <br>
+                                    <img id="pic" height="100px" class="my-2" alt="Preview Image">
+                                    <input type="file" class="form-control" name="foto_dokter" 
+                                    oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                 </div>
                                 @csrf
                                 <div class="d-flex mt-3">
