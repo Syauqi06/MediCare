@@ -44,7 +44,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Foto Profil</label>
-                                    <input type="file" class="form-control" name="foto_profil" />
+                                    <br>
+                                    <img id="pic" height="200px" class="mb-2" alt="Preview Image" />
+                                    <input type="file" class="form-control" name="foto_profil" oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                 </div>
                     </div>
                                 @csrf

@@ -170,20 +170,12 @@ class ObatController extends Controller
     public function unduh(Obat $obat)
     {
                    
-    
-        // Membaca file gambar dan mengonversi ke base64
-        $data = $obat->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
-        // $imagePath = public_path('img/logo.PNG');
-        // $base64Image = base64_encode(File::get($imagePath)); 
-        // $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('obat.cetak', ['obat' => $obat, 'base64Image' => $base64Image ]);
-
-        // return $pdf->stream('data-obat.pdf');
         $imageDataArray = [];
-
-        foreach ($data as $obat) {
-            if ($obat->file) {
-                $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $obat->file));
-                $imageSrc = 'data:image/' . pathinfo($obat->file, PATHINFO_EXTENSION) . ';base64,' . $imageData;
+        $obat = $obat->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
+        foreach ($obat as $data) {
+            if ($data->foto_obat) {
+                $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_obat));
+                $imageSrc = 'data:image/' . pathinfo($data->foto_obat, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
                 $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
             }
@@ -192,7 +184,7 @@ class ObatController extends Controller
         $pdf = PDF::setOptions([
             'isHtml5ParserEnabled' => true,
             'isRemoteEnabled' => true
-        ])->loadView('obat.cetak', ['obat' => $data, 'imageDataArray' => $imageDataArray]);
+        ])->loadView('obat.cetak', ['obat' => $obat, 'imageDataArray' => $imageDataArray]);
         return $pdf->stream('data-obat.pdf');
     }
 }
