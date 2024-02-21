@@ -14,6 +14,7 @@
                         <div class="row">
                             <div class="col-md-5">
                                <div class="form-group">
+                               
                                     <label>Nama Obat</label>
                                     <input type="text" class="form-control @error('nama_obat') is-invalid @enderror" name="nama_obat" value="{{ $obat->nama_obat }}" />
                                     @error('nama_obat')
@@ -50,7 +51,9 @@
                                 </div>
                                <div class="form-group">
                                     <label>Foto Obat</label>
-                                    <input type="file" class="form-control  @error('foto_obat') is-invalid @enderror" name="foto_obat"/>
+                                    <br>
+                                    <img id="pic" height="200px" class="mb-2" alt="Preview Image" />
+                                    <input type="file" class="form-control  @error('foto_obat') is-invalid @enderror" name="foto_obat" value="{{ $obat->foto_obat }}" oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                     @error('foto_obat')
                                         <div class="invalid-feedback">
                                             {{$message}}

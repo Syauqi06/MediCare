@@ -40,10 +40,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Foto Profil</label>
-                                    <input type="file" class="form-control" name="foto_profil" />
+                                    <br>
+                                    <img id="pic" height="200px" class="mb-2" alt="Preview Image" />
+                                    <input type="file" class="form-control" name="foto_profil" value="{{ $pasien->foto_pasien }}" oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" class="form-control" name="id_pasien" value="{{ $pasien->id_pasien }}"/>
+                                    <input type="hidden" class="form-control" name="id_pasien" value="{{ $pasien->id_pasien }}" />
                                 </div>
                                 </div>
                                 @csrf
