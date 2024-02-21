@@ -8,7 +8,7 @@
 </style>
     <div class="row">
         <div class="col-md-12">
-            <div class="">
+            <div class="card">
                 <div class="card-header">
                     <span class="h1" style="font-weight: bold;">
                     Detail Data pasien
@@ -16,7 +16,7 @@
                 </div>
                 <hr>
                 <div>
-                <div class="card">
+                <div class="">
                     <div class="card-body m-0">
                         <div class="row">
                             <div class="col-md-5">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer"> 
+                <div class=""> 
                 </div>
             </div>
         </div>

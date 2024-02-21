@@ -181,9 +181,23 @@ class PasienController extends Controller
 
     public function unduh(Pasien $pasien)
     {
-        $pasien = $pasien->all();
+        $data = $pasien->all();
+        $imageDataArray = [];
+
+        foreach ($data as $pasien) {
+            if ($pasien->foto_profil) {
+                $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $pasien->foto_profil));
+                $imageSrc = 'data:image/' . pathinfo($pasien->foto_profil, PATHINFO_EXTENSION) . ';base64,' . $imageData;
+
+                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
+            }
+        }
+
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true
+        ])->loadView('pasien.cetak', ['pasien' => $data, 'imageDataArray' => $imageDataArray]);
         
-        $pdf = PDF::loadView('pasien.cetak', ['pasien' => $pasien]);
-        return $pdf->download('data-pasien.pdf');
+        return $pdf->stream('data-pasien.pdf');
     }
 }

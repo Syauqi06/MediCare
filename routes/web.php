@@ -80,6 +80,7 @@ Route::prefix('resepsionis')->middleware(['akses:resepsionis'])->group(function 
     Route::get('/pendaftaran/edit/{id}', [PendaftaranController::class, 'edit']);
     Route::post('/pendaftaran/edit/simpan', [PendaftaranController::class, 'update']);
     Route::delete('/pendaftaran/hapus', [PendaftaranController::class, 'destroy']);
+    Route::get('/pendaftaran/cetak', [PendaftaranController::class, 'unduh']);
 });
     //Pasien
     Route::prefix('data-pasien')->group(function () {

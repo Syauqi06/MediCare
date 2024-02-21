@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Pendaftaran;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class PendaftaranController extends Controller
@@ -132,5 +133,12 @@ class PendaftaranController extends Controller
         }
 
         return response()->json($pesan);
+    }
+        public function unduh(pendaftaran $pendaftaran)
+    {
+        $Pendaftaran = $pendaftaran->join('pasien', 'pendaftaran.id_pasien','=','pasien.id_pasien')->get(); 
+        
+        $pdf = PDF::loadView('pendaftaran.cetak', ['pendaftaran' => $Pendaftaran]);
+        return $pdf->stream('data-pendaftaran.pdf');
     }
 }

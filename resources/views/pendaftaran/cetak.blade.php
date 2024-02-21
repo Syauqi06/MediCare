@@ -9,39 +9,27 @@
     <title>Cetak Data</title>
   </head>
   <body>
-    <div class="container" style="margin-right:300px">
-      <h3 style="text-align: center">Data Pasien</h3>
+    <div class="container">
+      <h3 style="text-align: center">Data Pendaftaran</h3>
         <div class="row">
-            <table class="table table-striped mr-5">
+            <table class="table table-striped mt-5">
             <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Pasien</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal lahir</th>
-                <th>alamat</th>
-                <th>No telpon</th>
-                <th>No bpjs</th>
-                <th>foto profil</th>
+                <th>tanggal Pendaftaran</th>
+                <th>Nomor Antrian</th>
+                <th>Keluhan</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($pasien as $p)
+            @foreach ($pendaftaran as $p)
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$p->nama_pasien }}</td>
-                <td>{{$p->jenis_kelamin }}</td>
-                <td>{{$p->tgl_lahir }}</td>
-                <td>{{$p->alamat }}</td>
-                <td>{{$p->no_telp }}</td>
-                <td>{{$p->no_bpjs }}</td>
-                <td style="width:10px">
-                  @if (!empty($imageDataArray[$loop->index]))
-                      <img src="{{ $imageDataArray[$loop->index]['src'] }}"
-                          alt="{{ $imageDataArray[$loop->index]['alt'] }}"
-                          style="max-width: 100px; height: auto;" />
-                  @endif
-              </td>
+                <td>{{$p->tgl_pendaftaran }}</td>
+                <td>{{$p->nomor_antrian }}</td>
+                <td>{{$p->keluhan }}</td>
                 {{-- <td>
                 @if ($p-> foto_profil)
                         <img src="{{ url('foto') . '/' . $p->foto_profil }} "
