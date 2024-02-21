@@ -181,19 +181,19 @@ class DokterController extends Controller
         return response()->json($pesan);
     }
 
-    public function unduh(Dokter $dokter)
+    public function unduh(Dokter $dokter) //Unduh data dokter dalam bentuk pdf
     {
-        $imageDataArray = [];
+        $imageDataArray = []; //array untuk menyimpan data gambar
         $dokter = $dokter
-            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
+            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli') //join poli
             ->get();
 
         foreach ($dokter as $data) {
-            if ($data->foto_dokter) {
+            if ($data->foto_dokter) { //memanggil data foto dokter
                 $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_dokter));
                 $imageSrc = 'data:image/' . pathinfo($data->foto_dokter, PATHINFO_EXTENSION) . ';base64,' . $imageData;
 
-                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
+                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'dokter'];
             }
         }
 
