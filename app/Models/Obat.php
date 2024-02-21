@@ -12,7 +12,6 @@ class Obat extends Model
     protected $fillable = ['nama_obat','id_tipe','stock_obat','foto_obat'];
     protected $primaryKey = 'id_obat';
     public $timestamps = false;
-
     public function tipe()
     {
         return $this->belongsTo(Tipe::class);

@@ -88,7 +88,16 @@ return new class extends Migration
             RETURN total;
         END
         ');
+        DB::unprepared('DROP FUNCTION IF EXISTS CountTotalDokter');
 
+        DB::unprepared('
+        CREATE FUNCTION CountTotalDokter() RETURNS INT
+        BEGIN
+            DECLARE total INT;
+            SELECT COUNT(*) INTO total FROM dokter;
+            RETURN total;
+        END
+        ');
     }
 
 
