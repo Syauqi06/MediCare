@@ -42,13 +42,10 @@
                                         <td>{{ $o->nama_obat }}</td>
                                         <td>{{ $o->nama_tipe }}</td>
                                         <td>{{ $o->stock_obat }}</td>
-                                        <td>
-                                            @if (!empty($imageDataArray[$loop->index]))
-                                                <img src="{{ $imageDataArray[$loop->index]['src'] }}"
-                                                    alt="{{ $imageDataArray[$loop->index]['alt'] }}"
-                                                    style="max-width: 100px; height: auto;" />
-                                            @endif
-                                        </td>
+                                        <td>@if ($o->foto_obat)
+                                            <img src="{{ url('foto') . '/' . $o->foto_obat }} "
+                                                style="max-width: 150px; height: auto;" />
+                                        @endif</td>
                                         <td>
                                             <a href="obat/detail/{{ $o->id_obat }}"><btn class="btn btn-info">Detail</btn></a>
                                             <a href="obat/edit/{{ $o->id_obat }}"><btn class="btn btn-primary">EDIT</btn></a>
