@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label>Foto Dokter</label>
                                     <br>
-                                    <img id="pic" height="100px" class="my-2" alt="Preview Image">
+                                    <img id="pic" src="{{ url('foto') . '/' . $dokter->foto_dokter}}" height="100px" class="my-2" alt="Preview Image">
                                     <input type="file" class="form-control" name="foto_dokter" 
                                     oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                 </div>
