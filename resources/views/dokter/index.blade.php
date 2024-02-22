@@ -56,9 +56,10 @@
                                         <td>{{ $d->jenis_poli }}</td>
                                         <td>{{ $d->no_telp }}</td>
                                         <td>
-                                            @if ($d->foto_dokter)
-                                                <img src="{{ url('foto') . '/' . $d->foto_dokter }} "
-                                                    style="max-width: 150px; height: auto;" />
+                                            @if (!empty($imageDataArray[$loop->index]))
+                                                <img src="{{ $imageDataArray[$loop->index]['src'] }}"
+                                                    alt="{{ $imageDataArray[$loop->index]['alt'] }}"
+                                                    style="max-width: 100px; height: auto;" />
                                             @endif
                                         </td>
                                         <td>
