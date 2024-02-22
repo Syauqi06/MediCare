@@ -11,7 +11,13 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\File;
-
+/**
+     * Controller ini untuk menampung class .
+     *
+     * @param int|float $a The first number.
+     * @param int|float $b The second number.
+     * @return int|float The sum of $a and $b.
+     */
 class ObatController extends Controller
 {
     protected $TipeModel;
@@ -20,7 +26,7 @@ class ObatController extends Controller
         $this->TipeModel = new Tipe;   
     }
     /**
-     * Display a listing of the resource.
+     * function dibawah ini digunakan untuk memanggil halaman list lalu memanggil storedfunction totalObatnya.
      */
     public function index(Obat $obat)
     {
@@ -34,7 +40,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * function dibawah ini digunakan untuk memanggil view tambah dan memanggil datanya.
      */
     public function create(Tipe $tipe)
     {
@@ -46,7 +52,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * function dibawah ini digunakan untuk mengupdate data
      */
     public function store(Request $request, Obat $obat)
     {
@@ -71,7 +77,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * function dibawah ini digunakan untuk menampilkan detail dan memanggil datanya.
      */
     public function detail(Obat $obat, string $id)
     {
@@ -86,7 +92,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * function edit untuk memanggil view edit dan datanya.
      */
     public function edit(string $id,Obat $obat,Tipe $tipe)
     {
@@ -100,7 +106,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * function dibawah ini untuk mengupdate atau mengedit list data obat.
      */
 
     public function update(Request $request, Obat $obat)
@@ -148,7 +154,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * function destroy dibawah digunakan untuk menghapus data pada list.
      */
     public function destroy(Obat $obat, Request $request)
     {
@@ -164,27 +170,50 @@ class ObatController extends Controller
         }else {
             return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
         }
-
-        
     }
+    /**
+     * Function unduh() dibawah ini digunakan untuk mencetak pdf list data obat.
+     */
+    
     public function unduh(Obat $obat)
     {
-                   
+        /**
+            * variable imageDataArray untuk membuat array kosong.
+        */          
         $imageDataArray = [];
         $obat = $obat->join('tipe', 'obat.id_tipe', '=', 'tipe.id_tipe')->get();
         foreach ($obat as $data) {
             if ($data->foto_obat) {
+                /**
+                * $imageData berfungsi menghash file foto_obat yang sudah tersimpan pada folder public/foto.
+                * function file_get_contents() untuk mengambil konten yang sudah di panggil di function public_path yg bertujuan memanggil file yang digunakan pada foto_obat
+                */
                 $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_obat));
+                /**
+                * $imageSrc berfungsi untuk memanggil path yang ada di variable $imageData tadi.
+                */
                 $imageSrc = 'data:image/' . pathinfo($data->foto_obat, PATHINFO_EXTENSION) . ';base64,' . $imageData;
-
-                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'awok'];
+                /**
+                * $imageDataArray untuk mengset tag html src, variable ini untuk mengisi array kosong yang sudah di buat diatas, dan alt yang dimana src memanggil variable imageSrc.
+                * alt untuk alternative apabila tag src tidak dapat menangkap data di variable imageSrc.
+                */
+                
+                $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'foto'];
             }
         }
-
+                /**
+                * $pdf berfungsi memanggil view yang akan digunakan.
+                * function setOptions untuk mengsetting pengaturan pdf yang akan ditampilkan.
+                * function loadView untuk menampilkan view dan merubah data yg akan digunakan menjadi array.
+                */
         $pdf = PDF::setOptions([
             'isHtml5ParserEnabled' => true,
             'isRemoteEnabled' => true
         ])->loadView('obat.cetak', ['obat' => $obat, 'imageDataArray' => $imageDataArray]);
+                /**
+                * kode dibawah ini untuk mengreturn variable pdf dan mengatur nama pdf nya nanti mau jadi apa
+                * function stream agar tidak langsung di download, melainkan bisa di lihat dulu sebelum di download
+                */
         return $pdf->stream('data-obat.pdf');
     }
 }
