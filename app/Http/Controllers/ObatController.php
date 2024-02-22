@@ -190,7 +190,7 @@ class ObatController extends Controller
                 */
                 $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_obat));
                 /**
-                * $imageSrc berfungsi untuk memanggil path yang ada di variable $imageData tadi.
+                * $imageSrc berfungsi untuk  memanggil path yang ada di variable $imageData tadi.
                 */
                 $imageSrc = 'data:image/' . pathinfo($data->foto_obat, PATHINFO_EXTENSION) . ';base64,' . $imageData;
                 /**
