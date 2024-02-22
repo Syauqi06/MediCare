@@ -52,8 +52,8 @@
                                <div class="form-group">
                                     <label>Foto Obat</label>
                                     <br>
-                                    <img id="pic" height="200px" class="mb-2" alt="Preview Image" />
-                                    <input type="file" class="form-control  @error('foto_obat') is-invalid @enderror" name="foto_obat" value="{{ $obat->foto_obat }}" oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
+                                    <img id="pic" src="{{ url('foto') . '/' . $obat->foto_obat }}" height="200px" class="mb-2" alt="Preview Image" />
+                                    <input type="file" class="form-control  @error('foto_obat') is-invalid @enderror" name="foto_obat" oninput="pic.src=window.URL.createObjectURL(this.files[0])"/>
                                     @error('foto_obat')
                                         <div class="invalid-feedback">
                                             {{$message}}
