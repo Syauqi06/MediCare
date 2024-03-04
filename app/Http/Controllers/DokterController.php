@@ -20,7 +20,9 @@ class DokterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    //function di bawah ini digunakan untuk memanggil halaman list lalu memanggil storedfunction total dokter.
+    public function index() 
     {
         $totalDokter = DB::select('SELECT CountTotalDokter() AS totalDokter')[0]->totalDokter;
         $data = [
@@ -34,10 +36,9 @@ class DokterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
-    public function create(Poli $poli)
+    public function create(Poli $poli) // function create untuk data tambah
     {
-        $poliData = $poli->all();
+        $poliData = $poli->all(); // memanggil seluruh data poli
 
         return view('dokter.tambah', [
             'poli' => $poliData,
@@ -47,6 +48,8 @@ class DokterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+    //function di bawah ini digunakan untuk mengupdate data
     public function store(Request $request, Dokter $dokter)
     {
 
@@ -68,18 +71,23 @@ class DokterController extends Controller
         }
 
 
-        if (DB::statement("CALL CreateDokter(?,?,?,?)", [$data['nama_dokter'], $data['id_poli'], $data['no_telp'], $data['foto_dokter']])) {
-            return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan");
+        if (DB::statement("CALL CreateDokter(?,?,?,?)", //stored procedur
+        [$data['nama_dokter'], 
+         $data['id_poli'], 
+         $data['no_telp'],
+         $data['foto_dokter']]))  { 
+            return redirect()->to('asisten/data-dokter/dokter')->with("success", "Data Dokter Berhasil Ditambahkan"); //jika berhasil ditambahkan, akan dialihkan ke data dokter
         }
 
-        return back()->with('error', 'Data Dokter gagal ditambahkan');
+        return back()->with('error', 'Data Dokter gagal ditambahkan'); //jika gagal, maka akan menampilkan pesan error
 
     }
 
-    public function detail(string $id, Dokter $dokter)
+    //function di bawah ini digunakan untuk menampilkan detail dan memanggil datanya.
+    public function detail(string $id, Dokter $dokter) //untuk melihat detail
     {
         $dokter = Dokter::where('id_dokter', $id)
-            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli')
+            ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli') //join data poli pada tabel detail dokter
             ->first();
 
         return view('dokter.detail', [
@@ -102,17 +110,12 @@ class DokterController extends Controller
      * Show the form for editing the specified resource.
      */
 
-    public function edit(string $id, Dokter $dokter, Poli $poli)
+    //function edit untuk memanggil view edit dan datanya.
+    public function edit(string $id, Dokter $dokter, Poli $poli) // function edit untuk mengedit data, di sini datanya adalah data dokter
 
-    // {
-    //     $data = [
-    //         'dokter' => Dokter::where('id_dokter', $request->id)->first()
-    //     ];
-    //     return view('dokter.edit', $data);
-    // }
     {
-        $dokter = Dokter::where('id_dokter', $id)->first();
-        $poli = $poli->all();
+        $dokter = Dokter::where('id_dokter', $id)->first(); //return the first record found from the database
+        $poli = $poli->all(); //mangambil seluruh data poli
 
         return view('dokter.edit', [
             'dokter' => $dokter,
@@ -123,11 +126,12 @@ class DokterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dokter $dokter)
+    //function di bawah ini untuk mengupdate atau mengedit data dokter.
+    public function update(Request $request, Dokter $dokter) //update berfungsi untuk melihat hasil dari edit, perubahan data akan di handle oleh update
     {
-        $id_dokter = $request->input('id_dokter');
+        $id_dokter = $request->input('id_dokter'); //mengakses data input, permintaan HTTP
 
-        $data = $request->validate([
+        $data = $request->validate([ //validasi data yang diinput
             'nama_dokter' => 'sometimes',
             'id_poli' => 'sometimes',
             'no_telp' => 'sometimes',
@@ -162,7 +166,7 @@ class DokterController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy(Request $request, Dokter $dokter)
+    public function destroy(Request $request, Dokter $dokter) //function destroy digunakan untuk menghapus data dokter
 
     {
         $id_dokter = $request->input('id_dokter');
@@ -181,26 +185,32 @@ class DokterController extends Controller
         return response()->json($pesan);
     }
 
+    //Function unduh() di bawah ini digunakan untuk mencetak pdf data dokter
     public function unduh(Dokter $dokter) //Unduh data dokter dalam bentuk pdf
     {
-        $imageDataArray = []; //array untuk menyimpan data gambar
+        $imageDataArray = []; //variable imageDataArray untuk membuat array kosong
         $dokter = $dokter
             ->join('poli', 'dokter.id_poli', '=', 'poli.id_poli') //join poli
             ->get();
 
         foreach ($dokter as $data) {
             if ($data->foto_dokter) { //memanggil data foto dokter
+                // variable imageData berfungsi menghash file foto_dokter yang sudah tersimpan pada folder public/foto.
                 $imageData = base64_encode(file_get_contents(public_path('foto') . '/' . $data->foto_dokter));
+                //function file_get_contents() untuk mengambil konten yang sudah dipanggil di function public_path yang bertujuan memanggil file yang digunakan pada foto_dokter
                 $imageSrc = 'data:image/' . pathinfo($data->foto_dokter, PATHINFO_EXTENSION) . ';base64,' . $imageData;
+                //variable imageSrc berfungsi untuk  memanggil path yang ada di variable $imageData
 
                 $imageDataArray[] = ['src' => $imageSrc, 'alt' => 'dokter'];
+                //variable imageDataArray untuk mengset tag html src, variable ini untuk mengisi array kosong yang sudah di buat di atas, dan alt yang dimana src memanggil variable imageSrc.
+                //alt digunakan sebagai alternatif apabila gambar dari variable imageSrc tidak tampil
             }
         }
 
         $pdf = PDF::setOptions([
             'isHtml5ParserEnabled' => true,
             'isRemoteEnabled' => true
-        ])->loadView('dokter.cetak', ['dokter' => $dokter, 'imageDataArray' => $imageDataArray]);
-        return $pdf->stream('dokter.pdf');
+        ])->loadView('dokter.cetak', ['dokter' => $dokter, 'imageDataArray' => $imageDataArray]); // halaman cetak untuk mencetak data dokter
+        return $pdf->stream('dokter.pdf'); //mengatur nama pdf nya, function stream agar tidak langsung di download, melainkan dapat dilihat terlebih dahulu sebelum di download
     }
 }

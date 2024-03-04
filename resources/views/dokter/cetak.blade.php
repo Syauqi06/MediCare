@@ -26,16 +26,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dokter as $d)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
+                    @foreach ($dokter as $d) {{-- Melakukan perulangan dengan menggunakan perulangan foreach --}}
+                        <tr> 
+                            <td>{{ $loop->iteration }}</td> {{-- loop pada blade --}}
                             <td>{{ $d->nama_dokter }}</td>
                             <td>{{ $d->jenis_poli }}</td>
                             <td>{{ $d->no_telp }}</td>
                             <td>
                                 @if (!empty($imageDataArray[$loop->index]))
-                                    <img src="{{ $imageDataArray[$loop->index]['src'] }}"
-                                        alt="{{ $imageDataArray[$loop->index]['alt'] }}"
+                                    <img src="{{ $imageDataArray[$loop->index]['src'] }}" {{-- source gambar (ada pada controller) --}}
+                                        alt="{{ $imageDataArray[$loop->index]['alt'] }}" {{-- alternatif jika gambar tidak muncul --}}
                                         style="max-width: 250px; height: auto;" />
                                 @endif
                             </td>
